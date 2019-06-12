@@ -1,4 +1,4 @@
-baseurl = "/"
+baseurl = "https://skhan835.github.io/testrepo/"
 languageCode = "en-us"
 title = "WHAMP"
 theme = "hugo-xmin"
@@ -6,10 +6,8 @@ googleAnalytics = ""
 disqusShortname = ""
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 footnotereturnlinkcontents = "↩"
-contentdir = "content/post"
-layoutdir = "layouts"
-publishdir = "public"
-canonifyurls = true
+enableGitInfo = false
+publishDir = "docs"
 
 [permalinks]
     post = "/post/:year/:month/:day/:slug/"
