@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Day 1 | Network Models and HIV/STI with EpiModel | Harvard 2017" />
+
+
+<title>Tutorial 1: Exponential Random Graph Models (ERGMs) using statnet</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">NME HSPH</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://epimodel.org/">
+    <span class="fa fa-database"></span>
+     
+    EpiModel
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Tutorial 1: Exponential Random Graph Models (ERGMs) using statnet</h1>
+<h4 class="author"><em>Day 1 | Network Models and HIV/STI with EpiModel | Harvard 2017</em></h4>
+
+</div>
+
+
+<p><em>This tutorial is a joint product of the Statnet Development Team:</em></p>
+<p>Martina Morris (University of Washington)<br />
+Mark S. Handcock (University of California, Los Angeles)<br />
+Carter T. Butts (University of California, Irvine)<br />
+David R. Hunter (Penn State University)<br />
+Steven M. Goodreau (University of Washington)<br />
+Samuel M. Jenness (Emory University)<br />
+Skye Bender de-Moll (Oakland)<br />
+Pavel N. Krivitsky (University of Wollongong)</p>
+<p>For general questions and comments, please refer to statnet users group and mailing list<br />
+<a href="http://statnet.csde.washington.edu/statnet_users_group.shtml" class="uri">http://statnet.csde.washington.edu/statnet_users_group.shtml</a></p>
+<div id="getting-started" class="section level1">
+<h1>1. Getting Started</h1>
+<p>Open an R session, and set your working directory to the location where you would like to save this work.</p>
+<p>To install all of the packages in the statnet suite:</p>
+<pre class="r"><code>install.packages(&quot;statnet&quot;)
+library(statnet)</code></pre>
+<p>Or, to only install the specific statnet packages needed for this tutorial:</p>
+<pre class="r"><code>install.packages(&quot;ergm&quot;) # will install the network package
+install.packages(&quot;sna&quot;)</code></pre>
+<p>After the first time, to update the packages one can either repeat the commands above, or use:</p>
+<pre class="r"><code>update.packages(&quot;name.of.package&quot;)</code></pre>
+<p>For this tutorial, we will need one additional package (coda), which is recommended (but not required) by ergm:</p>
+<pre class="r"><code>install.packages(&quot;coda&quot;)</code></pre>
+<p>Make sure the packages are attached:</p>
+<pre class="r"><code>library(statnet)</code></pre>
+<p>or</p>
+<pre class="r"><code>library(ergm)
+library(sna)
+library(coda)</code></pre>
+<p>Check package version</p>
+<pre class="r"><code># latest versions: ergm 3.7.1 and network 1.13.0 (as of 6/1/2017)
+sessionInfo()</code></pre>
+<p>Set seed for simulations – this is not necessary, but it ensures that we all get the same results (if we execute the same commands in the same order).</p>
+<pre class="r"><code>set.seed(0)</code></pre>
+</div>
+<div id="statistical-network-modeling" class="section level1">
+<h1>2. Statistical network modeling</h1>
+<p>Exponential-family random graph models (ERGMs) represent a general class of models based in exponential-family theory for specifying the probability distribution for a set of random graphs or networks. Within this framework, one can—among other tasks—obtain maximum-likehood estimates for the parameters of a specified model for a given data set; test individual models for goodness-of-fit, perform various types of model comparison; and simulate additional networks with the underlying probability distribution implied by that model.</p>
+<p>The general form for an ERGM can be written as:</p>
+<p><span class="math display">\[
+P(Y=y)=\frac{\exp(\theta&#39;g(y))}{k(\theta)}
+\]</span></p>
+<p>where Y is the random variable for the state of the network (with realization y), <span class="math inline">\(g(y)\)</span> is a vector of model statistics for network y, <span class="math inline">\(\theta\)</span> is the vector of coefficients for those statistics, and <span class="math inline">\(k(\theta)\)</span> represents the quantity in the numerator summed over all possible networks (typically constrained to be all networks with the same node set as y).</p>
+<p>This can be re-expressed in terms of the conditional log-odds of a single tie between two actors:</p>
+<p><span class="math display">\[
+\operatorname{logit}{(Y_{ij}=1|y^{c}_{ij})=\theta&#39;\delta(y_{ij})}
+\]</span></p>
+<p>where <span class="math inline">\(Y_{ij}\)</span> is the random variable for the state of the actor pair <span class="math inline">\(i,j\)</span> (with realization <span class="math inline">\(y_{ij}\)</span>), and <span class="math inline">\(y^{c}_{ij}\)</span> signifies the complement of <span class="math inline">\(y_{ij}\)</span>, i.e. all dyads in the network other than <span class="math inline">\(y_{ij}\)</span>. The vector <span class="math inline">\(\delta(y_{ij})\)</span> contains the “change statistic” for each model term. The change statistic records how <span class="math inline">\(g(y)\)</span> term changes if the <span class="math inline">\(y_{ij}\)</span> tie is toggled on or off. So:</p>
+<p><span class="math display">\[
+\delta(y_{ij}) = g(y^{+}_{ij})-g(y^{-}_{ij})
+\]</span> where <span class="math inline">\(y^{+}_{ij}\)</span> is defined as <span class="math inline">\(y^{c}_{ij}\)</span> along with <span class="math inline">\(y_{ij}\)</span> set to 1, and <span class="math inline">\(y^{-}_{ij}\)</span> is defined as <span class="math inline">\(y^{c}_{ij}\)</span> along with <span class="math inline">\(y_{ij}\)</span> set to 0. That is, <span class="math inline">\(\delta(y_{ij})\)</span> equals the value of <span class="math inline">\(g(y)\)</span> when <span class="math inline">\(y_{ij}=1\)</span> minus the value of <span class="math inline">\(g(y)\)</span> when <span class="math inline">\(y_{ij}=0\)</span>, but all other dyads are as in <span class="math inline">\(g(y)\)</span>.</p>
+<p>This emphasizes that the coefficient <span class="math inline">\(\theta\)</span> can be interpreted as the log-odds of an individual tie conditional on all others.</p>
+<p>The model terms <span class="math inline">\(g(y)\)</span> are functions of network statistics that we hypothesize may be more or less common than what would be expected in a simple random graph (where all ties have the same probability). For example, specific degree distributions, or triad configurations, or homophily on nodal attributes. We will explore some of these terms in this tutorial, and links to more information are provided in <a href="ergm_tutorial.html#model-terms-available-for-ergm-estimation-and-simulation">section 3.</a></p>
+<p>One key distinction in model terms is worth keeping in mind: terms are either <em>dyad independent</em> or <em>dyad dependent</em>. Dyad independent terms (like nodal homophily terms) imply no dependence between dyads—the presence or absence of a tie may depend on nodal attributes, but not on the state of other ties. Dyad dependent terms (like degree terms, or triad terms), by contrast, imply dependence between dyads. Such terms have very different effects, and much of what is different about network models comes from the complex cascading effects that these terms introduce. A model with dyad dependent terms also requires a different estimation algorithm, and you will see some different components in the output.</p>
+<p>We’ll start by running some simple models to demonstrate the use of the “summary” and “ergm” commands. The ergm package contains several network data sets that we will use for demonstration purposes here.</p>
+<pre class="r"><code>data(package = &quot;ergm&quot;) # tells us the datasets in our packages</code></pre>
+<div id="bernoulli-model" class="section level2">
+<h2>Bernoulli model</h2>
+<p>We begin with the simplest possible model, the Bernoulli or Erdos-Renyi model, which contains only one term to capture the density of the network as a function of a homogenous edge probability. The ergm term for this is <strong><em>edges</em></strong>. We’ll fit this simple model to Padgett’s Florentine marriage network. As with all data analysis, we start by looking at our data: using graphical and numerical descriptives.</p>
+<pre class="r"><code># loads flomarriage and flobusiness data
+data(florentine) 
+
+# Let&#39;s look at the flomarriage network properties
+flomarriage </code></pre>
+<pre><code> Network attributes:
+  vertices = 16 
+  directed = FALSE 
+  hyper = FALSE 
+  loops = FALSE 
+  multiple = FALSE 
+  bipartite = FALSE 
+  total edges= 20 
+    missing edges= 0 
+    non-missing edges= 20 
+
+ Vertex attribute names: 
+    priorates totalties vertex.names wealth 
+
+No edge attributes</code></pre>
+<pre class="r"><code># Setup a 2 panel plot (for later)
+par(mfrow = c(1, 2)) 
+
+# Plot the flomarriage network
+plot(flomarriage, main = &quot;Florentine Marriage&quot;, cex.main = 0.8) 
+
+# Look at the $g(y)$ statistic for this model
+summary(flomarriage~edges) </code></pre>
+<pre><code>edges 
+   20 </code></pre>
+<pre class="r"><code># Estimate the model 
+flomodel.01 &lt;- ergm(flomarriage~edges) </code></pre>
+<pre><code>Evaluating log-likelihood at the estimate. </code></pre>
+<pre class="r"><code># The fitted model object
+summary(flomodel.01) </code></pre>
+<pre><code>
+==========================
+Summary of model fit
+==========================
+
+Formula:   flomarriage ~ edges
+
+Iterations:  5 out of 20 
+
+Monte Carlo MLE Results:
+      Estimate Std. Error MCMC % p-value    
+edges  -1.6094     0.2449      0  &lt;1e-04 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+     Null Deviance: 166.4  on 120  degrees of freedom
+ Residual Deviance: 108.1  on 119  degrees of freedom
+ 
+AIC: 110.1    BIC: 112.9    (Smaller is better.) </code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>How should we interpret the coefficient from this model? The log-odds of any tie existing is:</p>
+<p><span class="math display">\[
+\small{
+\begin{eqnarray*}
+&amp; = &amp; -1.609\times\mbox{change in the number of ties}\\
+&amp; = &amp; -1.609\times1
+\end{eqnarray*}
+}
+\]</span></p>
+<p>for all ties, since the addition of any tie to the network always changes the number of ties by 1 for a tie toggled from 0 to 1.</p>
+<p>The corresponding probability is:</p>
+<p><span class="math display">\[
+\small{
+\begin{eqnarray*}
+&amp; = &amp; \exp(-1.609)/(1+\exp(-1.609))\\
+&amp; = &amp; 0.1667
+\end{eqnarray*}
+}
+\]</span></p>
+<p>which corresponds to the density we observe in the flomarriage network: there are 20 ties and (16 choose 2 = 16*15/2 =) 120 dyads.</p>
+</div>
+<div id="triad-formation" class="section level2">
+<h2>Triad formation</h2>
+<p>Let’s add a term often thought to be a measure of “clustering”: the number of completed triangles. The ergm-term for this is <strong><em>triangle</em></strong>. This is a dyad dependent term. As a result, the estimation algorithm automatically changes to MCMC, and because this is a form of stochastic estimation your results may differ slightly.</p>
+<pre class="r"><code># Look at the g(y) stats for this model
+summary(flomarriage ~ edges + triangle) </code></pre>
+<pre><code>   edges triangle 
+      20        3 </code></pre>
+<pre class="r"><code>flomodel.02 &lt;- ergm(flomarriage ~ edges + triangle) </code></pre>
+<pre><code>Starting maximum likelihood estimation via MCMLE:
+Iteration 1 of at most 20: 
+The log-likelihood improved by 0.005728 
+Step length converged once. Increasing MCMC sample size.
+Iteration 2 of at most 20: 
+The log-likelihood improved by &lt; 0.0001 
+Step length converged twice. Stopping.
+Evaluating log-likelihood at the estimate. Using 20 bridges: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 .
+
+This model was fit using MCMC.  To examine model diagnostics and check for degeneracy, use the mcmc.diagnostics() function.</code></pre>
+<pre class="r"><code>summary(flomodel.02)</code></pre>
+<pre><code>
+==========================
+Summary of model fit
+==========================
+
+Formula:   flomarriage ~ edges + triangle
+
+Iterations:  2 out of 20 
+
+Monte Carlo MLE Results:
+         Estimate Std. Error MCMC % p-value    
+edges     -1.6694     0.3521      0  &lt;1e-04 ***
+triangle   0.1532     0.5771      0   0.791    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+     Null Deviance: 166.4  on 120  degrees of freedom
+ Residual Deviance: 108.1  on 118  degrees of freedom
+ 
+AIC: 112.1    BIC: 117.7    (Smaller is better.) </code></pre>
+<p>Now, how should we interpret coefficients?</p>
+<p>The conditional log-odds of two actors having a tie is:</p>
+<p><span class="math display">\[
+\small{
+-1.68\times\mbox{change in the number of ties}+0.15\times\mbox{change in number of triangles}
+}
+\]</span></p>
+<p><br></p>
+<ul>
+<li>For a tie that will create no triangles, the conditional log-odds is: <span class="math inline">\(-1.68\)</span>.</li>
+<li>if one triangle: <span class="math inline">\(-1.68 + 0.15 = -1.53\)</span></li>
+<li>if two triangles: <span class="math inline">\(-1.68 +0.15\times2=-1.38\)</span></li>
+<li>the corresponding probabilities are 0.16, 0.18, and 0.20.</li>
+</ul>
+<p>Let’s take a closer look at the ergm object itself:</p>
+<pre class="r"><code># this has the class ergm
+class(flomodel.02) </code></pre>
+<pre><code>[1] &quot;ergm&quot;</code></pre>
+<pre class="r"><code># the ERGM object contains lots of components.
+names(flomodel.02) </code></pre>
+<pre><code> [1] &quot;coef&quot;          &quot;sample&quot;        &quot;sample.obs&quot;    &quot;iterations&quot;   
+ [5] &quot;MCMCtheta&quot;     &quot;loglikelihood&quot; &quot;gradient&quot;      &quot;hessian&quot;      
+ [9] &quot;covar&quot;         &quot;failure&quot;       &quot;network&quot;       &quot;newnetworks&quot;  
+[13] &quot;newnetwork&quot;    &quot;coef.init&quot;     &quot;est.cov&quot;       &quot;coef.hist&quot;    
+[17] &quot;stats.hist&quot;    &quot;steplen.hist&quot;  &quot;control&quot;       &quot;etamap&quot;       
+[21] &quot;formula&quot;       &quot;target.stats&quot;  &quot;target.esteq&quot;  &quot;constrained&quot;  
+[25] &quot;constraints&quot;   &quot;reference&quot;     &quot;estimate&quot;      &quot;offset&quot;       
+[29] &quot;drop&quot;          &quot;estimable&quot;     &quot;null.lik&quot;      &quot;mle.lik&quot;      </code></pre>
+<pre class="r"><code># you can extract/inspect individual components
+flomodel.02$coef </code></pre>
+<pre><code>    edges  triangle 
+-1.669395  0.153229 </code></pre>
+</div>
+<div id="nodal-covariates-effects-on-mean-degree" class="section level2">
+<h2>Nodal covariates: effects on mean degree</h2>
+<p>We can test whether edge probabilities are a function of wealth. This is a nodal covariate, so we use the ergm-term <strong>nodecov</strong>.</p>
+<pre class="r"><code># %v% references vertex attributes
+wealth &lt;- flomarriage %v% &quot;wealth&quot; 
+wealth</code></pre>
+<pre><code> [1]  10  36  55  44  20  32   8  42 103  48  49   3  27  10 146  48</code></pre>
+<pre class="r"><code># summarize the distribution of wealth
+summary(wealth) </code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   3.00   17.50   39.00   42.56   48.25  146.00 </code></pre>
+<pre class="r"><code># network plot with vertex size proportional to wealth
+plot(flomarriage, vertex.cex = wealth/25, 
+     main = &quot;Florentine marriage by wealth&quot;, cex.main = 0.8) </code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<pre class="r"><code># observed statistics for the model
+summary(flomarriage ~ edges + nodecov(&quot;wealth&quot;)) </code></pre>
+<pre><code>         edges nodecov.wealth 
+            20           2168 </code></pre>
+<pre class="r"><code>flomodel.03 &lt;- ergm(flomarriage ~ edges + nodecov(&quot;wealth&quot;))</code></pre>
+<pre><code>Evaluating log-likelihood at the estimate. </code></pre>
+<pre class="r"><code>summary(flomodel.03)</code></pre>
+<pre><code>
+==========================
+Summary of model fit
+==========================
+
+Formula:   flomarriage ~ edges + nodecov(&quot;wealth&quot;)
+
+Iterations:  4 out of 20 
+
+Monte Carlo MLE Results:
+                Estimate Std. Error MCMC % p-value    
+edges          -2.594929   0.536056      0  &lt;1e-04 ***
+nodecov.wealth  0.010546   0.004674      0  0.0259 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+     Null Deviance: 166.4  on 120  degrees of freedom
+ Residual Deviance: 103.1  on 118  degrees of freedom
+ 
+AIC: 107.1    BIC: 112.7    (Smaller is better.) </code></pre>
+<p>Yes, there is a significant positive wealth effect on the probability of a tie.</p>
+<p>How do we interpret the coefficients here? Note that the wealth effect operates on both nodes in a dyad. The conditional log-odds of a tie between two actors is:</p>
+<p><span class="math display">\[
+\small{
+-2.59\times\mbox{change in the number of ties} + 0.01\times\mbox{the wealth of node 1} + 0.01\times\mbox{the wealth of node 2}
+}
+\]</span></p>
+<p><span class="math display">\[
+\small{
+-2.59\times\mbox{change in the number of ties} + 0.01\times\mbox{the sum of the wealth of the two nodes}
+}
+\]</span></p>
+<p><br></p>
+<ul>
+<li>for a tie between the two nodes with the least wealth, the conditional log-odds is: <span class="math inline">\(-2.59 + 0.01*(3+8) = -2.48\)</span></li>
+<li>for a tie between the two nodes with the most wealth: <span class="math inline">\(-2.59 + 0.01*(103+146) = -0.10\)</span></li>
+<li>for a tie between the nodes with the maximum wealth and the minimum wealth: <span class="math inline">\(-2.59 + 0.01*(146+3) = -1.10\)</span></li>
+<li>The corresponding probabilities are 0.08, 0.48, and 0.25.</li>
+</ul>
+<p>Note: This model specification does not include a term for homophily by wealth. It just specifies a relation between wealth and mean degree. To specify homophily on wealth, you would use the ergm-term <strong><em>absdiff</em></strong>.</p>
+</div>
+<div id="nodal-covariates-homophily" class="section level2">
+<h2>Nodal covariates: Homophily</h2>
+<p>Let’s try a larger network, a simulated mutual friendship network based on one of the schools from the Add Health study. Here, we’ll examine the homophily in friendships by grade and race. Both are discrete attributes so we use the ergm-term <strong><em>nodematch</em></strong>.</p>
+<pre class="r"><code>data(faux.mesa.high) 
+mesa &lt;- faux.mesa.high</code></pre>
+<pre class="r"><code>mesa</code></pre>
+<pre><code> Network attributes:
+  vertices = 205 
+  directed = FALSE 
+  hyper = FALSE 
+  loops = FALSE 
+  multiple = FALSE 
+  bipartite = FALSE 
+  total edges= 203 
+    missing edges= 0 
+    non-missing edges= 203 
+
+ Vertex attribute names: 
+    Grade Race Sex 
+
+No edge attributes</code></pre>
+<pre class="r"><code>par(mfrow = c(1, 1)) # Back to 1-panel plots
+plot(mesa, vertex.col = &quot;Grade&quot;)
+legend(&quot;bottomleft&quot;, fill = 7:12, 
+       legend = paste(&quot;Grade&quot;, 7:12), cex = 0.75)</code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<pre class="r"><code>fauxmodel.01 &lt;- ergm(mesa ~ edges + nodematch(&quot;Grade&quot;, diff = TRUE) + 
+                       nodematch(&quot;Race&quot;, diff = TRUE))</code></pre>
+<pre><code>Observed statistic(s) nodematch.Race.Black and nodematch.Race.Other are at their smallest attainable values. Their coefficients will be fixed at -Inf.
+Evaluating log-likelihood at the estimate. </code></pre>
+<pre class="r"><code>summary(fauxmodel.01)</code></pre>
+<pre><code>
+==========================
+Summary of model fit
+==========================
+
+Formula:   mesa ~ edges + nodematch(&quot;Grade&quot;, diff = TRUE) + nodematch(&quot;Race&quot;, 
+    diff = TRUE)
+
+Iterations:  8 out of 20 
+
+Monte Carlo MLE Results:
+                     Estimate Std. Error MCMC % p-value    
+edges                 -6.2328     0.1742      0  &lt;1e-04 ***
+nodematch.Grade.7      2.8740     0.1981      0  &lt;1e-04 ***
+nodematch.Grade.8      2.8788     0.2391      0  &lt;1e-04 ***
+nodematch.Grade.9      2.4642     0.2647      0  &lt;1e-04 ***
+nodematch.Grade.10     2.5692     0.3770      0  &lt;1e-04 ***
+nodematch.Grade.11     3.2921     0.2978      0  &lt;1e-04 ***
+nodematch.Grade.12     3.8376     0.4592      0  &lt;1e-04 ***
+nodematch.Race.Black     -Inf     0.0000      0  &lt;1e-04 ***
+nodematch.Race.Hisp    0.0679     0.1737      0  0.6959    
+nodematch.Race.NatAm   0.9817     0.1842      0  &lt;1e-04 ***
+nodematch.Race.Other     -Inf     0.0000      0  &lt;1e-04 ***
+nodematch.Race.White   1.2685     0.5371      0  0.0182 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+     Null Deviance: 28987  on 20910  degrees of freedom
+ Residual Deviance:  1928  on 20898  degrees of freedom
+ 
+AIC: 1952    BIC: 2047    (Smaller is better.) 
+
+ Warning: The following terms have infinite coefficient estimates:
+  nodematch.Race.Black nodematch.Race.Other </code></pre>
+<p>Note that two of the coefficients are estimated as <code>-Inf</code> (the nodematch coefficients for race Black and Other). Why is this?</p>
+<pre class="r"><code># Frequencies of race
+table(mesa %v% &quot;Race&quot;) </code></pre>
+<pre><code>
+Black  Hisp NatAm Other White 
+    6   109    68     4    18 </code></pre>
+<pre class="r"><code>mixingmatrix(mesa, &quot;Race&quot;)</code></pre>
+<pre><code>Note:  Marginal totals can be misleading
+ for undirected mixing matrices.
+      Black Hisp NatAm Other White
+Black     0    8    13     0     5
+Hisp      8   53    41     1    22
+NatAm    13   41    46     0    10
+Other     0    1     0     0     0
+White     5   22    10     0     4</code></pre>
+<p>The problem is that there are very few students in the Black and Other race categories, and these few students form no within-group ties. The empty cells are what produce the <code>-Inf</code> estimates.</p>
+<p>Note that we would have caught this earlier if we had looked at the <span class="math inline">\(g(y)\)</span> stats at the beginning:</p>
+<pre class="r"><code>summary(mesa ~edges + nodematch(&quot;Grade&quot;, diff = TRUE) + 
+          nodematch(&quot;Race&quot;, diff = TRUE))</code></pre>
+<pre><code>               edges    nodematch.Grade.7    nodematch.Grade.8 
+                 203                   75                   33 
+   nodematch.Grade.9   nodematch.Grade.10   nodematch.Grade.11 
+                  23                    9                   17 
+  nodematch.Grade.12 nodematch.Race.Black  nodematch.Race.Hisp 
+                   6                    0                   53 
+nodematch.Race.NatAm nodematch.Race.Other nodematch.Race.White 
+                  46                    0                    4 </code></pre>
+<p><strong>Moral</strong>: It’s a good idea to check the descriptive statistics of a model in the observed network before fitting the model.</p>
+<p>See also the ergm-term <strong><em>nodemix</em></strong> for fitting mixing patterns other than homophily on discrete nodal attributes.</p>
+</div>
+</div>
+<div id="model-terms-available-for-ergm-estimation-and-simulation" class="section level1">
+<h1>3. Model terms available for <code>ergm</code> estimation and simulation</h1>
+<p>Model terms are the expressions (e.g. “triangle”) used to represent predictors on the right-hand size of equations used in:</p>
+<ul>
+<li>calls to <code>summary</code> (to obtain measurements of network statistics on a dataset)</li>
+<li>calls to <code>ergm</code> (to estimate an ergm model)</li>
+<li>calls to <code>simulate</code> (to simulate networks from an ergm model fit)</li>
+</ul>
+<p>Many ERGM terms are simple counts of configurations (e.g., edges, nodal degrees, stars, triangles), but others are more complex functions of these configurations (e.g., geometrically weighted degrees and shared partners). In theory, any configuration (or function of configurations) can be a term in an ERGM. In practice, however, these terms have to be constructed before they can be used—that is, one has to explicitly write an algorithm that defines and calculates the network statistic of interest. This is another key way that ERGMs differ from traditional linear and general linear models.</p>
+<p>The terms that can be used in a model also depend on the type of network being analyzed: directed or undirected, one-mode or two-mode (“bipartite”), binary or valued edges.</p>
+<div id="terms-provided-with-ergm" class="section level2">
+<h2>Terms provided with ergm</h2>
+<p>For a list of available terms that can be used to specify an ERGM, type:</p>
+<pre class="r"><code>help(&quot;ergm-terms&quot;)</code></pre>
+<p>A table of commonly used terms can be found <a href="http://statnet.github.io/nme/ergmterms.html">here.</a></p>
+<p>A more complete discussion of many of these terms can be found in the ‘Specifications’ paper in the <a href="http://www.jstatsoft.org/v24/i04"><em>Journal of Statistical Software v24(4)</em></a></p>
+<p>Finally, note that models with only dyad independent terms are estimated in statnet using a logistic regression algorithm to maximize the likelihood. Dyad dependent terms require a different approach to estimation, which, in statnet, is based on a Monte Carlo Markov Chain (MCMC) algorithm that stochastically approximates the Likelihood function and its maximum.</p>
+</div>
+</div>
+<div id="diagnostics-troubleshooting-and-checking-for-model-degeneracy" class="section level1">
+<h1>4. Diagnostics: troubleshooting and checking for model degeneracy</h1>
+<p>The computational algorithms in <code>ergm</code> use MCMC to estimate the likelihood function when dyad dependent terms are in the model. Part of this process involves simulating a set of networks to use as a sample for approximating the unknown component of the likelihood: the <span class="math inline">\(k(\theta)\)</span> term in the denominator.</p>
+<p>When a model is not a good representation of the observed network, these simulated networks may be far enough away from the observed network that the estimation process is affected. In the worst case scenario, the simulated networks will be so different that the algorithm fails altogether.</p>
+<p>For more detailed discussion of model degeneracy in the ERGM context, see the papers by Mark Handcock referenced <a href="ergm_tutorial.html#References">below.</a></p>
+<p>In the worst case scenario, we end up not being able to obtain coefficent estimates, so we can’t use the GOF function to identify how the model simulations deviate from the observed data. In this case, however, we can use the MCMC diagnostics to observe what is happening with the simulation algorithm, and this (plus some experience and intuition about the behavior of ergm-terms) can help us improve the model specification.</p>
+<p>Below we show a simple example of a model that converges, and one that doesn’t, and how to use the MCMC diagnostics to improve a model that isn’t converging.</p>
+<div id="what-it-looks-like-when-a-model-converges-properly" class="section level2">
+<h2>What it looks like when a model converges properly</h2>
+<p>We will first consider a simulation where the algorithm works using the program defaults, and observe the behavior of the MCMC estimation algorithm using the <code>mcmc.diagnostics</code> function.</p>
+<pre class="r"><code>summary(flobusiness ~ edges + degree(1))</code></pre>
+<pre><code>  edges degree1 
+     15       3 </code></pre>
+<pre class="r"><code>fit &lt;- ergm(flobusiness ~ edges + degree(1))</code></pre>
+<pre><code>Starting maximum likelihood estimation via MCMLE:
+Iteration 1 of at most 20: 
+The log-likelihood improved by 0.233 
+Step length converged once. Increasing MCMC sample size.
+Iteration 2 of at most 20: 
+The log-likelihood improved by 0.0005074 
+Step length converged twice. Stopping.
+Evaluating log-likelihood at the estimate. Using 20 bridges: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 .
+
+This model was fit using MCMC.  To examine model diagnostics and check for degeneracy, use the mcmc.diagnostics() function.</code></pre>
+<pre class="r"><code>mcmc.diagnostics(fit)</code></pre>
+<pre><code>Sample statistics summary:
+
+Iterations = 16384:4209664
+Thinning interval = 1024 
+Number of chains = 1 
+Sample size per chain = 4096 
+
+1. Empirical mean and standard deviation for each variable,
+   plus standard error of the mean:
+
+            Mean    SD Naive SE Time-series SE
+edges    0.11938 3.749  0.05857        0.05857
+degree1 -0.02344 1.621  0.02533        0.02533
+
+2. Quantiles for each variable:
+
+        2.5% 25% 50% 75% 97.5%
+edges     -7  -2   0   3     7
+degree1   -3  -1   0   1     3
+
+
+Sample statistics cross-correlations:
+             edges    degree1
+edges    1.0000000 -0.4323643
+degree1 -0.4323643  1.0000000
+
+Sample statistics auto-correlation:
+Chain 1 
+                edges       degree1
+Lag 0     1.000000000  1.0000000000
+Lag 1024 -0.001796752  0.0002510346
+Lag 2048  0.003986959  0.0211571269
+Lag 3072  0.004679749 -0.0026133303
+Lag 4096 -0.011707782 -0.0021489455
+Lag 5120  0.025167702  0.0091854147
+
+Sample statistics burn-in diagnostic (Geweke):
+Chain 1 
+
+Fraction in 1st window = 0.1
+Fraction in 2nd window = 0.5 
+
+  edges degree1 
+-1.8666 -0.5676 
+
+Individual P-values (lower = worse):
+     edges    degree1 
+0.06195209 0.57032991 
+Joint P-value (lower = worse):  0.04968252 .</code></pre>
+<pre><code>Loading required namespace: latticeExtra</code></pre>
+<pre><code>Warning in formals(fun): argument is not a function</code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<pre><code>
+MCMC diagnostics shown here are from the last round of simulation, prior to computation of final parameter estimates. Because the final estimates are refinements of those used for this simulation run, these diagnostics may understate model performance. To directly assess the performance of the final model on in-model statistics, please use the GOF command: gof(ergmFitObject, GOF=~model).</code></pre>
+<p>This is what you want to see in the MCMC diagnostics: the MCMC sample statistics are varying randomly around the observed values at each step (so the chain is “mixing” well) and the difference between the observed and simulated values of the sample statistics have a roughly bell-shaped distribution, centered at 0. The sawtooth pattern visible on the degree term deviation plot is due to the combination of discrete values and small range in the statistics: the observed number of degree 1 nodes is 3, and only a few discrete values are produced by the simulations. So the sawtooth pattern is is an inherent property of the statistic, not a problem with the fit.</p>
+<p>There are many control parameters for the MCMC algorithm (<code>help(control.ergm)</code>), and we’ll play with some of these below. To see what the algorithm is doing at each step, you can drop the sampling interval down to 1:</p>
+<pre class="r"><code>fit &lt;- ergm(flobusiness ~ edges + degree(1), 
+control = control.ergm(MCMC.interval = 1))</code></pre>
+<p>This runs a version with every network returned, and might be useful if you are trying to debug a bad model fit.</p>
+</div>
+<div id="what-it-looks-like-when-a-model-fails" class="section level2">
+<h2>What it looks like when a model fails</h2>
+<p>Now let us look at a more problematic case, using a larger network:</p>
+<pre class="r"><code>data(&quot;faux.magnolia.high&quot;)
+magnolia &lt;- faux.magnolia.high
+plot(magnolia, vertex.cex = 0.5)</code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<pre class="r"><code>summary(magnolia~edges+triangle)</code></pre>
+<pre><code>   edges triangle 
+     974      169 </code></pre>
+<pre class="r"><code>fit &lt;- ergm(magnolia ~ edges + triangle)</code></pre>
+<pre><code>Iteration 1 of at most 20: 
+Convergence test P-value: 1.4e-87 
+The log-likelihood improved by 1.183 
+Iteration 2 of at most 20: 
+Convergence test P-value: 3.8e-04 
+The log-likelihood improved by 0.1518 
+Iteration 3 of at most 20: </code></pre>
+<pre><code>Error: Number of edges in a simulated network exceeds that in the observed by a factor of more than 20. This is a strong indicator of model degeneracy. If you are reasonably certain that this is not the case, increase the MCMLE.density.guard control.ergm() parameter.</code></pre>
+<p>Very interesting. In the process of trying to fit this model, the algorithm heads off into networks that are much much more dense than the observed network. This is such a clear indicator of a degenerate model specification that the algorithm stops after 4 iterations, to avoid heading off into areas that would cause memory issues. If you’d like to peek a bit more under the hood, you can stop the algorithm earlier to catch where it’s heading:</p>
+<pre class="r"><code>fit &lt;- ergm(magnolia ~ edges + triangle, 
+            control = control.ergm(MCMLE.maxit = 2))</code></pre>
+<pre><code>Starting maximum likelihood estimation via MCMLE:
+Iteration 1 of at most 2: 
+The log-likelihood improved by 7.828 
+Iteration 2 of at most 2: 
+The log-likelihood improved by 4.138 </code></pre>
+<pre><code>MCMLE estimation did not converge after 2 iterations. The estimated coefficients may not be accurate. Estimation may be resumed by passing the coefficients as initial values; see &#39;init&#39; under ?control.ergm for details.</code></pre>
+<pre><code>Evaluating log-likelihood at the estimate. Using 20 bridges: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 .
+
+This model was fit using MCMC.  To examine model diagnostics and check for degeneracy, use the mcmc.diagnostics() function.</code></pre>
+<pre class="r"><code>mcmc.diagnostics(fit)</code></pre>
+<pre><code>Sample statistics summary:
+
+Iterations = 16384:1063936
+Thinning interval = 1024 
+Number of chains = 1 
+Sample size per chain = 1024 
+
+1. Empirical mean and standard deviation for each variable,
+   plus standard error of the mean:
+
+           Mean    SD Naive SE Time-series SE
+edges    -60.87 68.95    2.155          47.13
+triangle  26.77 67.74    2.117          53.96
+
+2. Quantiles for each variable:
+
+            2.5%  25%   50% 75% 97.5%
+edges    -177.00 -117 -61.5  -8    67
+triangle  -52.42  -41  20.5  76   169
+
+
+Sample statistics cross-correlations:
+             edges  triangle
+edges    1.0000000 0.9037164
+triangle 0.9037164 1.0000000
+
+Sample statistics auto-correlation:
+Chain 1 
+             edges  triangle
+Lag 0    1.0000000 1.0000000
+Lag 1024 0.9382960 0.9969231
+Lag 2048 0.8957464 0.9937794
+Lag 3072 0.8670811 0.9906363
+Lag 4096 0.8463600 0.9874856
+Lag 5120 0.8389785 0.9843734
+
+Sample statistics burn-in diagnostic (Geweke):
+Chain 1 
+
+Fraction in 1st window = 0.1
+Fraction in 2nd window = 0.5 
+
+   edges triangle 
+  -7.529   -3.372 
+
+Individual P-values (lower = worse):
+       edges     triangle 
+5.114835e-14 7.464036e-04 
+Joint P-value (lower = worse):  0.0006001785 .</code></pre>
+<pre><code>Warning in formals(fun): argument is not a function</code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<pre><code>
+MCMC diagnostics shown here are from the last round of simulation, prior to computation of final parameter estimates. Because the final estimates are refinements of those used for this simulation run, these diagnostics may understate model performance. To directly assess the performance of the final model on in-model statistics, please use the GOF command: gof(ergmFitObject, GOF=~model).</code></pre>
+<pre><code>Iteration 1 of at most 20: 
+Convergence test P-value: 1.4e-87 
+The log-likelihood improved by 1.183 
+Iteration 2 of at most 20: 
+Convergence test P-value: 3.8e-04 
+The log-likelihood improved by 0.1518 
+Iteration 3 of at most 20: </code></pre>
+<pre><code>Error: Number of edges in a simulated network exceeds that in the observed by a factor of more than 20. This is a strong indicator of model degeneracy. If you are reasonably certain that this is not the case, increase the MCMLE.density.guard control.ergm() parameter.</code></pre>
+<p>Clearly, somewhere very bad.</p>
+<p>In the full NME workshop, we explore a vareity of options in mearning to understand and deal with degeneracy. Here we will just cut to the chase and show an alternative model that works and which captures triadic closure using the <strong><em>gwesp</em></strong> term instead of triangles:</p>
+<pre class="r"><code>fit &lt;- ergm(magnolia ~ edges + gwesp(0.25, fixed = TRUE) + 
+              nodematch(&quot;Grade&quot;) + nodematch(&quot;Race&quot;) + nodematch(&quot;Sex&quot;),
+            control = control.ergm(MCMC.samplesize = 50000, MCMC.interval = 1000),
+            verbose = TRUE)</code></pre>
+<pre><code>Evaluating network in model
+Initializing Metropolis-Hastings proposal(s): ergm:MH_TNT
+Initializing model.
+Using initial method &#39;MPLE&#39;.
+Fitting initial model.
+MPLE covariate matrix has 211 rows.
+Fitting ERGM.
+Starting maximum likelihood estimation via MCMLE:
+Density guard set to 19563 from an initial count of 974  edges.
+Iteration 1 of at most 20 with parameter: 
+           edges gwesp.fixed.0.25  nodematch.Grade   nodematch.Race 
+      -9.8619687        1.6946112        2.8534613        0.9886313 
+   nodematch.Sex 
+       0.8245285 
+Sampler accepted  30.325% of 50000000 proposed steps.
+Sample size = 50000 by 50000 
+Back from unconstrained MCMC. Average statistics:
+           edges gwesp.fixed.0.25  nodematch.Grade   nodematch.Race 
+       113.70552         51.63637        111.84232        108.28536 
+   nodematch.Sex 
+        97.15828 
+Average estimating equation values:
+           edges gwesp.fixed.0.25  nodematch.Grade   nodematch.Race 
+       113.70552         51.63637        111.84232        108.28536 
+   nodematch.Sex 
+        97.15828 
+is.inCH: iter= 1, inside hull.
+iter= 1, est=1.000000, low=1.000000, high=1.000000, test=1.
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  1  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx (no optim)
+The log-likelihood improved by 5.214 
+Step length converged once. Increasing MCMC sample size.
+Iteration 2 of at most 20 with parameter: 
+           edges gwesp.fixed.0.25  nodematch.Grade   nodematch.Race 
+      -9.7983804        1.8004067        2.7583057        0.9172631 
+   nodematch.Sex 
+       0.7756419 
+Sampler accepted  31.344% of 200000000 proposed steps.
+Sample size = 200000 by 2e+05 
+Back from unconstrained MCMC. Average statistics:
+           edges gwesp.fixed.0.25  nodematch.Grade   nodematch.Race 
+        24.05366         23.21286         24.76840         22.92339 
+   nodematch.Sex 
+        21.11829 
+Average estimating equation values:
+           edges gwesp.fixed.0.25  nodematch.Grade   nodematch.Race 
+        24.05366         23.21286         24.76840         22.92339 
+   nodematch.Sex 
+        21.11829 
+is.inCH: iter= 1, inside hull.
+iter= 1, est=1.000000, low=1.000000, high=1.000000, test=1.
+Calling MCMLE Optimization...
+Using Newton-Raphson Step with step length  1  ...
+Using lognormal metric (see control.ergm function).
+Using log-normal approx (no optim)
+Starting MCMC s.e. computation.
+The log-likelihood improved by 0.1784 
+Step length converged twice. Stopping.
+Evaluating log-likelihood at the estimate. Using 20 bridges: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 .
+
+This model was fit using MCMC.  To examine model diagnostics and check for degeneracy, use the mcmc.diagnostics() function.</code></pre>
+<pre class="r"><code>mcmc.diagnostics(fit)</code></pre>
+<pre><code>Sample statistics summary:
+
+Iterations = 16000:200015000
+Thinning interval = 1000 
+Number of chains = 1 
+Sample size per chain = 2e+05 
+
+1. Empirical mean and standard deviation for each variable,
+   plus standard error of the mean:
+
+                  Mean    SD Naive SE Time-series SE
+edges            24.05 47.64  0.10652          2.380
+gwesp.fixed.0.25 23.21 43.54  0.09736          3.331
+nodematch.Grade  24.77 45.62  0.10201          2.493
+nodematch.Race   22.92 43.42  0.09709          2.309
+nodematch.Sex    21.12 39.05  0.08731          1.937
+
+2. Quantiles for each variable:
+
+                   2.5%    25%   50%   75% 97.5%
+edges            -65.00 -9.000 23.00 56.00 120.0
+gwesp.fixed.0.25 -57.57 -7.927 21.32 52.63 110.7
+nodematch.Grade  -61.00 -7.000 23.00 56.00 117.0
+nodematch.Race   -58.00 -8.000 21.00 52.00 111.0
+nodematch.Sex    -51.00 -6.000 19.00 47.00 100.0
+
+
+Sample statistics cross-correlations:
+                     edges gwesp.fixed.0.25 nodematch.Grade nodematch.Race
+edges            1.0000000        0.8551556       0.9631961      0.9460999
+gwesp.fixed.0.25 0.8551556        1.0000000       0.8761155      0.8487543
+nodematch.Grade  0.9631961        0.8761155       1.0000000      0.9184154
+nodematch.Race   0.9460999        0.8487543       0.9184154      1.0000000
+nodematch.Sex    0.9122332        0.8040043       0.8848706      0.8696718
+                 nodematch.Sex
+edges                0.9122332
+gwesp.fixed.0.25     0.8040043
+nodematch.Grade      0.8848706
+nodematch.Race       0.8696718
+nodematch.Sex        1.0000000
+
+Sample statistics auto-correlation:
+Chain 1 
+             edges gwesp.fixed.0.25 nodematch.Grade nodematch.Race
+Lag 0    1.0000000        1.0000000       1.0000000      1.0000000
+Lag 1000 0.9418138        0.9977288       0.9637411      0.9535417
+Lag 2000 0.8998266        0.9954852       0.9346902      0.9190812
+Lag 3000 0.8686082        0.9932766       0.9109261      0.8926666
+Lag 4000 0.8449539        0.9911027       0.8915124      0.8720337
+Lag 5000 0.8267089        0.9889812       0.8753711      0.8555938
+         nodematch.Sex
+Lag 0        1.0000000
+Lag 1000     0.9487932
+Lag 2000     0.9107673
+Lag 3000     0.8819395
+Lag 4000     0.8595156
+Lag 5000     0.8415028
+
+Sample statistics burn-in diagnostic (Geweke):
+Chain 1 
+
+Fraction in 1st window = 0.1
+Fraction in 2nd window = 0.5 
+
+           edges gwesp.fixed.0.25  nodematch.Grade   nodematch.Race 
+           2.751            2.254            2.630            2.271 
+   nodematch.Sex 
+           2.800 
+
+Individual P-values (lower = worse):
+           edges gwesp.fixed.0.25  nodematch.Grade   nodematch.Race 
+     0.005938797      0.024212280      0.008529894      0.023171113 
+   nodematch.Sex 
+     0.005113875 
+Joint P-value (lower = worse):  0.06978943 .</code></pre>
+<pre><code>Warning in formals(fun): argument is not a function</code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-27-1.png" width="672" /><img src="d1-tut1_files/figure-html/unnamed-chunk-27-2.png" width="672" /></p>
+<pre><code>
+MCMC diagnostics shown here are from the last round of simulation, prior to computation of final parameter estimates. Because the final estimates are refinements of those used for this simulation run, these diagnostics may understate model performance. To directly assess the performance of the final model on in-model statistics, please use the GOF command: gof(ergmFitObject, GOF=~model).</code></pre>
+<p>Success! Of course, in real life one might have a lot more trial and error.</p>
+<p><strong>MORAL:</strong> Degeneracy is an indicator of a poorly specified model. It is not a property of all ERGMs, but it is associated with some dyadic-dependent terms, in particular, the reduced homogenous Markov specifications (e.g., 2-stars and triangle terms). For a good technical discussion of unstable terms see <a href="http://www.tandfonline.com/doi/abs/10.1198/jasa.2011.tm10747#.U6R2FvldWSo">Schweinberger 2012.</a> For a discussion of alternative terms that exhibit more stable behavior see <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1467-9531.2006.00176.x/abstract">Snijders et al. 2006.</a> and for the gwesp term (and the curved exponential family terms in general) see <a href="http://amstat.tandfonline.com/doi/abs/10.1198/106186006X133069#.U7MxWPldWSo">Hunter and Handcock 2006.</a></p>
+</div>
+</div>
+<div id="network-simulation-the-simulate-command-and-network.list-objects" class="section level1">
+<h1>5. Network simulation: the <em>simulate</em> command and <em>network.list</em> objects</h1>
+<p>Once we have estimated the coefficients of an ERGM, the model is completely specified. It defines a probability distribution across all networks of this size. If the model is a good fit to the observed data, then networks drawn from this distribution will be more likely to “resemble” the observed data. To see examples of networks drawn from this distribution we use the <code>simulate</code> command:</p>
+<pre class="r"><code>flomodel.03.sim &lt;- simulate(flomodel.03, nsim = 10)
+class(flomodel.03.sim) </code></pre>
+<pre><code>[1] &quot;network.list&quot;</code></pre>
+<pre class="r"><code>summary(flomodel.03.sim)</code></pre>
+<pre><code>Number of Networks: 10 
+Model: flomarriage ~ edges + nodecov(&quot;wealth&quot;) 
+Reference: ~Bernoulli 
+Constraints: ~. 
+Parameters:
+         edges nodecov.wealth 
+   -2.59492903     0.01054591 
+
+Stored network statistics:
+      edges nodecov.wealth
+ [1,]    11            967
+ [2,]    23           1841
+ [3,]    24           2595
+ [4,]    19           2297
+ [5,]    23           2802
+ [6,]    20           2396
+ [7,]    17           1690
+ [8,]    23           2768
+ [9,]    23           2536
+[10,]    23           2315</code></pre>
+<pre class="r"><code>length(flomodel.03.sim)</code></pre>
+<pre><code>[1] 10</code></pre>
+<pre class="r"><code>flomodel.03.sim[[1]]</code></pre>
+<pre><code> Network attributes:
+  vertices = 16 
+  directed = FALSE 
+  hyper = FALSE 
+  loops = FALSE 
+  multiple = FALSE 
+  bipartite = FALSE 
+  total edges= 11 
+    missing edges= 0 
+    non-missing edges= 11 
+
+ Vertex attribute names: 
+    priorates totalties vertex.names wealth 
+
+No edge attributes</code></pre>
+<pre class="r"><code>plot(flomodel.03.sim[[1]], label = flomodel.03.sim[[1]] %v% &quot;vertex.names&quot;)</code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>Voila. Of course, yours will look somewhat different.</p>
+<p>Simulation can be used for many purposes: to examine the range of variation that could be expected from this model, both in the sufficient statistics that define the model, and in other statistics not explicitly specified by the model.</p>
+<p>For now, we will examine one of the primary uses of simulation in the ergm package: using simulated data from the model to evaluate goodness of fit to the observed data.</p>
+</div>
+<div id="examining-the-quality-of-model-fit-gof" class="section level1">
+<h1>6. Examining the quality of model fit – GOF</h1>
+<p>ERGMs can be seen as generative models when they represent the process that governs the global patterns of tie prevalence from a local perspective: the perspective of the nodes involved in the particular micro-configurations represented by the ergm-terms in the model. The locally generated processes in turn aggregate up to produce characteristic global network properties, even though these global properties are not explicit terms in the model.</p>
+<p>One test of whether a local model “fits the data” is therefore how well it reproduces the observed global network properties <em>that are not in the model</em>. We do this by choosing a network statistic that is not in the model, and comparing the value of this statistic observed in the original network to the distribution of values we get in simulated networks from our model, using the <strong>gof</strong> function.</p>
+<p>The <strong>gof</strong> function is a bit different than the <strong>summary</strong>, <strong>ergm</strong>, and <strong>simulate</strong> functions, in that it currently only takes 3 ergm-terms as arguments: degree, esp (edgwise share partners), and distance (geodesic distances). Each of these terms captures an aggregate network distribution, at either the node level (degree), the edge level (esp), or the dyad level (distance).</p>
+<pre class="r"><code>flomodel.03.gof &lt;- gof(flomodel.03 ~ degree + esp + distance)
+flomodel.03.gof</code></pre>
+<pre><code>
+Goodness-of-fit for degree 
+
+   obs min mean max MC p-value
+0    1   0 1.07   6       1.00
+1    4   0 3.33   7       0.86
+2    2   1 3.99   8       0.44
+3    6   0 3.54   7       0.22
+4    2   0 2.06   5       1.00
+5    0   0 1.13   4       0.64
+6    1   0 0.52   3       0.84
+7    0   0 0.20   2       1.00
+8    0   0 0.10   1       1.00
+9    0   0 0.04   1       1.00
+10   0   0 0.01   1       1.00
+12   0   0 0.01   1       1.00
+
+Goodness-of-fit for edgewise shared partner 
+
+     obs min  mean max MC p-value
+esp0  12   4 12.42  21          1
+esp1   7   0  6.55  17          1
+esp2   1   0  1.54   9          1
+esp3   0   0  0.24   5          1
+esp4   0   0  0.10   5          1
+esp5   0   0  0.01   1          1
+
+Goodness-of-fit for minimum geodesic distance 
+
+    obs min  mean max MC p-value
+1    20   8 20.86  31       1.00
+2    35   8 36.25  60       0.98
+3    32   4 27.42  43       0.62
+4    15   0 11.48  23       0.68
+5     3   0  3.87  16       1.00
+6     0   0  0.90   7       1.00
+7     0   0  0.14   3       1.00
+8     0   0  0.02   1       1.00
+Inf  15   0 19.06 100       1.00</code></pre>
+<pre class="r"><code>plot(flomodel.03.gof)</code></pre>
+<pre><code>Warning in max((1:(n - 1))[x$pval.espart[1:(n - 1), &quot;MC p-value&quot;] &lt; 1]): no
+non-missing arguments to max; returning -Inf</code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-29-1.png" width="672" /><img src="d1-tut1_files/figure-html/unnamed-chunk-29-2.png" width="672" /><img src="d1-tut1_files/figure-html/unnamed-chunk-29-3.png" width="672" /></p>
+<pre class="r"><code>mesamodel.02 &lt;- ergm(mesa ~ edges)</code></pre>
+<pre><code>Evaluating log-likelihood at the estimate. </code></pre>
+<pre class="r"><code>mesamodel.02.gof &lt;- gof(mesamodel.02 ~ degree + esp + distance)
+plot(mesamodel.02.gof)</code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-30-1.png" width="672" /><img src="d1-tut1_files/figure-html/unnamed-chunk-30-2.png" width="672" /><img src="d1-tut1_files/figure-html/unnamed-chunk-30-3.png" width="672" /></p>
+<p>For a good example of model exploration and fitting for the Add Health Friendship networks, see <a href="http://link.springer.com/article/10.1353/dem.0.0045">Goodreau, Kitts &amp; Morris, <em>Demography</em> 2009</a>. For more technical details on the approach, see <a href="http://amstat.tandfonline.com/doi/abs/10.1198/016214507000000446?journalCode=uasa20#.U7HZgPldWSo">Hunter, Goodreau and Handcock <em>JASA</em> 2008</a></p>
+</div>
+<div id="working-with-egocentrically-sampled-network-data" class="section level1">
+<h1>7. Working with egocentrically sampled network data</h1>
+<p>One of the most powerful features of ERGMs is that they can be used to simulate complete networks from egocentrically sampled data.</p>
+<p>In many empirical contexts, it is not feasible to collect a network census or even an adaptive (link-traced) sample. Even when one of these may be possible in practice, egocentrically sampled data are typically cheaper and easier to collect.</p>
+<p>Long regarded as the poor country cousin in the network data family, egocentric data contain a remarkable amount of information. With the right statistical methods, such data can be used to explore the properties of the complete networks in which they are embedded. The basic idea here is to combine what is observed, with assumptions, to define a class of models that describe the distribution of networks that are centered on the observed properties. The variation in these networks quantifies some of the uncertainty introduced by the assumptions.</p>
+<p>Let’s start with a simple fictional example: You have a sample of persons who were asked about the friends they had seen face-to-face more than once in the last week. The respondent was asked their own sex, and the sex of each friend (for up to three friends). Summary statistics from these data thus include the sex distribution, the degree distribution (it could be broken down by sex, but we will just examine the marginal distribution here), and the joint distribution of the respondent and friend’s sex (the sex mixing matrix). Let’s assume there are equal numbers of men and women in the sampled respondents. The other distributions are shown below:</p>
+<p><img src="ergm-tut-t1.png" style="width: 75%"/></p>
+<p>Sex mixing matrix (410 total)</p>
+<p><img src="ergm-tut-t2.png" style="width: 75%"/></p>
+<p>So, total N respondents = 500, total N friends reported = 410.</p>
+<p>We can use an ERGM to fit the parameters associated with these observed statistics, then use the fitted model to simulate complete networks that are drawn from the distribution of networks that is centered around these statistics. As a theoretical exercise, this provides a method for investigating the complete network implications of these observed summary statistics. As an empirical exercise, the primary assumption needed for inference is that the data we have is sampled from a population in equilibrium (and, as in all statistical inference, that our model is correct). The theory for this is developed in Krivitsky, 2009.</p>
+<p>We need to make assumptions about size, directedness and bipartite-ness when we model and simulate the complete network.</p>
+<ul>
+<li><p><strong>Size</strong>: Any size can be simulated, but if the model is fit using the observed frequencies, it should be used to simulate a population of that size unless a size adjustment is made in the simulation (see Krivitsky, Handcock and Morris 2011). We are going to work with a population size 500 here, equal to the number of respondents.</p></li>
+<li><p><strong>Directedness</strong>: In this case the tie (“seen more than once”) it is undirected, so we will fit and simulate an undirected network. Note that ego data are in one sense inherently directed (respondents nominate alters, alters are not observed), but the type of tie that respondents report may be either directed or undirected, and that is what we are simulating.</p></li>
+<li><p><strong>Bipartite</strong>: “Seen” is not a two-mode relationship, so we will fit and simulated a one-mode network. Note again that the ego data can be bipartite by design (egos vs. alters, if no alters are also respondents, or if data are collected on 2-mode networks) or not (if respondents are also alters). But again, the type of tie determines what we want to simulate.</p></li>
+</ul>
+<p>In sum, we will simulate a one-mode, undirected network of size 500, assuming the ego statistics we observed contain the information we need to calculate the statistics that would have been observed in a self-contained population of that size, noting that other assumptions and approaches are possible.</p>
+<div id="initializing-a-network" class="section level2">
+<h2>Initializing a network</h2>
+<p>To ensure consistency between the degree distribution (which is a tabulation of nodes) and the mixing matrix (which is a cross-tabulation of ties) in our simulated “complete network”, it is important to recognize that <em>in a complete network</em>, the degree distribution frequencies should sum to twice the number of ties observed in the mixing matrix, because every tie is being reported by both nodes in the degree distribution. If we are fixing the population size at 500 in this simulation, then our observed mixing matrix data needs to be divided by 2.</p>
+<p>Start by initializing an empty network of the desired size and assign the “sex” attribute to the nodes:</p>
+<pre class="r"><code>ego.net &lt;- network.initialize(500, directed = FALSE)
+ego.net %v% &quot;sex&quot; &lt;- c(rep(0, 250), rep(1, 250))</code></pre>
+<p>Set up the observed statistics (adjusted for this “complete” network) as we will use them to assess the accuracy of the simulation later:</p>
+<pre class="r"><code># node distn
+ego.deg &lt;- c(180, 245, 60, 15)
+
+# adjusted tie distn
+ego.mixmat &lt;- matrix(c(164, 44, 26, 176)/2, 
+                     nrow = 2, byrow = TRUE)    </code></pre>
+</div>
+<div id="target-statistics-for-the-model" class="section level2">
+<h2>Target statistics for the model</h2>
+<p>Then, pick the observed statistics you want to target. We will start with a simple model here: the total number of ties (edges), and the number of sex-matched ties (homophily). These are both functions of the observed statistics:</p>
+<pre class="r"><code>ego.edges &lt;- sum(ego.mixmat)
+ego.sexmatch &lt;- ego.mixmat[1, 1] + ego.mixmat[2, 2]</code></pre>
+<p>And combine these into a vector</p>
+<pre class="r"><code>ego.target.stats &lt;- c(ego.edges, ego.sexmatch)
+ego.target.stats</code></pre>
+<pre><code>[1] 205 170</code></pre>
+</div>
+<div id="ergm-model" class="section level2">
+<h2>ERGM model</h2>
+<p>Now, fit an ERGM to this network, with terms for the statistics you want to match, and the “<code>target.stats</code>” argument for <code>ergm</code> that specifies the target values for those statistics:</p>
+<pre class="r"><code>ego.fit &lt;- ergm(ego.net ~ edges + nodematch(&quot;sex&quot;),
+                target.stats = ego.target.stats)</code></pre>
+<pre><code>Evaluating log-likelihood at the estimate. </code></pre>
+<p>Take a look at the fitted model:</p>
+<pre class="r"><code>summary(ego.fit) </code></pre>
+<pre><code>
+==========================
+Summary of model fit
+==========================
+
+Formula:   nw ~ edges + nodematch(&quot;sex&quot;)
+&lt;environment: 0x7fb9efefceb0&gt;
+
+Iterations:  8 out of 20 
+
+Monte Carlo MLE Results:
+              Estimate Std. Error MCMC % p-value    
+edges          -7.4870     0.1690      0  &lt;1e-04 ***
+nodematch.sex   1.5866     0.1857      0  &lt;1e-04 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+     Null Deviance: 172940  on 124750  degrees of freedom
+ Residual Deviance:   2941  on 124748  degrees of freedom
+ 
+AIC: 2945    BIC: 2964    (Smaller is better.) </code></pre>
+</div>
+<div id="simulation-of-a-complete-network-from-the-model" class="section level2">
+<h2>Simulation of a complete network from the model</h2>
+<p>Now that you have a fitted model, you can simulate a complete network from it, and look at the results:</p>
+<pre class="r"><code>ego.sim1 &lt;- simulate(ego.fit)
+plot(ego.sim1, vertex.cex = 0.65, vertex.col = &quot;sex&quot;)</code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+</div>
+<div id="diagnostics-and-model-re-specification" class="section level2">
+<h2>Diagnostics and model re-specification</h2>
+<p>Does it reproduce the observed degree and mixing frequencies? We only targeted the total number of edges, not the full degree distribution.</p>
+<pre class="r"><code>rbind(sim = summary(ego.sim1 ~ degree(c(0:3))), obs = ego.deg)</code></pre>
+<pre><code>    degree0 degree1 degree2 degree3
+sim     224     168      66      37
+obs     180     245      60      15</code></pre>
+<pre class="r"><code>mixingmatrix(ego.sim1, &quot;sex&quot;)</code></pre>
+<pre><code>Note:  Marginal totals can be misleading
+ for undirected mixing matrices.
+    0   1
+0  74  36
+1  36 106</code></pre>
+<pre class="r"><code>ego.mixmat</code></pre>
+<pre><code>     [,1] [,2]
+[1,]   82   22
+[2,]   13   88</code></pre>
+<p>We only targeted the number of same-sex ties, not the full mixing matrix.</p>
+<p>The simulation stats seem quite different than the observed stats, and there are two possible reasons: either we mis-specified the original model (bias), or this one random draw may be unrepresentative of the distribution described by the model (variance). The latter is easily examined by simulating 100 networks, to see where the observed data fall in the distribution of networks produced by the model:</p>
+<pre class="r"><code>ego.sim100 &lt;- simulate(ego.fit, nsim = 100)
+ego.sim100</code></pre>
+<pre><code>Number of Networks: 100 
+Model: nw ~ edges + nodematch(&quot;sex&quot;) 
+Reference: ~Bernoulli 
+Constraints: ~. 
+Parameters:
+        edges nodematch.sex 
+    -7.487013      1.586633 </code></pre>
+<p>More information can be obtained with</p>
+<pre><code>summary(ego.sim100)</code></pre>
+<p>First, we’ll look at how well the simulations reproduced the target statistics that were included in the model (note, not the observed full distributions):</p>
+<pre class="r"><code>sim.stats &lt;- attr(ego.sim100, &quot;stats&quot;)
+rbind(sim = colMeans(sim.stats), obs = ego.target.stats)</code></pre>
+<pre><code>     edges nodematch.sex
+sim 203.56        169.18
+obs 205.00        170.00</code></pre>
+<p>These look pretty good – the means of the simulated target stats are within a few percent of the observed, depending on your computer configuation. We can plot the 100 replicates to see check the variation for any problematic patterns:</p>
+<pre class="r"><code>matplot(1:nrow(sim.stats), sim.stats, 
+        pch = c(&quot;e&quot;, &quot;m&quot;, &quot;0&quot;, &quot;+&quot;), cex = 0.65, 
+        main = &quot;100 simulations from ego.fit model&quot;, 
+        sub = &quot;(default settings)&quot;,
+        xlab = &quot;Replicate&quot;, ylab = &quot;frequency&quot;)
+abline(h = ego.target.stats, col = c(1:4))</code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>The lines mark the target statistic frequencies in the observed data. The points represent the frequencies in the simulated networks.</p>
+<p>The simulated network statistics vary stochastically around the target values, not trending over time.</p>
+<p>But, there is clear autocorrelation across the replicates, which suggests we might want to increase the MCMC interval to draw more independent realizations.</p>
+<pre class="r"><code>ego.sim100 &lt;- simulate(ego.fit, nsim = 100,
+                       control = control.simulate.ergm(MCMC.interval = 10000))
+sim.stats &lt;- attr(ego.sim100, &quot;stats&quot;)
+matplot(1:nrow(sim.stats), sim.stats,
+        pch = c(&quot;e&quot;, &quot;m&quot;), cex = 0.65,
+        main = &quot;100 simulations from ego.fit model&quot;, 
+        sub = &quot;(MCMC.interval=10000)&quot;,
+        xlab = &quot;Replicate&quot;, ylab = &quot;frequency&quot;)
+abline(h = ego.target.stats, col = 1:2)</code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p>With the larger interval, the autocorrelation is no longer detectable, and all of the statistics from the simulated networks vary in a symmetric band around their targets.</p>
+<p>The variation (about +/- 10%) represents the range of target statistics that are consistent with the fitted coefficients.</p>
+<p>If you wanted instead to constrain these statistics to equal a specified value, then you can use the <code>constraints</code> argument during the <code>ergm</code> fit instead.</p>
+<p>This is good for verifying that the simulation reproduces the target values we specified. So now lets see whether the simulated complete networks also match statistics that were not set by the targets. We targeted edges and homophily. How well does this model reproduce the full degree distribution?</p>
+<pre class="r"><code>sim.fulldeg &lt;- summary(ego.sim100 ~ degree(0:10))
+colnames(sim.fulldeg) &lt;- paste(&quot;deg&quot;, 0:10, sep = &quot;&quot;)
+sim.fulldeg[1:5, ]</code></pre>
+<pre><code>     deg0 deg1 deg2 deg3 deg4 deg5 deg6 deg7 deg8 deg9 deg10
+[1,]  247  178   59   12    4    0    0    0    0    0     0
+[2,]  222  170   82   22    4    0    0    0    0    0     0
+[3,]  224  188   65   22    1    0    0    0    0    0     0
+[4,]  230  171   74   23    2    0    0    0    0    0     0
+[5,]  208  196   67   22    5    0    2    0    0    0     0</code></pre>
+<p>Recall that the degree range in our data was [0,3] by design, but we did not constrain the simulations to this range. If our model correctly captured the processes that led to the aggregate statistics we observe in our data, the simulated networks would show us what we missed. Here the simulated networks suggest that the fully observed network would have a wider range of degrees, which we might have observed, had we not truncated the data collection at 3 friends per respondent. About 1% of nodes have degree 4 or 5, and the max observed is 6.</p>
+<p>But did our model did correctly capture the underlying processes? How well does the simulated degree distribution from this model match the frequencies we did observe? Aggregating the degrees of 3 or more in the simulations, we find:</p>
+<pre class="r"><code>sim.deg &lt;- cbind(sim.fulldeg[, 1:3], apply(sim.fulldeg[, 4:11], 1, sum))
+colnames(sim.deg) &lt;- c(colnames(sim.fulldeg)[1:3], &quot;degree3+&quot;)
+rbind(sim = colMeans(sim.deg), obs = ego.deg)</code></pre>
+<pre><code>      deg0   deg1  deg2 degree3+
+sim 221.75 179.93 74.15    24.17
+obs 180.00 245.00 60.00    15.00</code></pre>
+<p>As with the single simulation above, the discrepancies between the simulation averages and the observed statistics are quite large. We can see this more clearly by plotting the degree frequencies for the 100 replicate networks we simulated:</p>
+<pre class="r"><code>matplot(1:nrow(sim.deg), sim.deg, pch = as.character(0:3), cex = 0.5,
+        main = &quot;Comparing ego.sims to non-targeted degree frequencies&quot;,
+        sub = &quot;(only total edges targeted)&quot;,
+        xlab = &quot;Replicate&quot;, ylab = &quot;Frequencies&quot;)
+abline(h = c(180, 245, 60, 15), col = c(1:4))</code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p>The simulations are producing systematically more isolates than expected (the “0” points vs. the black line), and systematically more degree 1 nodes. In fact, the two degree frequencies are essentially reversed in the simulation.</p>
+<p>The fraction of nodes with 2 or 3+ partners is systematically off but by a much smaller amount.</p>
+<p>So our observed network has fewer isolates than expected in a network of this density, more degree 1 nodes than expected, and fewer degree 2 and 3+ nodes.</p>
+<p>This suggests the model is mis-specified. Since the degree 0 vs. degree 1 is the worst fitting aspect, we will try using the number of isolates as a target statistic in the model.</p>
+<pre class="r"><code>ego.isolates &lt;- ego.deg[1]
+ego.target.stats &lt;- c(ego.edges, ego.sexmatch, ego.isolates)
+ego.fit &lt;- ergm(ego.net ~ edges + nodematch(&quot;sex&quot;) + degree(0),
+                target.stats = ego.target.stats) </code></pre>
+<pre><code>Starting maximum likelihood estimation via MCMLE:
+Iteration 1 of at most 20: 
+The log-likelihood improved by 0.03072 
+Step length converged once. Increasing MCMC sample size.
+Iteration 2 of at most 20: 
+The log-likelihood improved by 0.002177 
+Step length converged twice. Stopping.
+Evaluating log-likelihood at the estimate. Using 20 bridges: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 .
+
+This model was fit using MCMC.  To examine model diagnostics and check for degeneracy, use the mcmc.diagnostics() function.</code></pre>
+<pre class="r"><code>summary(ego.fit)</code></pre>
+<pre><code>
+==========================
+Summary of model fit
+==========================
+
+Formula:   nw ~ edges + nodematch(&quot;sex&quot;) + degree(0)
+&lt;environment: 0x7fb9ee8f7d80&gt;
+
+Iterations:  2 out of 20 
+
+Monte Carlo MLE Results:
+              Estimate Std. Error MCMC % p-value    
+edges          -8.4012     0.2419      0  &lt;1e-04 ***
+nodematch.sex   1.5857     0.1847      0  &lt;1e-04 ***
+degree0        -0.9621     0.1580      0  &lt;1e-04 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+     Null Deviance: 172940  on 124750  degrees of freedom
+ Residual Deviance:   2903  on 124747  degrees of freedom
+ 
+AIC: 2909    BIC: 2938    (Smaller is better.) </code></pre>
+<p>Simulating from this model, the target statistics are again well matched:</p>
+<pre class="r"><code>ego.sim100 &lt;- simulate(ego.fit, nsim = 100,
+                       control = control.simulate.ergm(MCMC.interval = 10000))
+sim.stats &lt;- attr(ego.sim100, &quot;stats&quot;)
+rbind(sim = colMeans(sim.stats), obs = ego.target.stats)</code></pre>
+<pre><code>     edges nodematch.sex degree0
+sim 204.49        169.74  180.52
+obs 205.00        170.00  180.00</code></pre>
+<p>And the full degree frequencies look much better:</p>
+<pre class="r"><code>sim.fulldeg &lt;- summary(ego.sim100 ~ degree(0:10))
+sim.deg &lt;- cbind(sim.fulldeg[, 1:3], apply(sim.fulldeg[ ,4:11], 1, sum))
+colnames(sim.deg) &lt;- c(colnames(sim.fulldeg)[1:3], &quot;degree3+&quot;)
+rbind(sim = colMeans(sim.deg), obs = ego.deg)</code></pre>
+<pre><code>    degree0 degree1 degree2 degree3+
+sim  180.52  244.37   62.37    12.74
+obs  180.00  245.00   60.00    15.00</code></pre>
+<p>and finally, plotting the full degree frequencies</p>
+<pre class="r"><code>matplot(1:nrow(sim.deg), sim.deg, pch = as.character(0:3), cex = 0.5,
+        main = &quot;Comparing ego.sims to non-targeted degree frequencies&quot;,
+        sub = &quot;(only 0, 2+ and total edges targeted)&quot;,
+        xlab = &quot;Replicate&quot;, ylab = &quot;Frequencies&quot;)
+abline(h = c(180, 245, 60, 15), col = c(1:4))</code></pre>
+<p><img src="d1-tut1_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p>The degree frequencies in these simulated networks are now well centered on the observed frequencies. So adding the one additional parameter to capture the lower than expected number of isolates did a good job of capturing how our observed network deviates from a random network with this density.</p>
+<p>The fraction of nodes with 3+ partners produced by our new model might still be a bit low.</p>
+<p><strong>Moral</strong>: We can use ERGMs to estimate network models using target statistics from egocentrically sampled data. The fact that the target statistics are reproduced by this model does not guarantee that additional features of the network would also be reproduced. But starting with simple models can help to identify whether and how the aggregate statistics we observe from an egocentric sample deviate from those we would expect from the model. If we fit all of the observed statistics without a saturated model, we cannot reject the hypothesis that this model produced the network we sampled from.</p>
+<p>We can also use this approach to explore network statistics that are not visible at all from the egocentric data, e.g., the geodesic distribution, betweenness, etc., but it must always be remembered that the distributions we will produce are based on our model. They faithfully reproduce the model, but that does not mean that the model faithfully represents the population.</p>
+</div>
+</div>
+<div id="references" class="section level1">
+<h1>8. References</h1>
+<p>Goodreau, S., J. Kitts and M. Morris (2009). Birds of a Feather, or Friend of a Friend? Using Statistical Network Analysis to Investigate Adolescent Social Networks. <em>Demography</em> 46(1): 103-125. <a href="http://link.springer.com/article/10.1353/dem.0.0045">link</a></p>
+<p>Handcock MS (2003a). “Assessing Degeneracy in Statistical Models of Social Networks.” Working Paper 39, Center for Statistics and the Social Sciences, University of Washington. <a href="http://www.csss.washington.edu/Papers/">link</a></p>
+<p>Handcock MS (2003b). “Statistical Models for Social Networks: Inference and Degeneracy.” In R Breiger, K Carley, P Pattison (eds.), <em>Dynamic Social Network Modeling and Analysis</em>, volume 126, pp. 229-252. Committee on Human Factors, Board on Behavioral, Cognitive, and Sensory Sciences, National Academy Press, Washington, DC.</p>
+<p>Handcock, M. S., D. R. Hunter, C. T. Butts, S. M. Goodreau and M. Morris (2008). statnet: Software Tools for the Representation, Visualization, Analysis and Simulation of Network Data. <em>Journal of Statistical Software</em> 42(01) <a href="http://www.jstatsoft.org/v24/i01">link</a>.</p>
+<p>Hunter DR, Handcock MS, Butts CT, Goodreau SM, Morris M (2008b). ergm: A Package to Fit, Simulate and Diagnose Exponential-Family Models for Networks. <em>Journal of Statistical Software</em>, 24(3). <a href="http://www.jstatsoft.org/v24/i03/">link</a></p>
+<p>Krivitsky, P.N., Handcock, M.S,(2014). A separable model for dynamic networks <em>JRSS Series B-Statistical Methodology</em>, 76(1):29-46; 10.1111/rssb.12014 JAN 2014 <a href="http://onlinelibrary.wiley.com/doi/10.1111/rssb.12014/abstract">link</a></p>
+<p>Krivitsky, P. N., M. S. Handcock and M. Morris (2011). Adjusting for Network Size and Composition Effects in Exponential-family Random Graph Models, <em>Statistical Methodology</em> 8(4): 319-339, ISSN 1572-3127 <a href="http://www.sciencedirect.com/science/article/pii/S1572312711000086">link</a></p>
+<p>Schweinberger, Michael (2011) Instability, Sensitivity, and Degeneracy of Discrete Exponential Families <em>JASA</em> 106(496): 1361-1370. <a href="http://www.tandfonline.com/doi/abs/10.1198/jasa.2011.tm10747#.U7M4A_ldWSo">link</a></p>
+<p>Snijders, TAB et al (2006) New Specifications For Exponential Random Graph Models <em>Sociological Methodology</em> 36(1): 99-153 <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1467-9531.2006.00176.x/abstract">link</a></p>
+<br>
+<hr style="background-color:#909090;height:1px;width:100%">
+<p><small> <em>Last updated:</em> 2017-06-26 with ergm v3.7.1 </small></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
