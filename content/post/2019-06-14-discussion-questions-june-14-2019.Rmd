@@ -1,0 +1,60 @@
+---
+title: 'Discussion Questions: June 14, 2019'
+author: Eva Enns
+date: '2019-06-14'
+slug: discussion-questions-june-14-2019
+categories: []
+tags: []
+---
+
+We envision different kinds of analyses that could be done with the WHAMP model related to ADAP and/or PrEP-DAP. We would like your thoughts on the kinds of analyses that would be of greatest interest to you and the kinds of outputs / projections that would be most useful in informing your work.
+
+## Evaluating impact of program changes
+
+**1. What are the kinds of ADAP and/or PrEP-DAP changes/scenarios that you would like to evaluate using  the WHAMP model?**
+
+Examples of external changes (not under DOH control):
+
+- Elimination of drug subsidies
+
+- Changes in the cost of drugs, care, or insurance premium costs
+  
+Examples of programmatic changes:
+
+- Changing program eligibility, such as increasing or decreasing income elgibility thresholds for ADAP
+
+- Imposing an income threshold on PrEP-DAP
+  
+
+**2. For external changes in particular, how would the program respond to budget reductions?**
+
+Your input is needed to appropriately implement these scenarios in the model (and capture how reduced spending would impact HIV outcomes).
+  
+Examples:
+
+- Prioritize existing clients and limit new enrollment to stay within budget
+
+- Prioritize enrollment by income level (would current clients ever be disenrolled?)
+
+  
+**3. For each scenario, we will project expected epidemiological outcomes (incidence, prevalence, total infections over a specified time horizon). Are there other outcomes of interest?**
+
+Examples:
+
+- ADAP and/or PrEP-DAP program size over time
+
+- ADAP and/or PrEP-DAP expenditures over time
+
+- ART and/or PrEP coverage
+
+## Projections of the current programs
+
+**1. The model can also be used to project outcomes into the future (under current programs/policies). Are there specific outcomes that would be of interest to DOH?**
+
+Examples:
+
+- HIV prevalence and incidence over time, with a particular focus on "end the epidemic" targets
+
+- ADAP and/or PrEP-DAP program size or expenditures over time
+
+- Estimation of infections averted by ADAP and/or PrEP-DAP over a defined time horizon (we would model the counterfactual where these programs do not exist at all)
