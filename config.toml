@@ -6,6 +6,10 @@ googleAnalytics = ""
 disqusShortname = ""
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 footnotereturnlinkcontents = "↩"
+contentdir = "content/post"
+layoutdir = "layouts"
+publishdir = "public"
+canonifyurls = true
 
 [permalinks]
     post = "/post/:year/:month/:day/:slug/"
