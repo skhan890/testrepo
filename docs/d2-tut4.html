@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Day 2 | Network Models and HIV/STI with EpiModel | Harvard 2017" />
+
+
+<title>Tutorial 4: Interventions</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">NME HSPH</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://epimodel.org/">
+    <span class="fa fa-database"></span>
+     
+    EpiModel
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Tutorial 4: Interventions</h1>
+<h4 class="author"><em>Day 2 | Network Models and HIV/STI with EpiModel | Harvard 2017</em></h4>
+
+</div>
+
+
+<p>EpiModel built-in network models also include parameters for a simple intervention that affects the probability of infection given contact between a susceptible and an infected person. This could be, for example, a vaccine that reduces the susceptibility or a condom provision program. This mini-tutorial will show how to implement such an intervention.</p>
+<p>Interventions in this framework have three salient features:</p>
+<ol style="list-style-type: decimal">
+<li>They apply to everyone in the population. There is no heterogeneity in who gets the intervention.</li>
+<li>The interventions have an efficacy, <code>inter.eff</code>, where the invention results in a relative reduction in the probability of infection specified in <code>inf.prob</code> by <code>1-inter.eff</code>.</li>
+<li>Interventions start at a defined time step, <code>inter.start</code>.</li>
+</ol>
+<p>To start, we estimate a very simple temporal ERGM.</p>
+<pre class="r"><code>nw &lt;- network.initialize(n = 100, directed = FALSE)
+formation &lt;- ~edges
+target.stats &lt;- 50
+coef.diss &lt;- dissolution_coefs(dissolution = ~offset(edges), duration = 20)
+est &lt;- netest(nw, formation, target.stats, coef.diss, verbose = FALSE)</code></pre>
+<p>This model simulates an SI disease in a closed population in which the intervention (e.g., a vaccine) has very strong efficacy for the entire population. The intervention starts at week 25.</p>
+<pre class="r"><code>param &lt;- param.net(inf.prob = 0.5, inter.eff = 0.96, inter.start = 25)
+init &lt;- init.net(i.num = 5)
+control &lt;- control.net(type = &quot;SI&quot;, nsteps = 100, nsims = 10)
+sim &lt;- netsim(est, param, init, control)
+plot(sim)</code></pre>
+<p><img src="d2-tut4_files/figure-html/siSim-1.png" width="672" /></p>
+<p>This model simulates an SIS disease in which the intervention is slightly less effective (e.g., functional effectiveness of condoms) that starts at week 100.</p>
+<pre class="r"><code>param &lt;- param.net(inf.prob = 0.5, inter.eff = 0.8, inter.start = 100, 
+                   rec.rate = 0.07)
+init &lt;- init.net(i.num = 10)
+control &lt;- control.net(type = &quot;SIS&quot;, nsteps = 250, nsims = 10)
+sim &lt;- netsim(est, param, init, control)
+plot(sim)</code></pre>
+<p><img src="d2-tut4_files/figure-html/sisSim-1.png" width="672" /></p>
+<br>
+<hr style="background-color:#909090;height:1px;width:100%">
+<p><small> <em>Last updated:</em> 2017-06-24 with EpiModel v1.5.0 </small></p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

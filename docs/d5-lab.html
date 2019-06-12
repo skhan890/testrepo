@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Day 5 | Network Models and HIV/STI with EpiModel | Harvard 2017" />
+
+
+<title>Lab: HIV/STI Transmission Models with EpiModelHIV</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">NME HSPH</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://epimodel.org/">
+    <span class="fa fa-database"></span>
+     
+    EpiModel
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lab: HIV/STI Transmission Models with EpiModelHIV</h1>
+<h4 class="author"><em>Day 5 | Network Models and HIV/STI with EpiModel | Harvard 2017</em></h4>
+
+</div>
+
+
+<p>In this tutorial, we will explore the “current” model parameterization featured in our recently published journal paper:</p>
+<blockquote>
+<p>Jenness SM, Weiss KM, Goodreau SM, Rosenberg E, Gift T, Chesson H, Hoover KW, Smith DK, Liu AY, Sullivan P. Incidence of Gonorrhea and Chlamydia Following HIV Preexposure Prophylaxis among Men Who Have Sex with Men. Clinical Infectious Diseases. Epub ahead of print. DOI: 10.1093/cid/cix439.</p>
+</blockquote>
+<p>In this paper, we how the scale up of HIV PrEP may have potentially negative consequences on the incidence of gonorrhea and chylamydia among men who have sex with men due to reductions in condom use after starting PrEP medication. This model therefore simulates the co-circulation of HIV along with these other two bacterial STIs to understand the implications of their interaction in this complex system.</p>
+<p>In this lab, we will first ask you to get more familiar with the code, then simulate one or more counterfactuals related to the specific study questions we address in the paper. We will make the simplifying assumption that we have a fully calibrated model for HIV and NG/CT for the purposes of starting the HIV PrEP intervention.</p>
+<div id="setup" class="section level1">
+<h1>Setup</h1>
+<p>Install the latest version of tergmLite and EpiModelHIV to run this tutorial. In case you haven’t done so already, you will need to install the devtools package to get the software directly off of Github.</p>
+<pre class="r"><code># install.packages(&quot;EpiModel&quot;)
+# install devtools if necessary, install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;statnet/tergmLite&quot;)
+devtools::install_github(&quot;statnet/EpiModelHIV&quot;, ref = &quot;prep-sti&quot;)
+
+library(&quot;EpiModelHIV&quot;)</code></pre>
+</div>
+<div id="parameterization" class="section level1">
+<h1>Parameterization</h1>
+<p>This model will assume that the model fit has already been fully completed and diagnosed. In fact, this can be a time consuming process computationally, so we have already done that step for you and included as data the necessary setup and estimation files you will need. Let’s load those up and take a look at their contents.</p>
+<pre class="r"><code>data(st)
+st
+
+data(est)
+est</code></pre>
+<p>The <code>param_msm</code> function contains a comprehensive list of all of the model parameters for this transmission model. Most of these parameters have fixed defaults that do not change for this specific model, but which may be easily changed for other projects. To see the definition of each parameter, review the help file for <code>param_msm</code>.</p>
+<pre class="r"><code>param &lt;- param_msm(st,
+                  race.method = 1,
+                  last.neg.test.B.int = 301,
+                  last.neg.test.W.int = 315,
+                  mean.test.B.int = 301,
+                  mean.test.W.int = 315,
+                  testing.pattern = &quot;memoryless&quot;,
+                  test.window.int = 21,
+
+                  tt.traj.B.prob = c(0.077, 0.000, 0.356, 0.567),
+                  tt.traj.W.prob = c(0.052, 0.000, 0.331, 0.617),
+
+                  tx.init.B.prob = 0.092,
+                  tx.init.W.prob = 0.127,
+                  tx.halt.B.prob = 0.0102,
+                  tx.halt.W.prob = 0.0071,
+                  tx.reinit.B.prob = 0.00066,
+                  tx.reinit.W.prob = 0.00291,
+
+                  max.time.off.tx.full.int = 520 * 7,
+                  max.time.on.tx.part.int = 52 * 15 * 7,
+                  max.time.off.tx.part.int = 520 * 7,
+                  vl.acute.rise.int = 45,
+                  vl.acute.peak = 6.886,
+                  vl.acute.fall.int = 45,
+                  vl.set.point = 4.5,
+                  vl.aids.onset.int = 520 * 7,
+                  vl.aids.int = 52 * 2 * 7,
+                  vl.fatal = 7,
+                  vl.full.supp = 1.5,
+                  vl.part.supp = 3.5,
+                  full.supp.down.slope = 0.25,
+                  full.supp.up.slope = 0.25,
+                  part.supp.down.slope = 0.25,
+                  part.supp.up.slope = 0.25,
+
+                  b.B.rate = 1e-3 / 7,
+                  b.W.rate = 1e-3 / 7,
+                  birth.age = 18,
+                  b.method = &quot;fixed&quot;,
+
+                  URAI.prob = 0.0082 * 1.09,
+                  UIAI.prob = 0.0031 * 1.09,
+                  acute.rr = 6,
+                  circ.rr = 0.4,
+                  condom.rr = 0.295,
+
+                  disc.outset.main.B.prob = 0.685,
+                  disc.outset.main.W.prob = 0.889,
+                  disc.at.diag.main.B.prob = 1,
+                  disc.at.diag.main.W.prob = 1,
+                  disc.post.diag.main.B.prob = 0,
+                  disc.post.diag.main.W.prob = 0,
+                  disc.outset.pers.B.prob = 0.527,
+                  disc.outset.pers.W.prob = 0.828,
+                  disc.at.diag.pers.B.prob = 1,
+                  disc.at.diag.pers.W.prob = 1,
+                  disc.post.diag.pers.B.prob = 0,
+                  disc.post.diag.pers.W.prob = 0,
+                  disc.inst.B.prob = 0.445,
+                  disc.inst.W.prob = 0.691,
+
+                  circ.B.prob = 0.874,
+                  circ.W.prob = 0.918,
+
+                  ccr5.B.prob = c(0, 0.034),
+                  ccr5.W.prob = c(0.021, 0.176),
+                  ccr5.heteroz.rr = 0.3,
+
+                  num.inst.ai.classes = 1,
+                  base.ai.main.BB.rate = 0.17,
+                  base.ai.main.BW.rate = 0.26,
+                  base.ai.main.WW.rate = 0.23,
+                  base.ai.pers.BB.rate = 0.11,
+                  base.ai.pers.BW.rate = 0.16,
+                  base.ai.pers.WW.rate = 0.14,
+                  ai.scale = 1.15,
+
+                  cond.main.BB.prob = 0.38,
+                  cond.main.BW.prob = 0.10,
+                  cond.main.WW.prob = 0.15,
+                  cond.pers.always.prob = 0.216,
+                  cond.pers.BB.prob = 0.26,
+                  cond.pers.BW.prob = 0.26,
+                  cond.pers.WW.prob = 0.26,
+                  cond.inst.always.prob = 0.326,
+                  cond.inst.BB.prob = 0.27,
+                  cond.inst.BW.prob = 0.27,
+                  cond.inst.WW.prob = 0.27,
+                  cond.always.prob.corr = 0.5,
+                  cond.rr.BB = 1,
+                  cond.rr.BW = 1,
+                  cond.rr.WW = 1,
+                  cond.diag.main.beta = -0.67,
+                  cond.discl.main.beta = -0.85,
+                  cond.diag.pers.beta = -0.67,
+                  cond.discl.pers.beta = -0.85,
+                  cond.diag.inst.beta = -0.67,
+                  cond.discl.inst.beta = -0.85,
+
+                  vv.iev.BB.prob = 0.42,
+                  vv.iev.BW.prob = 0.56,
+                  vv.iev.WW.prob = 0.49,
+
+                  prep.start = Inf,
+                  prep.elig.model = &quot;base&quot;,
+                  prep.class.prob = c(0.211, 0.07, 0.1, 0.619),
+                  prep.class.hr = c(1, 0.69, 0.19, 0.05),
+                  prep.coverage = 0,
+                  prep.cov.method = &quot;curr&quot;,
+                  prep.cov.rate = 1,
+                  prep.tst.int = 90,
+                  prep.risk.int = 182,
+                  prep.risk.reassess = TRUE,
+
+                  rcomp.prob = 0,
+                  rcomp.adh.groups = 0:3,
+                  rcomp.main.only = FALSE,
+                  rcomp.discl.only = FALSE,
+
+                  rgc.tprob = 0.357698,
+                  ugc.tprob = 0.248095,
+                  rct.tprob = 0.321597,
+                  uct.tprob = 0.212965,
+
+                  rgc.sympt.prob = 0.076975,
+                  ugc.sympt.prob = 0.824368,
+                  rct.sympt.prob = 0.103517,
+                  uct.sympt.prob = 0.885045,
+
+                  rgc.asympt.int = 35.11851 * 7,
+                  ugc.asympt.int = 35.11851 * 7,
+                  gc.tx.int = 2 * 7,
+                  gc.ntx.int = NA,
+
+                  rct.asympt.int = 44.24538 * 7,
+                  uct.asympt.int = 44.24538 * 7,
+                  ct.tx.int = 2 * 7,
+                  ct.ntx.int = NA,
+
+                  gc.prob.cease = 0,
+                  ct.prob.cease = 0,
+
+                  gc.sympt.prob.tx = 0.90,
+                  ct.sympt.prob.tx = 0.85,
+                  gc.asympt.prob.tx = 0,
+                  ct.asympt.prob.tx = 0,
+
+                  prep.sti.screen.int = 182,
+                  prep.sti.prob.tx = 1,
+                  prep.continue.stand.tx = TRUE,
+
+                  sti.cond.rr = 0.3,
+
+                  hiv.rgc.rr = 2.780673,
+                  hiv.ugc.rr = 1.732363,
+                  hiv.rct.rr = 2.780673,
+                  hiv.uct.rr = 1.732363,
+                  hiv.dual.rr = 0.2)</code></pre>
+<p>The initial conditions also have many defaults and are use prespecified for a specific modeling project. Here we need to set up the starting conditions for the demography but also the disease prevalence for each infectious disease within the model.</p>
+<pre class="r"><code>init &lt;- init_msm(nwstats = st, 
+                 prev.B = 0.253, 
+                 prev.W = 0.253, 
+                 prev.ugc = 0.005,
+                 prev.rgc = 0.005, 
+                 prev.uct = 0.013, 
+                 prev.rct = 0.013)</code></pre>
+<p>The control settings are similiar to those in the base models, but again contain components that are specific to this HIV/STI model. Note all the new modules that we had to write for this project, and how those correspond to the specific parameterization steps described yesterday and today.</p>
+<pre class="r"><code>control &lt;- control_msm(simno = 1,
+                        nsims = 1,
+                        ncores = 1,
+                        nsteps = 100,
+                        start = 1,
+                        initialize.FUN = initialize_msm,
+                        aging.FUN = aging_msm,
+                        deaths.FUN = deaths_msm,
+                        births.FUN = births_msm,
+                        test.FUN = test_msm,
+                        tx.FUN = tx_msm,
+                        prep.FUN = prep_msm,
+                        progress.FUN = progress_msm,
+                        vl.FUN = vl_msm,
+                        aiclass.FUN = NULL,
+                        roleclass.FUN = NULL,
+                        resim_nets.FUN = simnet_msm,
+                        disclose.FUN = disclose_msm,
+                        acts.FUN = acts_msm,
+                        condoms.FUN = condoms_msm,
+                        riskhist.FUN = riskhist_msm,
+                        position.FUN = position_msm,
+                        trans.FUN = trans_msm,
+                        stitrans.FUN = sti_trans,
+                        stirecov.FUN = sti_recov,
+                        stitx.FUN = sti_tx,
+                        prev.FUN = prevalence_msm,
+                        verbose.FUN = verbose_msm,
+                        save.nwstats = FALSE,
+                        verbose = TRUE,
+                        verbose.int = 1)</code></pre>
+<p>To simulate the model, we will still use <code>netsim</code>, with the same set of four arguments we have used before.</p>
+<pre class="r"><code>sim &lt;- netsim(est, param, init, control)</code></pre>
+</div>
+<div id="module-review" class="section level1">
+<h1>Module Review</h1>
+<p>Because <code>netsim</code> sometimes can hide the underlying processes of the model system under the hood, we have extracted out all the different modules and show what the simulation function is exactly doing. It turns out that this is a better, more efficient way to do debugging of the individual modules. In this example, we will run the time series over 100 time steps again, but then peek into the HIV disease progression module.</p>
+<pre class="r"><code>dat &lt;- initialize_msm(est, param, init, control, s = 1)
+
+# debugonce(progress_msm)
+for (at in 2:100) {
+  dat &lt;- aging_msm(dat, at)       ## &lt;1 ms
+  dat &lt;- deaths_msm(dat, at)      ## 4 ms
+  dat &lt;- births_msm(dat, at)      ## 6 ms
+  dat &lt;- test_msm(dat, at)        ## 2 ms
+  dat &lt;- tx_msm(dat, at)          ## 3 ms
+  dat &lt;- prep_msm(dat, at)        ## 2 ms
+  dat &lt;- progress_msm(dat, at)    ## 2 ms
+  dat &lt;- vl_msm(dat, at)          ## 3 ms
+  dat &lt;- simnet_msm(dat, at)      ## 53 ms
+  dat &lt;- disclose_msm(dat, at)    ## 1 ms
+  dat &lt;- acts_msm(dat, at)        ## 1 ms
+  dat &lt;- condoms_msm(dat, at)     ## 2 ms
+  dat &lt;- riskhist_msm(dat, at)    ## 4 ms
+  dat &lt;- position_msm(dat, at)    ## 1 ms
+  dat &lt;- trans_msm(dat, at)       ## 1 ms
+  dat &lt;- sti_trans(dat, at)       ## 4 ms
+  dat &lt;- sti_recov(dat, at)       ## 3 ms
+  dat &lt;- sti_tx(dat, at)          ## 2 ms
+  dat &lt;- prevalence_msm(dat, at)  ## 1 ms
+  cat(at, &quot;.&quot;, sep = &quot;&quot;)
+}</code></pre>
+<p>For at least three modules that we have not fully explored in class yet, run the debug command to step into the module, summarize what you see as happening in a bullet list and note any questions you have about the module. Spend about 30 minutes on this part, and we’ll discuss what you found before moving on to the next part of the lab.</p>
+</div>
+<div id="intervention-simulation" class="section level1">
+<h1>Intervention Simulation</h1>
+<p>For this part of the lab, we will be running an HIV PrEP intervention simulation, set up and then modify some of the starting parameters for the model related to the intervention. We’ll work through getting you started in class, then you should continue by making up a research question related to these parameters, running a simulation, and then summarizing the results.</p>
+<pre class="r"><code>data(st)
+param &lt;- param_msm(st,
+                  prep.start = 100, # change this &gt; 26 but &lt; nsteps
+                  prep.elig.model = &quot;base&quot;,
+                  prep.class.prob = c(0.211, 0.07, 0.1, 0.619),
+                  prep.class.hr = c(1, 0.69, 0.19, 0.05),
+                  prep.coverage = 0, # change this between 0 and 1
+                  prep.tst.int = 90,
+                  prep.risk.int = 182,
+                  prep.risk.reassess = TRUE,
+                  rcomp.prob = 0,
+                  rcomp.adh.groups = 0:3,
+                  rcomp.main.only = FALSE,
+                  rcomp.discl.only = FALSE,
+                  prep.sti.screen.int = 182,
+                  prep.sti.prob.tx = 1,
+                  prep.continue.stand.tx = TRUE)
+init &lt;- init_msm(nwstats = st)
+control &lt;- control_msm(simno = 1,
+                       nsteps = 200, # change this to be longer if necessary
+                       nsims = 1, # bump this up
+                       ncores = 1,
+                       verbose = TRUE)
+
+data(est)
+sim &lt;- netsim(est, param, init, control)
+sim
+
+# Here are some plots you might be interested in
+plot(sim, y = &quot;ir100&quot;)
+plot(sim, y = &quot;i.prev&quot;)
+plot(sim, y = &quot;ir100.gc&quot;)
+plot(sim, y = &quot;ir100.ct&quot;)
+
+# Extract the data and conduct some data analysis
+df &lt;- as.data.frame(sim)
+names(df)
+
+# Cumulative incidence of NG per 100 person-years at risk
+sum(df$ir100.gc, na.rm = TRUE)
+
+# Average incidence rate
+mean(df$ir100.gc, na.rm = TRUE)</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
