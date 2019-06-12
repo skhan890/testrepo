@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Day 3 | Network Models and HIV/STI with EpiModel | Harvard 2017" />
+
+
+<title>Tutorial 4: Migration</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">NME HSPH</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://epimodel.org/">
+    <span class="fa fa-database"></span>
+     
+    EpiModel
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Tutorial 4: Migration</h1>
+<h4 class="author"><em>Day 3 | Network Models and HIV/STI with EpiModel | Harvard 2017</em></h4>
+
+</div>
+
+
+<p>In this example, the only demographic processes will be in and out migration. This will be an open population model in which there are no birth and deaths, but there are this other form of entry and exit from the network. Similar to the standard built-in death module, there will be different out-migration rates for susceptibles and infecteds in the population, considering that the travel plans of these two groups may differ. In contrast to the built-in birth module, in-migration will be a function of a constant expected count, regardless of the current population size of the network. In addition, whereas births were always into a susceptible state, now some proportion of in-migrants may be infected upon entry.</p>
+<pre class="r"><code>library(&quot;EpiModel&quot;)</code></pre>
+<div id="modules" class="section level1">
+<h1>Modules</h1>
+<div id="out-migration-module" class="section level2">
+<h2>Out-Migration Module</h2>
+<p>The out-migration module looks quite similar to the death module because death and out-migration are functionally similar processes. In both, persons who leave the network are changed from active to inactive, and thereby “deactivated” from the network. The steps are to pull out all the respective rates, then run the processes, and then generate the output. The output here is the number of out-migrations per time step. Our prevalence module will then count the active number of members of each compartment given the rest of the processes in the network.</p>
+<pre class="r"><code>outmigrate &lt;- function(dat, at) {
+  
+  # Variables
+  active &lt;- dat$attr$active
+  status &lt;- dat$attr$status
+  rates &lt;- dat$param$omig.rates
+  
+  # Process
+  idsElig &lt;- which(active == 1)
+  nElig &lt;- length(idsElig)
+  
+  nMig &lt;- 0
+  if (nElig &gt; 0) {
+    ratesElig &lt;- rates[as.numeric(status == &quot;i&quot;) + 1]
+    vecMig &lt;- which(rbinom(nElig, 1, ratesElig) == 1)
+    if (length(vecMig) &gt; 0) {
+      idsMig &lt;- idsElig[vecMig]
+      nMig &lt;- length(idsMig)
+      
+      dat$attr$active[idsMig] &lt;- 0
+      dat$attr$exitTime[idsMig] &lt;- at
+      dat$nw &lt;- deactivate.vertices(dat$nw, onset = at, terminus = Inf, 
+                                    v = idsMig, deactivate.edges = TRUE)
+    }
+  }
+  
+  # Summary statistics
+  if (at == 2) {
+    dat$epi$omig.flow &lt;- c(0, nMig)
+  } else {
+    dat$epi$omig.flow[at] &lt;- nMig
+  }
+  
+  return(dat)
+}</code></pre>
+<p>The out-migration rates here are specified as a vector of length 2, where the first element is the rate for the susceptibles and the second the rate for the infecteds. We generate a vector for each eligible node for the transition by looking up those nodes disease status and applying the rates with <code>rates[as.numeric(status == &quot;i&quot;) + 1]</code>. First, we convert the character values to numeric using a logical indicator, then add 1 to the value to properly index the rate values according to their place in the vector. We then record the size of the out-flows by adding new data to <code>dat$epi</code>, as mentioned in the introduction.</p>
+</div>
+<div id="in-migration-module" class="section level2">
+<h2>In-Migration Module</h2>
+<p>The in-migration process will not be a function of the current network size but an expected count per time step. Furthermore, there is a fixed probability that will determine whether the incoming nodes are infected (versus susceptible). This is functionally similar to births, since a number of new entries must be specified, those new nodes added to the network, and the nodal attributes of those new nodes specified. Finally, we keep track of the number of new in-migrations per unit time.</p>
+<pre class="r"><code>inmigrate &lt;- function(dat, at) {
+  
+  # Variables
+  nw &lt;- dat$nw
+  n &lt;- network.size(nw)
+  active &lt;- dat$attr$active
+  
+  exp.inmig &lt;- dat$param$exp.inmig
+  risk &lt;- dat$param$imig.risk
+  tea.status &lt;- dat$control$tea.status
+  
+  # Add Nodes
+  nMig &lt;- 0
+  idsElig &lt;- which(active == 1)
+  nElig &lt;- length(idsElig)
+  if (nElig &gt; 0) {
+    nMig &lt;- rpois(1, exp.inmig)
+    if (nMig &gt; 0) {
+      dat$nw &lt;- add.vertices(dat$nw, nv = nMig)
+      newNodes &lt;- (n + 1):(n + nMig)
+      dat$nw &lt;- activate.vertices(dat$nw, onset = at, terminus = Inf,
+                                  v = newNodes)
+    }
+  }
+  
+  # Update attributes
+  if (nMig &gt; 0) {
+    dat$attr$active &lt;- c(dat$attr$active, rep(1, nMig))
+    newStatus &lt;- rbinom(nMig, 1, risk)
+    newStatus &lt;- ifelse(newStatus == 1, &quot;i&quot;, &quot;s&quot;)
+    if (tea.status == TRUE) {
+      dat$nw &lt;- activate.vertex.attribute(dat$nw, prefix = &quot;testatus&quot;, value = newStatus, 
+                                          onset = at, terminus = Inf, v = newNodes)
+    }
+    dat$attr$status &lt;- c(dat$attr$status, newStatus)
+    infTime &lt;- ifelse(newStatus == &quot;i&quot;, at, NA)    
+    dat$attr$infTime &lt;- c(dat$attr$infTime, infTime)
+    dat$attr$entrTime &lt;- c(dat$attr$entrTime, rep(at, nMig))
+    dat$attr$exitTime &lt;- c(dat$attr$exitTime, rep(NA, nMig))
+  }
+  
+  # Summary statistics
+  if (at == 2) {
+    dat$epi$imig.flow &lt;- c(0, nMig)
+  } else {
+    dat$epi$imig.flow[at] &lt;- nMig
+  }
+  
+  return(dat)
+}</code></pre>
+<p>For the newly arriving nodes, we must set all three of the core attributes mentioned in the introduction: <code>active</code>, <code>status</code>, <code>infTime</code>, <code>entrTime</code>, and <code>exitTime</code>.</p>
+</div>
+</div>
+<div id="model-parameterization" class="section level1">
+<h1>Model Parameterization</h1>
+<div id="network-model" class="section level2">
+<h2>Network Model</h2>
+<p>This will be same network model as before. The dissolution coefficient is now adjusted by a weighted average of the out-migration rates of the susceptible and infected at the outset.</p>
+<pre class="r"><code>nw &lt;- network.initialize(500, directed = FALSE)
+est &lt;- netest(nw, formation = ~edges, target.stats = 150, 
+              coef.diss = dissolution_coefs(~offset(edges), 60, 0.0046))</code></pre>
+</div>
+<div id="epidemic-model" class="section level2">
+<h2>Epidemic Model</h2>
+<p>For the model parameters, we will be simulating an SIS model so we will need an infection probability and recovery rate per unit time. These parameters will have the same function as all the built-in SIS models as we have not changed anything related to these two processes. There will also be three new parameters:</p>
+<ul>
+<li><code>omig.rates</code>: a vector of length 2 containing the out-migration rates for the susceptibles and infecteds, respectively</li>
+<li><code>exp.inmig</code>: the number of expected in-migrations at each time step. This is simply a fixed count; the actual number of in-migrations at each time step will be a draw from a Poisson distribution with rate set to that parameter.</li>
+<li><code>inmig.risk</code>: the probability that each new in-migrant is infected at entry.</li>
+</ul>
+<pre class="r"><code>param &lt;- param.net(inf.prob = 0.2, rec.rate = 0.02, 
+                   omig.rates = c(0.005, 0.001), exp.inmig = 3, imig.risk = 0.1)
+init &lt;- init.net(i.num = 50)</code></pre>
+<p>For the control settings, the usual settings for the model type, number of simulations, and number of time steps are used. In addition, we specify the new modules into EpiModel with the <code>.FUN</code> approach, in which each module is identified and refers to a specific module function. As noted above, additional modules will be run in the order in which you place them in <code>control.net</code>; if it were necessary that the in-migration module be run first, their ordering could be switched below.</p>
+<pre class="r"><code>control &lt;- control.net(type = &quot;SIS&quot;, nsims = 5, nsteps = 500, 
+                       omig.FUN = outmigrate, imig.FUN = inmigrate, 
+                       depend = TRUE, save.network = FALSE)</code></pre>
+<p>Finally, the <code>depend</code> argument must again be set to <code>TRUE</code> to tell <code>netsim</code> to resimulate the network at each time step, because this does not happen automatically with expansion models like this.</p>
+</div>
+<div id="model-results" class="section level2">
+<h2>Model Results</h2>
+<p>The model is simulated similar as the built-in models.</p>
+<pre class="r"><code>mod &lt;- netsim(est, param, init, control)</code></pre>
+<p>The mode output is as follows. Note that the flows now contain the in and out-migration flows that were stored in these modules, in addition to the incidence and recovery flows.</p>
+<pre class="r"><code>mod</code></pre>
+<pre><code>## EpiModel Simulation
+## =======================
+## Model class: netsim
+## 
+## Simulation Summary
+## -----------------------
+## Model type: SIS
+## No. simulations: 5
+## No. time steps: 500
+## No. NW modes: 1
+## 
+## Model Parameters
+## -----------------------
+## inf.prob = 0.2
+## rec.rate = 0.02
+## omig.rates = 0.005 0.001
+## exp.inmig = 3
+## imig.risk = 0.1
+## act.rate = 1
+## 
+## Model Output
+## -----------------------
+## Variables: s.num i.num num omig.flow imig.flow is.flow 
+## si.flow
+## Transsmissions: sim1 ... sim5</code></pre>
+<pre class="r"><code>plot(mod)</code></pre>
+<p><img src="d3-tut4_files/figure-html/Ex2print-1.png" width="672" /></p>
+<p>These are the smoothed means for the migration flows over time.</p>
+<pre class="r"><code>par(mfrow = c(1, 2))
+plot(mod, y = &quot;omig.flow&quot;, main = &quot;Out Migration&quot;)
+plot(mod, y = &quot;imig.flow&quot;, main = &quot;In Migration&quot;)</code></pre>
+<p><img src="d3-tut4_files/figure-html/Ex2plot-1.png" width="672" /></p>
+<br>
+<hr style="background-color:#909090;height:1px;width:100%">
+<p><small> <em>Last updated:</em> 2017-06-28 with EpiModel v1.5.0 </small></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Day 1 | Network Models and HIV/STI with EpiModel | Harvard 2017" />
+
+
+<title>Tutorial 2: Dynamic Network Modeling with STERGMs in EpiModel</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">NME HSPH</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://epimodel.org/">
+    <span class="fa fa-database"></span>
+     
+    EpiModel
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Tutorial 2: Dynamic Network Modeling with STERGMs in EpiModel</h1>
+<h4 class="author"><em>Day 1 | Network Models and HIV/STI with EpiModel | Harvard 2017</em></h4>
+
+</div>
+
+
+<p>Tutorial by Martina Morris, Steven M. Goodreau and Samuel M. Jenness. Based on packages developed by the <em>statnet Development Team</em>.</p>
+<div id="set-up" class="section level1">
+<h1>Set-up</h1>
+<p>Set the seed for reproducability, if you wish:</p>
+<pre class="r"><code>set.seed(0)</code></pre>
+<p>and load the EpiModel package, which automatically loads all of the other statnet packages we need:</p>
+<pre class="r"><code>library(EpiModel)</code></pre>
+</div>
+<div id="scenario-1-msm-networks" class="section level1">
+<h1>Scenario 1: MSM Networks</h1>
+<p>Imagine that we wish to model networks of “men who have sex with men” (MSM) in steady partnerships, with the ultimate goal of exploring HIV dynamics in this population.</p>
+<p>We collect egocentric data that suggest that:</p>
+<ul>
+<li>The average MSM is in 0.4 ongoing partnerships</li>
+<li>The average ongoing partnership lasts 90 time steps.</li>
+</ul>
+<p>We wish to start simply by just generating a dynamic network that retains these two features on average over time, and is otherwise random.</p>
+<div id="model-parameterization" class="section level2">
+<h2>Model Parameterization</h2>
+<p>We begin by creating an empty network (i.e. a network with no edges) but with nodes. For now, we will make all the nodes the same, i.e. without any individual nodal attributes. Let us say that we wish to do our simulations on a dynamic network with 100 nodes.</p>
+<pre class="r"><code>net1 &lt;- network.initialize(100, directed = FALSE)</code></pre>
+<p>Now, we need to identify the terms for our relational model. This is easy: since we are considering a purely homogeneous process right now, the only term in the formation model is <code>~edges</code>. Indeed, dissolution is also purely homogeneous, so it is also <code>~edges</code>.</p>
+<p>Now, we need to calculate our target statistic for the formation model, i.e. the number of edges we expect in the network on average. The answer is:</p>
+<p><span class="math display">\[\frac{(100)(0.4)}{2} = 20\]</span></p>
+<p>Why did we divide by two?</p>
+<p>Now, to estimate the coefficients for our model–both formation and dissolution–we turn to <code>EpiModel</code>, and specifically, the <code>netest</code> function.</p>
+<p>We will estimate our formation and dissolution models sequentially; first the dissolution model, and then the formation model conditional on the dissolution model. To do the former, we use the <code>dissolution.coefs</code> function, passing in the dissolution model terms and the durations associated with it. Note that, we need a way to let the formation estimation know that the dissolution model will consist of a fixed parameter rather than one to be estimated. In <code>EpiModel</code> (and in R more generally) this is done by placing a model term inside the function offset().</p>
+<pre class="r"><code>coef.diss.1 &lt;- dissolution_coefs(~offset(edges), 90)
+coef.diss.1</code></pre>
+<pre><code>Dissolution Coefficients
+=======================
+Dissolution Model: ~offset(edges)
+Target Statistics: 90
+Crude Coefficient: 4.488636
+Mortality/Exit Rate: 0
+Adjusted Coefficient: 4.488636</code></pre>
+<p>For now, do not worry about the adjusted coefficient and the death rate; we will return to these down the road once we’ve added vital dynamics to our models. But notice that the dissolution coefficient that is returned by this function equals <span class="math inline">\(ln(90-1)\)</span>.</p>
+</div>
+<div id="model-fitting" class="section level2">
+<h2>Model Fitting</h2>
+<p>Now we fit our formation model conditional on this:</p>
+<pre class="r"><code>fit1 &lt;- netest(net1, 
+               formation = ~edges, 
+               target.stats = 20,
+               coef.diss = coef.diss.1)</code></pre>
+<p>Querying the contents of <code>fit1</code> with the summary command provides us an overview of the model fit:</p>
+<pre class="r"><code>summary(fit1)</code></pre>
+<pre><code>
+==========================
+Summary of model fit
+==========================
+
+Formula:   nw ~ edges
+&lt;environment: 0x7ff3cc3e00d0&gt;
+
+Iterations:  7 out of 20 
+
+Monte Carlo MLE Results:
+      Estimate Std. Error MCMC % p-value    
+edges   -5.507      0.224      0  &lt;1e-04 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Log-likelihood was not estimated for this fit.
+To get deviances, AIC, and/or BIC from fit `object$fit` run 
+  &gt; object$fit&lt;-logLik(object$fit, add=TRUE)
+to add it to the object or rerun this function with eval.loglik=TRUE.
+
+Dissolution Coefficients
+=======================
+Dissolution Model: ~offset(edges)
+Target Statistics: 90
+Crude Coefficient: 4.488636
+Mortality/Exit Rate: 0
+Adjusted Coefficient: 4.488636</code></pre>
+<p>But of course what we really want to know is whether a dynamic network simulated from this model retains the cross-sectional structure and relational durations that we asked it to. To check this, we use the <code>netdx</code> (“net diagnostics”) command to both conduct the simulation and compile the results for comparison to our expectations. We will include a flag to keep the “timed edgelist”, a means for storing data on every edge in the network over time in a data.frame. This is FALSE by default since it can become very large for long simulations, and is not generally needed when only looking to confirm that the sufficient statistics are matched. Here it is worth getting a sense of its contents.</p>
+</div>
+<div id="model-simulation" class="section level2">
+<h2>Model Simulation</h2>
+<pre class="r"><code>sim1 &lt;- netdx(fit1, nsteps = 1000, nsims = 10,
+              keep.tedgelist = TRUE)</code></pre>
+<pre><code>
+Network Diagnostics
+-----------------------
+- Simulating 10 networks
+  |**********|
+- Calculating formation statistics
+- Calculating duration statistics
+  |**********|
+- Calculating dissolution statistics
+  |**********|
+ </code></pre>
+<p>Does our formation model lead to a dynamic network that stochastically captures our target statistic of 20 edges in the cross-section? We can get an overview by printing the simulated object:</p>
+<pre class="r"><code>sim1</code></pre>
+<pre><code>EpiModel Network Diagnostics
+=======================
+Diagnostic Method: Dynamic
+Simulations: 10
+Time Steps per Sim: 1000
+
+Formation Diagnostics
+----------------------- 
+      Target Sim Mean Pct Diff Sim SD
+edges     20   19.856   -0.007  4.238
+
+Dissolution Diagnostics
+----------------------- 
+               Target Sim Mean Pct Diff Sim SD
+Edge Duration  90.000   78.925   -0.123 79.464
+Pct Edges Diss  0.011    0.011    0.014  0.024</code></pre>
+<p>And we can get a visual sense of the network structure over time with:</p>
+<pre class="r"><code>plot(sim1, type = &quot;formation&quot;)</code></pre>
+<p><img src="d1-tut2_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>And of the relational durations with:</p>
+<pre class="r"><code>plot(sim1, type = &quot;duration&quot;)</code></pre>
+<p><img src="d1-tut2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>We note a period of “ramping up” at the beginning. Why is this?</p>
+<p>An equivalent way to examine the dissolution model that is not subject to the ramping up is with:</p>
+<pre class="r"><code>plot(sim1, type = &quot;dissolution&quot;)</code></pre>
+<p><img src="d1-tut2_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Finally, we look at the first few rows of the timed edgelist, out of curiosity:</p>
+<pre class="r"><code>sim1$tedgelist[[1]][1:5,]</code></pre>
+<pre><code>  onset terminus tail head onset.censored terminus.censored duration
+1     0      108   84    5           TRUE             FALSE      108
+2     0        2   59    8           TRUE             FALSE        2
+3     0       11   57    9           TRUE             FALSE       11
+4     0      118   66   11           TRUE             FALSE      118
+5     0        8   47   12           TRUE             FALSE        8
+  edge.id
+1       1
+2       2
+3       3
+4       4
+5       5</code></pre>
+<p>One can choose to explore this further in a host of ways. Can you identify what each query is doing?</p>
+<pre class="r"><code>tel &lt;- sim1$tedgelist[[1]]
+hist(tel$duration)</code></pre>
+<p><img src="d1-tut2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r"><code>mean(tel$duration[tel$onset &lt; 100])</code></pre>
+<pre><code>[1] 80.18519</code></pre>
+<pre class="r"><code>sum(tel$terminus.censored == TRUE)</code></pre>
+<pre><code>[1] 22</code></pre>
+<pre class="r"><code>plot(tel$onset, tel$terminus)</code></pre>
+<p><img src="d1-tut2_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
+<pre class="r"><code>table(c(tel$head,tel$tail))</code></pre>
+<pre><code>
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18 
+  6   4   6  11   5   4   7   7   3   7   7   8   8   5   9   7   2   4 
+ 20  21  23  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39 
+  4   4   4   4   6   6   3   4   6   2   9   7   5   4   9   4   9   4 
+ 40  41  42  43  44  45  46  47  48  49  50  51  52  53  54  55  56  57 
+  1   7   8   1   5   3   3   5   8   5   3   2   5   5   8   7  10  10 
+ 58  59  60  61  62  63  64  65  66  67  68  69  71  72  73  74  75  76 
+  7   4   9   6   4   3   5   4   6   8   5   9   4   4   8   8   9   3 
+ 77  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94 
+  6   6   3   2   5   7   6  11   4   1   4   2   6   4   4   4   1   4 
+ 95  96  97  98  99 100 
+ 10   7   7   4   3   5 </code></pre>
+<pre class="r"><code>hist(table(c(tel$head,tel$tail)))</code></pre>
+<p><img src="d1-tut2_files/figure-html/unnamed-chunk-13-3.png" width="672" /></p>
+<p>You may also wish to examine the network at specific time points, or visualize the entire network with a dynamic plot. These features are not available for the <code>netdx</code> command specifically, but we will be able to use them tomorow when we begin with epidemic simulation on the networks.</p>
+</div>
+</div>
+<div id="scenario-2-modifying-network-size" class="section level1">
+<h1>Scenario 2: Modifying Network Size</h1>
+<p>What if instead we had done a network of 1000, but with the same observed data? What values would we need to change in our calls? (Note: from now on, we will simplify our calls somewhat and save ourselves a step by nesting the dissolution call directly inside the formation one.)</p>
+<pre class="r"><code>net2 &lt;- network.initialize(1000, directed = FALSE)
+fit2 &lt;- netest(net2, 
+   formation = ~edges, 
+   target.stats = 200,
+   coef.diss = dissolution_coefs(~offset(edges), 90))
+sim2 &lt;- netdx(fit2, nsteps = 1000, nsims = 10, keep.tedgelist = TRUE)</code></pre>
+<pre><code>
+Network Diagnostics
+-----------------------
+- Simulating 10 networks
+  |**********|
+- Calculating formation statistics
+- Calculating duration statistics
+  |**********|
+- Calculating dissolution statistics
+  |**********|
+ </code></pre>
+<pre class="r"><code>plot(sim2, type = &quot;formation&quot;)</code></pre>
+<p><img src="d1-tut2_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<pre class="r"><code>plot(sim2, type = &quot;duration&quot;)</code></pre>
+<p><img src="d1-tut2_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<pre class="r"><code>plot(sim2, type = &quot;dissolution&quot;)</code></pre>
+<p><img src="d1-tut2_files/figure-html/unnamed-chunk-14-3.png" width="672" /></p>
+<p>Lesson learned from Scenario 2: remember to change your target stats when you change your network size. Better yet, make your target stats functions of your network size instead of fixed values!</p>
+</div>
+<div id="scenario-3-adding-ergm-terms" class="section level1">
+<h1>Scenario 3: Adding ERGM Terms</h1>
+<p>Now we want to ramp up the complexity of our model a bit. For example, let us imagine we wish to control aspects of the momentary degree distribution, as well as race mixing. Conveniently, we happen to be working in a community in which 50% of MSM are Black and 50% are White. And our egocentric partnership data say:</p>
+<ul>
+<li>There are no significant differences in the distribution of momentary degree (the number of ongoing partnerships at one point in time) reported by Black vs. White men. The mean is 0.90, and the overall distribution is:</li>
+<li>36% degree 0</li>
+<li>46% degree 1</li>
+<li><p>18% degree 2+</p></li>
+<li><p>83.3% (i.e. 5/6) of relationships are racially homogeneous</p></li>
+</ul>
+<p>We also have data (from these same men, or elsewhere) that tell us that the mean duration for a racially homogenous relationship is 100 weeks, while for a racially mixed one it is 200 weeks. Perhaps this is because the social pressure against cross-race ties makes it such that those who are willing to enter them are a select group more committed to their relationships.</p>
+<div id="model-parameterization-1" class="section level2">
+<h2>Model Parameterization</h2>
+<p>The size of the network we wish to simulate is again arbitrary; let us pick 500. Our first step, then, is to create a 500-node undirected network, and assign the first half of the nodes to race “B” and the second to race “W”.</p>
+<pre class="r"><code>n &lt;- 500
+net3 &lt;- network.initialize(n, directed = FALSE) 
+net3 %v% &quot;race&quot; &lt;- c(rep(&quot;B&quot;, n/2), rep(&quot;W&quot;, n/2))
+net3</code></pre>
+<pre><code> Network attributes:
+  vertices = 500 
+  directed = FALSE 
+  hyper = FALSE 
+  loops = FALSE 
+  multiple = FALSE 
+  bipartite = FALSE 
+  total edges= 0 
+    missing edges= 0 
+    non-missing edges= 0 
+
+ Vertex attribute names: 
+    race vertex.names 
+
+No edge attributes</code></pre>
+<pre class="r"><code>form.formula.3 &lt;- ~edges + nodematch(&quot;race&quot;) + degree(0) + concurrent
+target.stats.3 &lt;- c(0.9*n/2, (0.9*n/2)*(5/6), 0.36*n, 0.18*n)</code></pre>
+<p>How did we get those expressions? Why don’t we specify <code>degree(1)</code> as well?</p>
+<p>Now we turn to dissolution. This is complicated slightly by the fact that our dissolution probabilities differ by the race composition of the members. One dissolution formula for representing this is:</p>
+<pre class="r"><code>diss.formula.3 &lt;- ~offset(edges) + offset(nodematch(&quot;race&quot;))</code></pre>
+<p>And fortunately, <code>dissolution_coef</code> is able to handle this model, as one can see by visiting its help page:</p>
+<pre class="r"><code>?dissolution_coefs</code></pre>
+</div>
+<div id="model-fitting-1" class="section level2">
+<h2>Model Fitting</h2>
+<p>We also see there that it expects us to pass our durations in the order [mean edge duration of non-matched dyads, mean edge duration of matched dyads]. For us this means <code>c(200, 100)</code>. Thus:</p>
+<pre class="r"><code>fit3 &lt;- netest(net3,
+             formation = form.formula.3,
+             target.stats = target.stats.3,
+             coef.diss = dissolution_coefs(~offset(edges) + offset(nodematch(&quot;race&quot;)), 
+                                           c(200, 100)))</code></pre>
+<pre><code>Unable to match target stats. Using MCMLE estimation.</code></pre>
+</div>
+<div id="model-simulation-1" class="section level2">
+<h2>Model Simulation</h2>
+<p>And simulate:</p>
+<pre class="r"><code>sim3 &lt;- netdx(fit3, nsteps = 1000, nsims = 10, keep.tedgelist = TRUE)</code></pre>
+<pre><code>
+Network Diagnostics
+-----------------------
+- Simulating 10 networks
+  |**********|
+- Calculating formation statistics
+- Calculating duration statistics
+  |**********|
+- Calculating dissolution statistics
+  |**********|
+ </code></pre>
+<p>We query the object as before to see if it worked:</p>
+<pre class="r"><code>sim3</code></pre>
+<pre><code>EpiModel Network Diagnostics
+=======================
+Diagnostic Method: Dynamic
+Simulations: 10
+Time Steps per Sim: 1000
+
+Formation Diagnostics
+----------------------- 
+               Target Sim Mean Pct Diff Sim SD
+edges           225.0  227.257    0.010 13.213
+nodematch.race  187.5  190.286    0.015 12.486
+degree0         180.0  178.134   -0.010 13.019
+concurrent       90.0   91.705    0.019  9.935
+
+Dissolution Diagnostics
+----------------------- 
+               Target Sim Mean Pct Diff Sim SD
+Edge Duration   2e+02   94.312   -0.528 94.097
+Pct Edges Diss  5e-03    0.009    0.824  0.006
+----------------------- 
+* Heterogeneous dissolution model results averaged over</code></pre>
+<p>Alas, we see that for now the functionality does not disaggregate the different kinds of partnerships for the duration. Let’s try the plots instead:</p>
+<pre class="r"><code>plot(sim3, type = &quot;formation&quot;)</code></pre>
+<p><img src="d1-tut2_files/figure-html/unnamed-chunk-22-1.png" width="672" /> Nice.</p>
+<pre class="r"><code>plot(sim3, type = &quot;duration&quot;)</code></pre>
+<pre><code>Error: Duration plots for heterogeneous dissolution models not currently available </code></pre>
+<p>Still no luck. This is not available as an automatic feature, so instead we will need to do this by hand. In order to minimize censoring, let us look at the final duration of all relationships that began within the first 100 time steps of the simulation, and divide these by race composition:</p>
+<pre class="r"><code>race &lt;- net3 %v% &quot;race&quot;
+tel3 &lt;- sim3$tedgelist[[1]]
+mean(tel3$duration[(race[tel3$tail] != race[tel3$head]) &amp; tel3$onset &lt; 100])</code></pre>
+<pre><code>[1] 224.0889</code></pre>
+<pre class="r"><code>mean(tel3$duration[(race[tel3$tail] == race[tel3$head]) &amp; tel3$onset &lt; 100])</code></pre>
+<pre><code>[1] 93.31818</code></pre>
+<p>The model appears to be accurately separating out race-homogeneous and race-heterogeneous ties for different dissolution probabilities, all while maintaining the correct cross-setional structure.</p>
+</div>
+</div>
+<div id="scenario-4-full-stergm" class="section level1">
+<h1>Scenario 4: Full STERGM</h1>
+<p>Now let us imagine that our relationship durations are much shorter; we repeat the last model, but instead this time have 10 and 20 timesteps.</p>
+<p>You might think that we simply need to change the code to reflect these new durations:</p>
+<pre class="r"><code>fit4 &lt;- netest(net3,
+       formation = form.formula.3,
+       target.stats = target.stats.3,
+       coef.diss = dissolution_coefs(~offset(edges)+offset(nodematch(&quot;race&quot;)), 
+                                     c(20, 10)))</code></pre>
+<pre><code>Unable to match target stats. Using MCMLE estimation.</code></pre>
+<pre><code>Starting maximum likelihood estimation via MCMLE:
+Iteration 1 of at most 20: 
+The log-likelihood improved by 0.07832 
+Step length converged once. Increasing MCMC sample size.
+Iteration 2 of at most 20: 
+The log-likelihood improved by 0.004094 
+Step length converged twice. Stopping.
+
+This model was fit using MCMC.  To examine model diagnostics and check for degeneracy, use the mcmc.diagnostics() function.</code></pre>
+<p>But notice what happens when we simulate:</p>
+<p>Did we hit the target statistics?</p>
+<pre class="r"><code>sim4 &lt;- netdx(fit4, nsteps = 1000, nsims = 10, keep.tedgelist = TRUE)</code></pre>
+<pre><code>
+Network Diagnostics
+-----------------------
+- Simulating 10 networks
+  |**********|
+- Calculating formation statistics
+- Calculating duration statistics
+  |**********|
+- Calculating dissolution statistics
+  |**********|
+ </code></pre>
+<pre class="r"><code>plot(sim4, type = &quot;formation&quot;)</code></pre>
+<p><img src="d1-tut2_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p>The number of edges is consistently too high by just a little bit.</p>
+<p>This is because, unbenowsnt to you, we have until now <em>not</em> really been fitting a STERGM model. It turns out that when relational durations are short (perhaps less than 25-50 time steps or so), STERGM estimation is generally efficient and stable. When they are long, however, this is not the case; estimation can be slow (perhaps several hours) and unstable. We can get a sense for why if we think about the basic algorithm for model estimation in a STERGM:</p>
+<ol style="list-style-type: decimal">
+<li>Begin with an initial guess as the model coefficients</li>
+<li>Simulate multiple time steps using these</li>
+<li>Compare both the cross-sectional structure and the pattern of change between adjacent time steps to the expectations for these based on beginning with a set of</li>
+<li>Update the coefficients accordingly</li>
+<li>Repeat Steps 2-4 until some criterion of convergence is acheived.</li>
+</ol>
+<p>The problem for this case is that, when relationships are very long, the expected amount of change from one time step to the next is almost 0. That makes estimation for such a model both unstable and slow.</p>
+<p>The good news is that Carnegie et al. (2014) demonstrate that one can approximate the coefficients of a formation model in a STERGM with a much simpler call to an ERGM, in the case where all of the terms in the dissolution model are also in the formation model. Moreover, this approximation works best in <em>precisely</em> those cases when precise MLE estimation is most difficult—when relationship durations are long. And for relationships on the order of 100 times steps or more, it generally works so well that the means of the simulated statistics from the model are indistinguishable from the target stats, as we saw in the previous three cases. Because of this, using the approximation is the default behavior in EpiModel.</p>
+<p>In this case, however, we can readily see that the approxiation is not accurate enough for our purposes. This is just one of many reasons why it is <strong>critical</strong> to always check model dianostics. Here, we see that want to move to a full estimation; to do so, we need only add in the flag <code>edapprox</code>:</p>
+<pre class="r"><code>fit5 &lt;- netest(net3,
+         formation = form.formula.3,
+         target.stats = target.stats.3,
+         coef.diss = dissolution_coefs(~offset(edges) + offset(nodematch(&quot;race&quot;)), 
+                                       c(20, 10)),
+         edapprox = FALSE)</code></pre>
+<pre><code>Unable to match target stats. Using MCMLE estimation.</code></pre>
+<pre><code>Starting maximum likelihood estimation via MCMLE:
+Iteration 1 of at most 20: 
+The log-likelihood improved by 0.05479 
+Step length converged once. Increasing MCMC sample size.
+Iteration 2 of at most 20: 
+The log-likelihood improved by 0.001792 
+Step length converged twice. Stopping.
+
+This model was fit using MCMC.  To examine model diagnostics and check for degeneracy, use the mcmc.diagnostics() function.
+========  Phase 1: Burn in, get initial gradient values, and find a configuration under which all targets vary. ========
+Burning in... Done.
+Attempt 1 :
+All parameters have some effect and all statistics are moving. Proceeding to Phase 2.
+========  Phase 2: Find and refine the estimate. ========
+Subphase 2.1 /////\\/\\\\\
+Subphase 2.2 \\\\//////////////////////////////////////\\/\\\\\
+Subphase 2.3 \\\\\
+Subphase 2.4 \/\\//\\/////////////////////////////////////////////\/\/\\\///\\\\\
+========  Phase 3: Simulate from the fit and estimate standard errors. ========
+Subphase 2.5 \\/\/\//\\\\\
+========  Phase 3: Simulate from the fit and estimate standard errors. ========</code></pre>
+<p>Now, did we hit the target statistics?</p>
+<pre class="r"><code>sim5 &lt;- netdx(fit5, nsteps = 1000, nsims = 10, keep.tedgelist = TRUE)</code></pre>
+<pre><code>
+Network Diagnostics
+-----------------------
+- Simulating 10 networks
+  |**********|
+- Calculating formation statistics
+- Calculating duration statistics
+  |**********|
+- Calculating dissolution statistics
+  |**********|
+ </code></pre>
+<pre class="r"><code>plot(sim5, type = &quot;formation&quot;)</code></pre>
+<p><img src="d1-tut2_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p>Much better. And how about duration?</p>
+<pre class="r"><code>race &lt;- net3 %v% &quot;race&quot;
+tel5 &lt;- sim5$tedgelist[[1]]
+mean(tel5$duration[(race[tel5$tail] != race[tel5$head]) &amp; tel5$onset &lt; 100])</code></pre>
+<pre><code>[1] 18.36986</code></pre>
+<pre class="r"><code>mean(tel5$duration[(race[tel5$tail] == race[tel5$head]) &amp; tel5$onset &lt; 100])</code></pre>
+<pre><code>[1] 10.15022</code></pre>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<ol style="list-style-type: decimal">
+<li><p>Carter T. Butts, Ayn Leslie-Cook, Pavel N. Krivitsky, and Skye Bender-deMoll. <code>networkDynamic</code>: Dynamic Extensions for Network Objects. The Statnet Project <a href="http://www.statnet.org" class="uri">http://www.statnet.org</a>, 2013. R package version 0.6. <a href="http://CRAN.R-project.org/package=networkDynamic" class="uri">http://CRAN.R-project.org/package=networkDynamic</a></p></li>
+<li><p>Krivitsky, P.N., Handcock, M.S,(2014). A separable model for dynamic networks <em>JRSS Series B-Statistical Methodology</em>, 76 (1):29-46; 10.1111/rssb.12014 JAN 2014.</p></li>
+<li><p>Pavel N. Krivitsky. Modeling of Dynamic Networks based on Egocentric Data with Durational Information. Pennsylvania State University Department of Statistics, 2012(2012-01). <a href="http://stat.psu.edu/research/technical-reports/2012-technical-reports" class="uri">http://stat.psu.edu/research/technical-reports/2012-technical-reports</a></p></li>
+<li><p>Pavel N. Krivitsky and Mark S. Handcock. <code>tergm</code>: Fit, Simulate and Diagnose Models for Network Evoluation based on Exponential-Family Random Graph Models. The Statnet Project <a href="http://www.statnet.org" class="uri">http://www.statnet.org</a>, 2013. R package version 3.1-0. <a href="http://CRAN.R-project.org/package=tergm" class="uri">http://CRAN.R-project.org/package=tergm</a>.</p></li>
+</ol>
+<br>
+<hr style="background-color:#909090;height:1px;width:100%">
+<p><small> <em>Last updated:</em> 2017-06-26 with EpiModel v1.5.0 and tergm v3.4.0 </small></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
