@@ -12,6 +12,7 @@ directories:
   - $HOME/bin
 
 script:
+- cd "website"
 - Rscript -e 'blogdown::install_hugo()'
 - Rscript -e 'setwd("website");blogdown::build_site()'
 
