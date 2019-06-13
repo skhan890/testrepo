@@ -18,8 +18,8 @@ script:
 
 deploy:
   provider: pages
-skip_cleanup: true
-on:
-  branch: master
-local_dir: docs
-fqdn: travis-blogdown.yihui.name
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
+  local_dir: public
