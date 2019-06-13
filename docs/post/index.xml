@@ -2,21 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on WHAMP</title>
-    <link>/WHAMP/post/</link>
+    <link>/testrepo/post/</link>
     <description>Recent content in Posts on WHAMP</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 14 Jun 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/WHAMP/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/testrepo/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Discussion Questions</title>
-      <link>/WHAMP/post/2019/06/14/discussion-questions/</link>
+      <link>/testrepo/post/2019/06/14/discussion-questions/</link>
       <pubDate>Fri, 14 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>/WHAMP/post/2019/06/14/discussion-questions/</guid>
+      <guid>/testrepo/post/2019/06/14/discussion-questions/</guid>
+      <description>We envision different kinds of analyses that could be done with the WHAMP model related to ADAP and/or PrEP-DAP. We would like your thoughts on the kinds of analyses that would be of greatest interest to you and the kinds of outputs / projections that would be most useful in informing your work.
+Evaluating impact of program changes1. What are the kinds of ADAP and/or PrEP-DAP changes/scenarios that you would like to evaluate using the WHAMP model?</description>
+    </item>
+    
+    <item>
+      <title>Discussion Questions: June 14, 2019</title>
+      <link>/testrepo/post/2019/06/14/discussion-questions-june-14-2019/</link>
+      <pubDate>Fri, 14 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/testrepo/post/2019/06/14/discussion-questions-june-14-2019/</guid>
       <description>We envision different kinds of analyses that could be done with the WHAMP model related to ADAP and/or PrEP-DAP. We would like your thoughts on the kinds of analyses that would be of greatest interest to you and the kinds of outputs / projections that would be most useful in informing your work.
 Evaluating impact of program changes1. What are the kinds of ADAP and/or PrEP-DAP changes/scenarios that you would like to evaluate using the WHAMP model?</description>
     </item>

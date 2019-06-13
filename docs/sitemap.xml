@@ -3,33 +3,38 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/WHAMP/post/2019/06/14/discussion-questions/</loc>
+    <loc>/testrepo/post/2019/06/14/discussion-questions/</loc>
     <lastmod>2019-06-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/WHAMP/</loc>
+    <loc>/testrepo/post/2019/06/14/discussion-questions-june-14-2019/</loc>
     <lastmod>2019-06-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/WHAMP/post/</loc>
+    <loc>/testrepo/</loc>
+    <lastmod>2019-06-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/testrepo/post/</loc>
     <lastmod>2019-06-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/WHAMP/categories/</loc>
+    <loc>/testrepo/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/WHAMP/tags/</loc>
+    <loc>/testrepo/tags/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/WHAMP/about/</loc>
+    <loc>/testrepo/about/</loc>
   </url>
   
 </urlset>
