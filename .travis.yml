@@ -12,8 +12,8 @@ directories:
   - $HOME/bin
 
 script:
+- Rscript -e 'install.packages("blogdown", force=T)'
 - Rscript -e 'setwd("website")'
-- Rscript -e 'blogdown::install_hugo()'
 - Rscript -e 'blogdown::build_site()'
 
 deploy:
