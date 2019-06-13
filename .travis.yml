@@ -12,9 +12,7 @@ directories:
   - $HOME/bin
 
 script:
-- Rscript -e 'install.packages("blogdown", force=T)'
-- Rscript -e 'setwd("website")'
-- Rscript -e 'blogdown::build_site()'
+- Rscript -e 'setwd("website");blogdown::build_site()'
 
 deploy:
   provider: pages
