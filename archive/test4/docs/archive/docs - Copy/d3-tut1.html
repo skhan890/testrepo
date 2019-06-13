@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Day 3 | Network Models and HIV/STI with EpiModel | Harvard 2017" />
+
+
+<title>Tutorial 1: Dynamic Network Visualization</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">NME HSPH</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://epimodel.org/">
+    <span class="fa fa-database"></span>
+     
+    EpiModel
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Tutorial 1: Dynamic Network Visualization</h1>
+<h4 class="author"><em>Day 3 | Network Models and HIV/STI with EpiModel | Harvard 2017</em></h4>
+
+</div>
+
+
+<p>This tutorial shows two forms of dynamic visualization of the spread of infectious disease over networks using the <code>ndtv</code> package for R. <code>ndtv</code> is part of the larger Statnet suite of software for the representation, modeling, and analysis of network data. It has been designed to work with EpiModel data.</p>
+<div id="setup" class="section level1">
+<h1>Setup</h1>
+<p>We start by loading both EpiModel and ndtv.</p>
+<pre class="r"><code>library(&quot;EpiModel&quot;)
+library(&quot;ndtv&quot;)</code></pre>
+<p>In general, the purpose of dynamic network visualization is to gain insight into how the structure of networks over time can influence transmission dynamics. This is related to, but different from, estimating large-scale epidemic properties such as disease incidence or prevalence. Whereas the latter may require large networks (thousands of nodes) over large numbers of time steps (decades of time), visualization usually benefits from a small network size over a short number of time steps.</p>
+</div>
+<div id="network-model" class="section level1">
+<h1>Network Model</h1>
+<p>This shows an SI epidemic in a closed population where the infection probability is 1, but using an interesting network model that incorporates heterogeneous activity and age mixing (we’ll pretend that age is fixed here). That will allow us to see a visualization of the <em>forward reachable path</em> where infection is a deterministic function of the presence of an edge.</p>
+<p>To get started, initialize an empty network and randomly assign demographic attributes for race and age. You may change the parameters for the distributions of these traits.</p>
+<pre class="r"><code>nw &lt;- network.initialize(n = 100, directed = FALSE)
+nw &lt;- set.vertex.attribute(nw, &quot;race&quot;, rbinom(100, 1, 0.5))
+nw &lt;- set.vertex.attribute(nw, &quot;age&quot;, sample(18:50, 100, TRUE))</code></pre>
+<p>In this network model, we will model the overall network density, a higher mean degree in the Race 1 group, assortative mixing by age, and a higher than expected propensity for concurrency.</p>
+<pre class="r"><code>formation &lt;- ~edges + nodefactor(&quot;race&quot;) + absdiff(&quot;age&quot;) + concurrent
+target.stats &lt;- c(50, 70, 100, 30)
+coef.diss &lt;- dissolution_coefs(dissolution = ~offset(edges), duration = 20)
+est &lt;- netest(nw, formation, target.stats, coef.diss, verbose = FALSE)</code></pre>
+<p>Since this will be forward reachable path analysis, the transmission probability will equal 1. To demonstrate this visualization, we only need to simulate the epidemic once over a short number of time steps.</p>
+<pre class="r"><code>param &lt;- param.net(inf.prob = 1)
+init &lt;- init.net(i.num = 1)
+control &lt;- control.net(type = &quot;SI&quot;, nsteps = 25, nsims = 1, verbose = FALSE)
+sim &lt;- netsim(est, param, init, control)</code></pre>
+</div>
+<div id="network-visualization" class="section level1">
+<h1>Network Visualization</h1>
+<p><code>ndtv</code> is an extension package in <code>Statnet</code> that allows for dynamic visualization for networks over time. Because this involves animation processing, this may requires some heavy duty computation.</p>
+<div id="extract-and-process-the-networks" class="section level2">
+<h2>Extract and Process the Networks</h2>
+<p>First we need to extract the network objects from the larger <code>netsim</code> object.</p>
+<pre class="r"><code>nw &lt;- get_network(sim)</code></pre>
+<p>Next, we need to add a time-varying nodal attribute to each network that we will animate. This will allow <code>ndtv</code> to color the nodes by disease status over time. See the help documentation for <code>color_tea</code> to see some of the options and details for this step.</p>
+<pre class="r"><code>nw &lt;- color_tea(nw, verbose = FALSE)</code></pre>
+</div>
+<div id="set-animation-options" class="section level2">
+<h2>Set Animation Options</h2>
+<p>There are lots of possibilities for how to model our networks over time. Here we animate the first 25 time steps of the simulation.</p>
+<pre class="r"><code>slice.par &lt;- list(start = 1, end = 25, interval = 1, 
+                  aggregate.dur = 1, rule = &quot;any&quot;)
+render.par &lt;- list(tween.frames = 10, show.time = FALSE)
+plot.par &lt;- list(mar = c(0, 0, 0, 0))</code></pre>
+</div>
+<div id="compute-the-dynamic-nodal-coordinates" class="section level2">
+<h2>Compute the Dynamic Nodal Coordinates</h2>
+<p>This step figures out where the nodes should be displayed in each animation frame. There are several dynamic layout options available, but we use the defaults here.</p>
+<pre class="r"><code>compute.animation(nw, slice.par = slice.par, verbose = TRUE)</code></pre>
+</div>
+</div>
+<div id="create-nodal-attribute-markers" class="section level1">
+<h1>Create Nodal Attribute Markers</h1>
+<p>In the network plot, we will use different shapes to distinguish the different race groups, and then use different sizes to show age. Shapes network plots are parameterized by the number of vertex sides, so 4 = a square and 50 = a circle (effectively). For age, we need to divide age by a constant to get the proportions for the sizes in a workable range (this is with trial and error).</p>
+<pre class="r"><code>race &lt;- get.vertex.attribute(nw, &quot;race&quot;)
+race.shape &lt;- ifelse(race == 1, 4, 50)
+
+age &lt;- get.vertex.attribute(nw, &quot;age&quot;)
+age.size &lt;- age/25</code></pre>
+<div id="animate-and-save" class="section level2">
+<h2>Animate and Save</h2>
+<p>Finally, we render the animation and save it out to an HTML file using the d3 Javascript library. Note where we have input our nodal attribute markers. This makes for nice-looking animations within webpages. See the <code>ndtv</code> help for all the potential options in this step.</p>
+<pre class="r"><code>render.d3movie(
+    nw,
+    render.par = render.par,
+    plot.par = plot.par,
+    vertex.cex = age.size,
+    vertex.sides = race.shape,
+    vertex.col = &quot;ndtvcol&quot;,
+    edge.col = &quot;darkgrey&quot;,
+    vertex.border = &quot;lightgrey&quot;,
+    displaylabels = FALSE,
+    filename = paste0(getwd(), &quot;/movie.html&quot;))</code></pre>
+<br>
+<hr style="background-color:#909090;height:1px;width:100%">
+<p><small> <em>Last updated:</em> 2017-06-28 with EpiModel v1.5.0 </small></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
