@@ -14,7 +14,7 @@ directories:
 script:
 - cd "website"
 - Rscript -e 'blogdown::install_hugo()'
-- Rscript -e 'setwd("website");blogdown::build_site()'
+- Rscript -e 'blogdown::build_site()'
 
 deploy:
   provider: pages
