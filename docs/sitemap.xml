@@ -24,6 +24,22 @@
   </url>
   
   <url>
+    <loc>/testrepo/post/2019/06/13/test/</loc>
+    <lastmod>2019-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/testrepo/website/</loc>
+    <lastmod>2019-06-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/testrepo/website/post/asdf/</loc>
+    <lastmod>2019-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/testrepo/categories/</loc>
     <priority>0</priority>
   </url>
