@@ -14,7 +14,7 @@ footnotereturnlinkcontents = "↩"
 
 [[menu.main]]
     name = "WHAMP"
-    url = "/"
+    url = ".."
     weight = 1
 
 [params]
