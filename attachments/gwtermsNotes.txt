@@ -1,0 +1,112 @@
+From morrism@U.WASHINGTON.EDU Mon Nov 10 11:40:54 2014
+Date: Mon, 10 Nov 2014 11:38:18 -0800
+From: martina morris <morrism@U.WASHINGTON.EDU>
+To: SOCNET@LISTS.UFL.EDU
+Subject: Re: Interpretation of GWDEGREE
+
+*****  To join INSNA, visit http://www.insna.org  *****
+
+Hi Mark,
+
+Here's how I like to think about this.
+
+There are two parameters in the gw-terms, and the overall effect on the 
+odds of a tie is a product of the two, given the way the statistic is 
+constructed.  That's why these are called "curved terms".
+
+You can think of the gwdegree term as having the form
+
+beta * f(y, alpha)
+
+This has the usual form parameter*statistic, except that there is a second 
+parameter, alpha, in the statistic itself.  The statistic essentially sums 
+the number of nodes of each degree, except that alpha modifies the value 
+of that number, as a function of degree.
+
+Alpha essentially imposes a rate of decay by degree, so the higher degree 
+nodes contribute less to the statistic than the lower.  It can be 
+interpreted as the declining marginal return for each additional tie (or 
+additional shared partner for gw(e/n/d)sp).  So yes, this does relate to 
+the preferential attachment concept (more below).
+
+Beta controls the overall propensity for degree (or shared partners).
+
+A good way to start to interpret the parameters is to set alpha=0, and 
+look at the change statistics (you can do this by calculating the f(y, 
+alpha) statistic with and without a proposed tie).  Setting alpha=0 has 
+the effect of making only the first tie for a node count as a change; so 
+the possible values of the change statistic are
+
+0 (if both nodes already have other ties),
+1 (if one node was an isolate), and
+2 (if both nodes were isolates).
+
+Beta then multiplies this, so it can be interpreted as how the odds of a 
+tie change, as a function of the change in the number of nodes that are no 
+longer isolates when it is toggled on.
+
+Of course, interpretation depends on the other terms in the model, and in 
+general you would have an edges term in to control overall density.  In 
+that case, beta would reflect a propensity against/for isolates (for 
+positive/negative estimates respectively), relative to a random graph 
+with this density.
+
+When alpha > 0, there is no discontinuity at 1 vs more, but instead a 
+continuous decline in the value of additional partners, where the rate of 
+decline falls as alpha increases.  For alpha=inf, there is no declining 
+marginal return, the odds of a tie don't depend on the degrees of the 
+nodes (and for shared partners, you're back to the triangle term).
+
+So, in answer to your question, it's the alpha parameter that is the 
+"anti-preferential attachment" component.  As it varies from 0 to inf., it 
+never represents preferential attachment -- at inf., ties are just 
+independent of degree.  But the smaller the value of alpha, the more 
+anti-preferential the degree distribution will be.
+
+I found it helped me to understand these terms by making up an excel 
+spreadsheet to calculate the term itself, and the change statistics.  If 
+you think something like this might help, I can clean mine up and make it 
+available.
+
+best,
+Martina
+
+On Mon, 10 Nov 2014, Lubell, Mark wrote:
+
+> *****  To join INSNA, visit http://www.insna.org  *****
+>
+> Dear SOCNET:
+>
+> My research group is having an internal debate about how to interpret the geometrically weighted degree parameter for ERGM models, as implemented in Statnet.  If anybody has a good paper or presentation discussing interpretation (beyond the various papers introducing the calculation and estimation), I would love to know about them.
+>
+> In particular, is GWDEGREE an anti-preferential attachment term such that a positive coefficient produces a low variance degree distribution, or does a positive coefficient produce a high variance degree distribution with a centralized network?  And if you have a low variance degree distribution....what is the best way to think about the social processes generating a decentralized network?
+>
+> Thanks, Mark Lubell
+> UC Davis
+>
+> _____________________________________________________________________
+> SOCNET is a service of INSNA, the professional association for social
+> network researchers (http://www.insna.org). To unsubscribe, send
+> an email message to listserv@lists.ufl.edu containing the line
+> UNSUBSCRIBE SOCNET in the body of the message.
+>
+
+****************************************************************
+  Professor of Sociology and Statistics
+  Director, UWCFAR Sociobehavioral and Prevention Research Core
+  Box 354322
+  University of Washington
+  Seattle, WA 98195-4322
+
+  Office:        (206) 685-3402
+  Dept Office:   (206) 543-5882, 543-7237
+  Fax:           (206) 685-7419
+
+morrism@u.washington.edu
+http://faculty.washington.edu/morrism/
+
+_____________________________________________________________________
+SOCNET is a service of INSNA, the professional association for social
+network researchers (http://www.insna.org). To unsubscribe, send
+an email message to listserv@lists.ufl.edu containing the line
+UNSUBSCRIBE SOCNET in the body of the message.
