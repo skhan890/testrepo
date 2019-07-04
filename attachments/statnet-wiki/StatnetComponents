@@ -1,0 +1,70 @@
+[[Include(statnetnav)]]
+
+= statnet Components =
+A list of the core packages and extensions that are part of the statnet software.
+
+* [[#Description|Description]]
+* [[#CorePackages|Core Packages]]
+* [[#ExtensionPackages|Extension Packages]]
+* [[Installation|Instructions for downloading and installing R and statnet]]
+
+
+== Description ==
+
+* '''statnet''' is integrated set of tools for the statistical analysis of network data.  It consists of many component packages that implement statistical representation, estimation, visualization, analysis, and simulation of network data. The ''''statnet''' package itself is a 'meta' package that depends on a set of core packages to provide its basic functionality for static and dynamic network modeling.  Installing '''statnet''' implements this functionality using the R mechanism of "Depends" which can be seen [http://cran.r-project.org/web/packages/statnet/ here].  Many packages have been written that extend the basic functionality of statnet to a range network-related applications from epidemic models and valued ties to relational event models, network movie making, and writing custom terms.  
+
+Users can either install '''statnet''', which will automatically install the core packages and their dependencies, or individual packages from either the core or extended list (which will automatically install the necessary dependencies for that individual package). 
+
+The current core packages and extensions are listed below.  The statnet development team releases updates and bug fixes a couple of times each year.  So if it has been a few months since you installed the software, you should check for updates. 
+
+-------
+
+
+== Core Packages ==
+
+* [http://cran.r-project.org/web/packages/ergm  ergm] is a collection of functions to fit, simulate from, plot and evaluate exponential family random graph models. The main functions within the ergm package are ''ergm'', a function to fit exponential-family random graph models in which the probability of a network is dependent upon a vector of network statistics specified by the user; ''simulate'', a function to simulate random networks using an ERGM; and ''gof'', a function to evaluate the goodness of fit of an ERGM to the data. ergm contains many other functions as well; for a guide to the basic types of functionality these functions provide, see Hunter et al. (2008), Morris, Handcock, and Hunter (2008), and Goodreau et al. (2008). The ergm package also contains some of the classic network datasets (including Sampson's monastery data and the Padgett Florentine networks). The list of available datasets can be found by typing the R command: data(). The datasets are listed at the end of the output. [http://cran.r-project.org/web/packages/ergm/news.html news and changes] 
+
+* [http://cran.r-project.org/web/packages/network network] is a package to create, store, modify and plot the data in network objects. The network object class, defined in the network package (Butts, Handcock, and Hunter 2007; Butts 2008), can represent a range of relational data types and it supports arbitrary vertex / edge / network attributes. Data stored as network objects can then be analyzed using all of the component packages in the statnet suite. [http://cran.r-project.org/web/packages/network/ChangeLog news and changes] 
+
+* [http://cran.r-project.org/web/packages/networkDynamic networkDynamic]: A package with routines to facilitate the handling of network objects with complex temporal data. (Leslie-Cook, Almquist, Krivitsky, Bender-deMoll, Hunter, Morris, Butts 2012). [http://cran.r-project.org/web/packages/networkDynamic/ChangeLog new and changes] 
+
+* [http://cran.r-project.org/web/packages/statnet.common/ statnet.common]: Common R scripts and utilities used by the statnet project software. 
+
+* [http://cran.r-project.org/web/packages/tergm/ tergm]: Separable Temporal ERGMs for modeling discrete relational dynamics with statnet  (Krivitsky and Handcock 2013) [http://cran.r-project.org/web/packages/tergm/news.html news and changes] 
+
+-------
+
+
+== Extension Packages ==
+
+* [http://cran.r-project.org/web/packages/degreenet/ degreenet]: This package was developed for the degree distributions of networks. It implements likelihood-based inference, bootstrapping, and model selection, and it includes power-law models such as the Yule and Waring as well as a range of alternative models that have been proposed in the literature. (Handcock 2003b). The theory behind these methods is described in Jones and Handcock (2003a,b); Handcock and Jones (2004, 2006). 
+
+* [http://cran.r-project.org/web/packages/EpiModel/ EpiModel]: Tools for building, solving, and plotting mathematical models of infectious disease, including stochastic models of disease on dynamic networks with demographic processes.  [http://cran.r-project.org/web/packages/EpiModel/news.html news and changes] 
+
+* [http://cran.r-project.org/web/packages/ergm.count/ ergm.count]:  A set of extensions for the ergm package to fit weighted networks whose edge weights are counts.  (Krivitsky, 2012). 
+
+* [http://cran.r-project.org/web/packages/ergm.userterms/ ergm.userterms]: A template package that demonstrates to users how to write user-specified statistics for use in ergm models.  (Handcock, Hunter, Butts, Goodreau, Krivitsky, Morris 2012). 
+
+* [http://cran.r-project.org/web/packages/latentnet/ latentnet]: A package to fit and evaluate latent position and cluster models for statistical networks based on Hoff, Raftery, and Handcock (2002) and Handcock, Raftery, and Tantrum (2007). The probability of a tie is expressed as a function of distances between these nodes in a latent space as well as functions of observed dyadic level covariates. For details about this package, see Krivitsky and Handcock (2008). [http://cran.r-project.org/web/packages/latentnet/ChangeLog news and changes] 
+
+* [http://cran.r-project.org/web/packages/ndtv/ ndtv] (Network Dynamic Temporal Visualization): Exports dynamic network data in the form of networkDynamic objects as animated movies or other representations of relational structure and node attributes that change over time (Bender-deMoll 2012). [http://cran.r-project.org/web/packages/ndtv/ChangeLog news and changes] 
+
+* [http://cran.r-project.org/web/packages/networkDynamicData/ networkDynamicData]: A collection of puplic dynamic network datasets from various sources and multiple authors represented in networkDynamic format 
+
+* [http://cran.r-project.org/web/packages/networksis/ networksis]: A package to simulate bipartite networks with fixed marginals through sequential importance sampling (Admiraal and Handcock 2007). 
+
+* [http://cran.r-project.org/web/packages/relevent/ relevent]: A package with tools to fit relational event models (Butts 2012). [http://cran.r-project.org/web/packages/relevent/ChangeLog news and changes] 
+
+* [http://cran.r-project.org/web/packages/sna/ sna]: A set of tools for traditional social network analysis (Butts 2008). [http://cran.r-project.org/web/packages/sna/ChangeLog news and changes] 
+
+Information on these packages is available in the online users guide and in their runtime help files. These packages are installed during the standard statnet installation process, or during any update. These packages also require other R packages for their use that are automatically installed during the installation process.
+
+The following optional packages are available on request from their authors. 
+
+* '''rSonia''': Provides a set of methods to facilitate exporting data and parameter settings and launching SoNIA, which stands for Social Network Image Animator (Bender-deMoll and !McFarland 2003). SoNIA http://sonia.stanford.edu facilitates interactive browsing of dynamic network data and exporting animations as a !QuickTime Apple (1999) movies. Much of this functionality is now provided by the '''ndtv''' package. Skye Bender deMoll ({{{skyebend@skyeome.net}}})
+
+* '''netperm 0.2''': This package provides simulation and inference tools for exponential families of permutation models on relational structures (Butts 2006)  contact Carter Butts for more information.
+
+== Dependency graph ==
+
+For the curious, here is [https://statnet.csde.washington.edu/trac/raw-attachment/wiki/StatnetComponents/dependencyNet.dot.pdf  a PDF image of the statnet packages and required dependences] as of January 2014.  The statnet-maintained packages are in red, black arrows indicate Dependency and Import relationship, gray arrows are Suggests. 

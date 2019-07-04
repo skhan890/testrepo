@@ -1,0 +1,78 @@
+[[Include(statnetnav)]]
+
+= 2014 EUSN Conference statnet Workshop Page =
+
+(Last updated: 26/06/14)
+
+Welcome to social network analysis with R and statnet!  On this page, you will find all the information you need to prepare for this year's EUSN workshops. Please check this site periodically for updates and announcements.  If you have additional questions, please email us at [mailto:statnet_help@u.washington.edu statnet_help].
+
+The sections below cover the following topics:
+
+* [[#WorkshopSessions|List of workshops]]
+* [[#Preparation|Preparation]] (NB: it is important for you to follow these instructions before the workshop)
+* [[#Prerequisites|Recommended prerequisites for each workshop]]
+* [[#WorkshopMaterials|Workshop materials]] (tutorials and slides) for download and printing (NB:  we will not distribute hardcopy handouts at the workshops)
+
+== Workshop Sessions ==
+
+We are offering two workshops at EUSN:
+
+
+- [http://jornades.uab.cat/eusn/content/exponential-random-graph-models-ergms-using-statnet Exponential-Family Random Graph Modeling (ERGMs) with statnet]. Instructor: Morris, Goodreau and Bojanowski. Time: Tuesday July 1, 16.00 - 19.00
+
+- [http://jornades.uab.cat/eusn/content/temporal-exponential-random-graph-models-tergms-dynamic-network-modeling-statnet Temporal Exponential-Family Random Graph Modeling (TERGMs) for dynamic network modeling with statnet]. Instructor: Goodreau, Morris and Bojanowski. Time: Wednesday July 2, 8.30 - 11.30
+
+-------
+
+== Preparation ==
+
+* For the workshops, you will need the latest versions of the statnet packages from CRAN.
+
+  * If you have not installed statnet before, please see the [[Installation]] instruction page.  
+  * If you have installed statnet packages before, you should either perform a fresh install or update.
+  * Make sure you have the package(s) needed for your workshop (these are listed in the [[#WorkshopMaterials|Workshop materials]] below)
+
+* The statnet workshops are designed as hands-on labs, and are best experienced interactively using your own laptop and software installation. If you would like to simply listen and try out the exercises later, that is fine too -- however, we do ask that attendees who plan on using their laptops during the workshop install the required software before the workshop begins. 
+
+* Workshop materials will be posted here before the workshop; downloading and printing is optional, but may make it easier to follow along on your own.
+
+* Workshop participants with problems or questions regarding software installation prior to the workshop should email [mailto:goodreau@uw.edu Steve Goodreau] or [mailto:morrism@uw.edu Martina Morris].
+
+-------
+
+== Prerequisites ==
+
+Although the workshop sessions may be taken independently by those having prior experience with R and statnet, we strongly recommend the following prerequisites:
+
+ * All workshops: [[http://statnet.csde.washington.edu/EpiModel/nme/2014/prep-tut-R.html | R tutorial]]
+
+ * Exponential-Family Random Graph Modeling with statnet::
+  Prerequisites: [[http://jornades.uab.cat/eusn/content/introduction-social-network-analysis-r | Introduction to Social Network Analysis with R]]
+
+ * Temporal Exponential-Family Random Graph Modeling with statnet::
+  Prerequisites: ''Exponential-family Random Graph Modeling with statnet'' (materials below)
+
+--------
+
+== Workshop Materials ==
+
+Workshop materials will be posted here as they are completed, for the convenience of session attendees. 
+  * ''Packages required'' lists the statnet packages you'll need
+  * ''Electronic Handouts'' contain the tutorial for the workshop.  It's handy to have an electronic copy of this during the workshop to cut and paste commands into R as we go along.
+  * ''R File'' contains all of the commands from the turorial in a single R file.  This can be very handy for copying and pasting as you follow along, rather than typing.
+
+Attendees should download all the files needed for their respective workshop sessions and save them in a convenient spot. This section will be updated regularly.
+
+=== Exponential-family Random Graph Modeling (ERGMs) with statnet ===
+
+* Packages required: ergm (dependencies loaded automatically)
+* Intro slides: [[http://statnet.csde.washington.edu/workshops/EUSN/current/ergm/ergm_intro.pdf | ergm_intro.pdf]] 
+* Electronic handouts: [[http://statnet.csde.washington.edu/workshops/EUSN/current/ergm/ergm_tutorial.html | ergm_tutorial.html]]
+* R code: [[http://statnet.csde.washington.edu/workshops/EUSN/current/ergm/ergm_tutorial.R | ergm_tutorial.R]]
+
+=== Temporal Exponential-Family Random Graph Modeling (TERGMs) with statnet ===
+
+* Packages required: tergm (dependencies loaded automatically)
+* Intro slides: [[http://statnet.csde.washington.edu/workshops/EUSN/current/tergm/tergm_intro_slides.pdf | tergm_intro_slides.pdf]] 
+* Electronic handouts: [[http://statnet.csde.washington.edu/workshops/EUSN/current/tergm/tergm_tutorial.html | tergm_tutorial.html]]
+* R code: [[http://statnet.csde.washington.edu/workshops/EUSN/tergm/current/tergm_tutorial.R | tergm_tutorial.R]]

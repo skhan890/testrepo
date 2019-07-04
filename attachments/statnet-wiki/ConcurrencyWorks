@@ -1,0 +1,22 @@
+= CONCURRENCY TUTORIALS =
+
+== How concurrency works (and does not) ==
+
+Probably the most important—and most misunderstood—aspect of concurrency is the question of who it puts at risk.  Most people are used to thinking about risk of disease for individuals, due to factors about that individual.  For example, we often think about how someone having a particular gene or eating a particular diet will increase that person’s risk of developing diabetes.  For infectious diseases, we do the same:  does attending day care affect a child’s risk of acquiring the flu? Does consuming alcohol before sex affect one’s risk of acquiring an STI?
+
+The tricky thing about concurrency is that it doesn’t work the way we are used to thinking.  For instance, if a man has two partners concurrently, then he will have the exact same risk of acquiring an STI as if he had had those same two partners sequentially, all else being equal.  But he will have a higher chance of passing the infection on to one of his partners.  Thus, the person put at risk by concurrency is not the person with the concurrent partners, but his or her partners. The exercises that follow will demonstrate how and why concurrency works this way, and what the implications are.
+
+One important thing we can already see is that this feature of concurrency thus makes it very difficult to actually detect concurrency at work in spreading STIs.  Most disease studies look at individual factors (behaviors, genes, etc.) as predictors of individual risk, for at least two reasons: (1) this matches how we are used to thinking about risk (see above); and (2) this is a relatively familiar and feasible way of designing a study of disease.  
+
+'''However, if one collects data on the number and timing of people’s sexual relationships, and then compares those with concurrent partners to those without concurrent partners (controlling for cumulative number of partners over time), one will probably not find that those with concurrent partners are more likely to have or to acquire HIV or any another STI. But, this does not mean that concurrency is not increasing the spread of STIs; instead, it simply means that one is looking for the effect in the wrong person. ''' 
+
+The exercises on this website explain why this is so.
+
+[ConcurrencyDefinition Back to What Concurrency Is (and Is Not)]
+
+[ConcurrencyGoals Forward to What this Website Is (and Is Not)]
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

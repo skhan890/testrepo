@@ -1,0 +1,22 @@
+= CONCURRENCY TUTORIALS =
+
+== What concurrency is (and is not) ==
+
+'''Relational concurrency''' refers to the situation in which one individual is involved in '''two or more relationships that overlap in time'''.  
+
+Concurrency is '''not''' simply a synonym for multiple partnerships. The phrase “multiple partnerships” is typically used in HIV/STI epidemiology to refer the case of people having multiple sex partners over the course of some time period—for example, a year. Within this definition, each pair of multiple partners can be sequential (one ends before the next one begins; also called serial monogamy), or they can be concurrent.  In order for someone to have concurrent partnerships, they must have multiple partnerships (at least two); but the reverse is not necessarily true—one can have multiple partners without having concurrent partners.
+
+In the following examples, let the red line represent the time that person A is in a sexual relationship with person B, and the blue line represent the time that person A is in a sexual relationship with person C. All three cases represent Person A having multiple (specifically two) partners.  But only in the latter two cases does Person A have concurrent partners.  Sometimes researchers distinguish between these two forms of concurrency by referring to them as “transitional concurrency” and “embedded concurrency”.
+
+[[Image(concurrency.png, 600px)]]
+
+Having multiple sexual partners will typically increase the potential for a person to acquire or transmit an STI, when compared to the same person having just one partner.  This is true regardless of whether those multiple partners are sequential or concurrent.  But '''the importance of concurrent partnerships is that they greatly increase the potential for an STI to spread, above and beyond multiple partnerships that are sequential'''.  As we progress through the exercises on this website, we will explore how and why this is, and what the implications are.
+
+[ConcurrencyIndex Return to Index]
+
+[ConcurrencyWorks Forward to How Concurrency Works (and Doesn’t)]
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

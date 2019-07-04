@@ -1,0 +1,84 @@
+= Network Modeling for Epidemics (NME) = 
+
+'''6 day Summer Workshop[[br]]
+University of Washington, Seattle WA[[br]]
+July 8-13, 2013'''
+
+Mathematical modeling plays a growing role in infectious disease epidemiology, for studying the dynamics of pathogen invasion and persistence, understanding the sources of disease disparities among populations, and predicting the impact of interventions.   Deterministic compartmental models (based on ordinary differential equations) have been the traditional basis for this work during the past two decades.   Recent advances in statistical theory and methods have given rise to a new class of stochastic “agent-based” network models, however, and these models are more appropriate for small scale assessments, where the effects of chance lead to wide variation in potential outcomes, or when infection is spread by a small number of highly structured contacts, as with HIV and other STIs. 
+
+This course will provide an introduction to the new stochastic network models for epidemiology, with a focus on empirically based modeling of HIV transmission and control.  It will be a “hands-on” course, with integrated lectures and computer lab sessions devoted to programming.  Labs will be based on the user-friendly computational tools available in the package “'''statnet'''” (a free package that uses the R programming language).  The '''statnet''' package is designed to allow users to estimate generative network models from empirical data, and then use those models to simulate dynamic transmission networks with the observed properties. The new “'''epinetsim'''” tools for '''statnet''' provide utilities for simulating the transmission of infections across the dynamic network, and visualizing the results.  The course outline for the week is:
+
+ Monday July 8th:: Introduction to epidemic modeling[[br]]
+  Deterministic and stochastic models for epidemics[[br]]
+  ''Lab'': Programming simple deterministic and stochastic SIR models
+
+ Tuesday July 9th:: Classical network analysis[[br]]
+  Introduction to Exponential Random Graph Models (ERGMs) for networks[[br]]
+  ''Lab'': Using '''statnet''' for static network modeling and visualization
+
+ Wednesday July 10th:: ERGMs:  Separable temporal ERGMs (STERGMs) for dynamic networks[[br]]
+  Egocentric network data in ERGMs and STERGMs[[br]]
+  ''Lab'': Using '''statnet''' for dynamic network modeling and visualization
+
+ Thursday July 11th:: Epidemic models on networks: Independent network and epidemic processes[[br]]
+  ''Lab'': Using the '''epinetsim''' epidemic modeling tools
+
+ Friday July 12th:: Epidemic models on networks: Dependent network and epidemic processes[[br]]
+  ''Lab'': '''epinetsim''' and dynamic network models with vital dynamics
+
+ Saturday July 13th:: Open, to discuss projects and research ideas of interest to students[[br]]
+  Saturday attendance is optional
+
+Participants will develop the basic tools and knowledge needed to specify and program models for their own research projects.
+[[br]]
+
+------
+
+== LOGISTICS ==
+
+'''Dates''':   	Monday, July 8 – Saturday, July 13, 2013
+
+'''Times''': 		10 am (sharp) – 4 pm
+
+'''Location''': 	Main campus of the University of Washington in Seattle
+
+'''Instructors''': 	Professors Martina Morris and Steven Goodreau
+
+'''Costs''':		Registration is $250
+On-campus housing will be available for about $70/night.
+A small number of fellowships will be provided to predoctoral students and/or international (non-US/Canada) scholars
+
+'''Target audience''':	Researchers and students in any field with an interest in epidemic modeling
+
+'''Course webpage''':	https://statnet.csde.washington.edu/trac/wiki/NME2013
+
+'''Prior experience''':	Basic familiarity with R is required (but see below). Previous modeling experience (broadly defined) is recommended. 
+
+Those with general statistical/modeling skills but no knowledge of R may apply now, and
+obtain familiarity with R in the interim, via
+
+http://www.cran.r-project.org/manuals.html or
+http://csde.washington.edu/courses/statcore/RIntro/
+
+------
+
+== TO APPLY FOR THIS COURSE: ==
+
+Complete the application form at https://catalyst.uw.edu/webq/survey/goodreau/191141
+
+Attendance is limited to 30 participants; preference will be given to applicants with prior experience and an active research project that uses mathematical modeling.
+
+=== Application dates ===	
+
+'''Mar 1''' deadline for those who wish to apply for fellowship support or on-campus housing. Decisions made by Mar 15.
+
+We will accept other applications on a rolling basis until the workshop limit is reached through '''April 1'''. Final decisions made by Apr 15.
+
+------
+
+'''Questions?'''  Email us:  goodreau at uw.edu, morrism at uw.edu
+
+Steven M. Goodreau / Assoc. Professor / Dept. of Anthropology / University of Washington 
+http://faculty.washington.edu/goodreau
+
+Martina Morris / Professor of Sociology and Statistics / University of Washington http://faculty.washington.edu/morrism/

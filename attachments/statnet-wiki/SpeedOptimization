@@ -1,0 +1,46 @@
+== Optimizing Performance of network and networkDynamic ==
+
+In the process of doing debugging and speed optimization, We learned some surprising things.  This page is to collect various tips and techniques for writing efficient statnet code:
+
+* As with almost any R object, making an assignment to modify part of the object induces a deep copy of the object. 
+  
+  So avoid as many assignments as possible (i.e. don't store anything in the network you don't need to, modify as many things as possible in the same call)
+
+
+* get.vertex.attribute  is faster if some of its defaults are turned off.
+  
+  {{{get.vertex.attribute(net,"a",null.na=FALSE,unlist=FALSE)}}} is in some cases twice as fast as {{{get.vertex.attribute(net,"a")}}}.  This assumes of course that you are OK getting your results in a list and can have NULLs instead of NA for your missing value
+
+* Setting via the "%" shortcuts are slower than the named version of the same function
+
+  {{{ net%v%'a'<-5}}} induces an extra network copy and so is slower than {{{set.vertex.attribute(net,'a',5)}}}  See #643
+
+
+* "at" queries are usually faster than "interval"  queries
+
+  {{{is.active(nD,at=5)}}} usually faster than {{{is.active(nD,onset=5,terminus=6)}}}
+
+* Avoid using {{{network.collapse}}} if you can use {{{network.extract}}}. 
+  network.collapse does *a lot* more expensive work so extract is much better if you just care about getting the correct edgeset for the time query
+
+* Avoid using {{{network.extract}}} if you can use one of the active query functions instead
+
+* Using {{{network.extract(trim.spells=TRUE)}}} will be much slower than the default {{{network.extract(trim.spells=FALSE)}}}
+  Especially if there are TEA attributes in the network
+
+* If you need to make even small modifications to the network, it can often be faster to initialize an empty network, readd edges, and copy over attributes, than to copy the whole network and then make the modifications needed.
+
+The optimization below is no longer needed as of network version 1.9
+
+* In some functions it is necessary to "touch" a network object to trigger R to copy it. Currently it is using the "$<-.network" shortcut, in the form of 
+{{{
+  x$RIsTooLazy<-NULL   
+}}}
+which actually triggers THREE copies, since the function sets the class of x twice and assigns a value to {{{x[[i]]}}}  once! Avoid this by explicitly copying the network:
+
+{{{
+x<-network.copy(x)
+}}}
+
+This seems to be gone in the trunk version (in favor of copying the object in C?). Is that safe to do, and is it good practice?
+

@@ -1,0 +1,134 @@
+= CONCURRENCY TUTORIALS =
+
+== R tutorial ==
+
+R is a statistical programming language that combines the data analysis power of a statistics package like Stata, SAS, or SPSS with the flexibility of a computer language like C++. It is free and open-source.  Perhaps its greatest feature is that it provides a standardized system for users to share code with one another (through “contributed packages” posted on the R website), so that new users often find that many of their programming tasks have already been completed by others.  This allows users to avoid the enormous duplication of effort that has plagued programming (and epidemic modeling) in the past, and instead focus on performing novel work.
+
+'''Step 1''' in using R is to download and install R. Simply go to [http://www.r-project.org], click on “CRAN” on the left, select a site near you, select “Download R” for your platform, and follow the instructions.
+
+'''Step 2''' is to open R.  The details for doing so depend on your system, but are standard for that system.  For example, in Windows, you can click on the desktop icon (if you allowed it to be created during installation), or find R in the Programs list.  Regardless of your system, you will see the same R logo: a big blue “R”.
+
+'''Step 3''' is to learn the basics of how R file management works. All of the objects that you produce during a session—things like data tables or other kinds of output—are known as objects.  And all of those objects are, by default, stored together in one data file, with the extension .RData.  (Note the capital “D”).  One can store them differently, if one chooses, but we will go with the default here.  Commands can be entered into the command line directly, or they can be loaded in from a text file (which typically has the extension .R).
+
+'''Step 4''' is to learn a few more things: 
+
+1. The command line is indicated by a “>”.  
+2. If one types in a command but presses enter before finishing it, the “>” will change to a “+”, indicating that R is expecting more input.
+3. The symbol “#” indicates a comment.  Any line below that begins with a #, or any portion of a line to the right of a # symbol, will not be processed by R, but is there simply to provide info to the user.
+4. Often, when one receives output back from R, it begins with the notation [1].  This just means that the output contains one or more elements, and begins with element 1.
+
+'''Step 5''' is to dive in and explore R, with the code below.  You can choose to either copy each line (or sets of lines) from the tutorial below and paste it into R, or type it into R by hand.  Note that any line that begins with a # (or any portion to the right of a #) does not need to be copied or typed in; if one does, it will simply be ignored. This tutorial contains every command that we will be using in our concurrency simulation exercise.
+
+
+{{{
+
+################################################################# 
+# R tutorial
+#################################################################
+
+
+############## BASICS ######################################################################################
+
+# Comments begin with a #
+3*2					 # R include basic arithmetical operations, of course
+a <- 3					 # To assign a value to a variable, use <- (Pronounced "gets")
+a					 # To evaluate an object, type its name
+a*2
+b <- a/2
+b
+a == 3					 # To test the value of an object, use ==
+a^2 == 8				 # To test the value of an object, use ==
+
+round(4.2)				 # R also contains many named arithmetical functions.
+
+ls()					 # To see the list of objecs that have been created
+
+############## VECTORS ######################################################################################
+# R relies heavily on vectors of numbers
+
+rep(4,10)				 # To create a vector of one element repeated many times, use "rep".
+d <- c(4,3,1,7)				 # To create a vector with different elements, use "c" (for combine).
+d
+c(rep(9,5),6)				 # These can be combined, of course.  
+1:10					 # Colon notation gives a vector of sequential integers
+d[2]					 # Square brackets pull out elements from a vector – this gets the second element in d
+d[2:3]
+d[-2]					 # Negative in a bracket means "eveything but"
+f <- vector()				 # To make a vector but leave it empty for the moment, use vector()
+f					 # logical(0) just means that this is a vector of length 0
+length(d)				 # To see the length of a vector, use the length function	
+mean(d)					 # Basic arithmetic functions for vectors
+d == 4					 # Evaluation can be done for vectors too.
+which(d==4)				 # Returns the positions of the elements that fulfill a criterion
+
+############## DATA FRAMES ###################################################################################
+# R also works with data frames; this is the preferred format for datasets 
+# 	(with the standard form of rows as observations, columns as measures).
+
+h <- data.frame(row.names=1:10)		 # When creating data frames, it is useful to assign row names
+h$id <- 1:10				 # Columns in data frames are identified by the operator $
+h$sex <- c(rep('F',5),rep('M',5))	
+h
+h[7,]					 # Pull out a row by position
+h[,2]					 # Pull out a column by position
+h$sex					 # Pull out a column by name
+dim(h)					 # Provides the dimensions of a data frame (rows first, columns second)
+dim(h)[1]				 # The outputs of functions are themselves objects, which can be operated on in turn.  R relies heavily on this.
+	
+############### OTHER #########################################################################################
+if (a>5) {j <- 99} 			 # "If" statements
+j
+if (a>2) {j <- 99} else {j <- 100}	 # "If/else" statements
+j
+
+a					 # Let’s remind ourselves what the objects a and d equal.
+d
+
+a == 3 & d[2] == 3			 # Boolean logic.  & for and, | for or, ! for not.
+
+y <- 2					 # Loops.  This means the code iside the curly brackets will be run 10 times.  The first time through, z will equal 1.
+for (z in 1:10) {			 # The second time through, z will equal 2, etc.
+    y <- y+z^2
+    }			
+y
+
+i <- c(3,NA,1)				 # Missing data: use NA.
+i*2					 # Operations on NA will return NA
+i == 1					 # Operations on NA will return NA
+i %in% 1				 # To override this behavior for ==, use %in% instead.  
+
+j <- c(3,3,7,7,9)
+table(j)				 # Creates a table of values with frequencies
+
+rbinom(100,1,0.3)			 # Draws random values from a binomial distribution.  Syntax: rbinom(number_of_samples, numer_of_independent_draws_per_sample, probability_of_success_per_draw)
+					 # Try running it multiple times to see the randomness
+k <- c(4,2,5,3)
+setdiff(j,k)				 # Takes two vectors; returns the elements that are in the first but not in the second.
+setdiff(k,j)
+
+m <- h[1:5,]
+m[,1] <- c(11,12,13,14,15)
+h
+m
+rbind(h,m) 				 # Appends one data.frame below another; make sure they have the same number of columns.
+
+plot(d)					 # Plots data, in a variety of different ways depending on the structure of the data and the arguments passed. 
+plot(d,k)				 # plot(d) returns a simple series plot, plot(d,k) returns a scatter plot.
+# that’s all!)
+
+}}}
+
+
+[wiki:ConcurrencyExercise4 Back to Exercise 4 introduction]
+
+[wiki:ConcurrencyExercise4C Forward to Exercise 4 instructions and code]
+
+[wiki:ConcurrencyExercise3D Back to Exercise 3 discussion]
+
+[ConcurrencyIndex Return to index]
+
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

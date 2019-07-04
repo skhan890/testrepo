@@ -1,0 +1,47 @@
+{{{
+#!html
+<h3 style="padding:5px; text-align: left; background-color: #cccc99"><b>statnet</b> : <a href='https://statnet.csde.washington.edu/trac/wiki/WikiStart' style="color: #550">Introduction</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/Installation' style="color: #550">Installation</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/Resources' style="color: #550">Resources</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/FrequentlyAskedQuestions' style="color: #550">FAQ</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/License%20and%20attribution' style="color: #550">Citing statnet</a></h3>
+}}}
+{{{
+#!html
+<h3 style="padding:5px; text-align: left; background-color: #cccc99"> 
+<a href='https://statnet.csde.washington.edu/trac/wiki/Course' style="color: #550">EpiNetSim Course</a> :
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Location' style="color: #550">Location</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Lectures' style="color: #550">Lectures</a> |
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Homework' style="color: #550">Homework</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Projects' style="color: #550">Projects</a> |
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Examples' style="color: #550">Examples</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Discussion' style="color: #550">Discussion</a>
+</h3>
+}}}
+
+=== A 1 week intensive course on: ===  
+= Network Modeling of Infectious Disease =
+
+== Dates & Times ==
+Monday, Sept. 17 – Friday, Sept. 21\\
+10 am (sharp) – 4 pm
+
+== Instructors ==  
+Steven M. Goodreau\\
+Martina Morris
+
+== Description ==
+Mathematical modeling plays an important and growing role in understanding the dynamics of infectious diseases, elucidating the sources of disease disparities among populations, and projecting the impact of single and combined interventions.  The field has long been dominated by compartmental models (ordinary differential equations), although many questions are better answered with stochastic dynamic network models. This is especially true for those studying HIV/STDs and other diseases spread by a small number of highly structured contacts. 
+
+This course will provide an introduction to stochastic network models for epidemiology, with a focus on empirically based modeling of the transmission network for HIV.  It will be a “hands-on” course, with lab sessions each afternoon to implement the models that have been discussed in the morning session.  Labs will be based on the new, user friendly computational tools available in the package “statnet” (a free package that uses the R programming language).  The statnet package is designed to allow users to estimate a generative network model from empirical data, and then use the model to simulate a dynamic transmission network with the observed properties, and it provides utilities for simulating the transmission of infections across the dynamic network.  The course will cover the following topics:
+
+== Outline ==
+'''Day 1''':	Introduction to stochastic models for epidemics
+	''Lab'': Programming simple stochastic SIR models
+'''Day 2''':	Exponential Random Graph models for networks, network data collection
+	''Lab'': Using statnet for static and dynamic network modeling
+'''Day 3''':	Modeling epidemics on networks: Independent network and epidemic processes
+	''Lab'': Using statnet and the epidemic modeling utilities
+'''Day 4''':	Modeling epidemics on networks: Dependent network and epidemic processes
+	''Lab'': Extended functionality available in the statnet package
+'''Day 5''':	Open, to discuss participant projects and research ideas
+	Day 5 attendance is optional
+
+== Goal ==
+Participants will develop the basic tools and knowledge needed to build models for their own projects.

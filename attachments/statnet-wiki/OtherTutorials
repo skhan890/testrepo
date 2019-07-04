@@ -1,0 +1,14 @@
+[[Include(statnetnav)]]
+
+= Tutorials and Related Material Created by Other Researchers = 
+
+There are a number of great tutorials, blog posts, etc about ERGMs and using R for sna written by folks in the statnet/sna community:
+
+  * Social Network Analysis Labs in R and SoNIA 
+  http://sna.stanford.edu/rlabs.php
+
+  * MJH Blog post about ERGM edgeconv() and dyadcov() specs
+  http://mjh4.blogspot.com/2012/09/ergm-edgecov-and-dyadcov-specifications.html
+
+  * Lessons on exponential random graph modeling from Grey’s Anatomy hook-ups
+  http://badhessian.org/2012/09/lessons-on-exponential-random-graph-modeling-from-greys-anatomy-hook-ups/

@@ -1,0 +1,280 @@
+= Draft Specification for networkDynamic converter functions =
+
+== Problem ==
+
+"as.*" syntax doesn't seem appropriate for these converter functions, since often need multiple data objects as input.  And for output usually need to specify which facet of network information should be returned (vertex vs. edges).  Also, the S3 method dispatching (as.nD.data.frame) is tricky since the data frame may be either toggles or spells.  Not much advantage to having a single "convert" function if you have to have to set lots of arguments, hard to have defaults sensible for each type. 
+
+== Importing to nD == 
+Single function {{{networkDynamic()}}} that has arguments for specifying inputs of the various schemas. Arguments are not speced by object types o toggles and spells are both represented with data frames (or matrices.  
+
+
+=== Function ===
+{{{
+networkDynamic(base.net=NULL,edge.toggles=NULL,vertex.toggles=NULL,
+   edge.spells=NULL,vertex.spells=NULL,edge.changes=NULL,vertex.changes=NULL,
+   network.list=NULL,onsets=NULL,termini=NULL,vertex.pid=NULL,start=NULL,end=NULL,net.obs.period=NULL,...)
+}}}
+
+ 
+=== Arguments ===
+ base.net:: a network object providing an initial network state for the toggles and changes versions. For spell versions it is copied to provide the basic network attributes (n,directed, etc)
+
+ network.list:: a list of network objects assumed to describe sequential panels of network observations. Network sizes may vary. see onsets, termini, vertex.pid.
+
+ edge.toggles:: assume first columns are [time,tail,head]. What times assumed for ties in initial network? 
+
+ edge.spells:: an object coercible to a matrix with first four columns assumed to be [tail,head,onset,terminus].  Each row defines an activity spell for an edge. tail and head are vertex.ids for the edge, there may be multiple rows for each edge. Any remaining columns added as TEA attributes?
+
+ edge.changes:: columns are [time,tail,head,direction]. Direction specifies whether an edge should be activated (1) or deactivated (0)
+
+ vertex.toggles:: assume first columns [time,vertex.id]
+
+ vertex.spells:: an object coercible to a matrix with first three columns assumed to be [onset,terminus,vertex.id]. Each row defines an activity spell for the appropriate vertex, there may be multiple rows per vertex. Any remaining columns added as TEA attributes?
+
+ vertex.changes:: columns are [time,vertex.id,direction]. Direction specifies whether a vertex should be activated (1) or deactivated (0)
+
+ onsets:: an optional array of onset times to be assigned to the network panels of network.list. defaults to seq(from=0,length=length(network.list)-1)
+
+ termini:: an optional array of terminus times to be assigned to the network panels of network.list defaults to seq(from=1,length=length(network.list)
+
+ vertex.pid:: an optional name of a vertex attribute to be used as a unique vertex identifier when constructing nD from a network list with different sized networks. (Also allow for spell lists?)
+
+ start:: The beginning of the observation period describing the network (used to define censoring)
+
+ end:: The end of the observation period describing the network (used to define censoring)
+
+ net.obs.period:: alternate and more complete way to fully specify the observation period. see https://statnet.csde.washington.edu/trac/ticket/155
+
+ construct.mode:: c("strict","warn","checkless","expand")   Need Better names. Specifies how carefully the object should be checked for consistency during construction. "strict"=fail if edges and vertex activity not aligned. "warn" warn if there are problems, but still create object if possible. "checkless" create object as quickly as possible, do not perform checks (if you know you are feeding it good data) "expand" define new activity spells for vertices when edges attach if needed, add new vertices if edge ids out of range, etc. 
+
+ ...::  additional arguments needed in the future, possible network attributes?
+
+
+
+=== Behavior sketch and implementation notes ===
+
+'''Validate inputs'''
+
+ * start <= end
+ 
+ * start and end OR net.obs.period specified, but not both
+
+ * base.net is NULL or a network 
+
+ * if not NULL coerce toggles, spells, changes to matrix, test for minimum number of columns
+
+ * network.list is NULL or all elements of list are networks. 
+
+ * if network sizes of network.list items vary, vertex.pid must be non-NULL
+
+ * if vertex.pid != NULL, it must be present in network vertex attributes
+
+ * onsets and termini must be NULL or numeric, the same length and the same length as network.list
+
+ * construct.mode is valid
+
+ * only one of vertex.toggles, vertex.spells and vertex.changes can be non-NULL
+
+ * only one of edge.toggles, edge.spells and edge.changes can be non-NULL
+
+ * if network.list is non-NULL vertex.* and edge.* must be NULL and the reverse
+
+ * if start and end values present, store in net.obs.period attribute
+
+'''base.net'''
+
+ * base.net activity information is ignored for now. base.net is only assumed to be a network object, not networkDynamic (behavior subject to change). base.net not required; if it is not given, create a new base.net with the max number of vertices required, and use the edge info (without timing) to create edges. This assumes that there are no isolate vertices greater than the max number of vertices given. base.net should be large enough to accomodate all the vertex and edge info. If base.net parameter is supplied without any other edge or vertex info, returns the base.net casted into a networkDynamic object. An easy way to create a basic nD object is 
+
+{{{
+networkDynamic(network.initialize(n))
+}}}
+
+  * Both vertex info and edge info are optional. If vertex info is missing, and edge info is present, try to infer the vertices required for the edges. If both are missing, and there is no base.net, return an empty list (since 0 node networks are not supported).
+
+'''Constructing from network list (panels) data'''
+
+  Possible additional arguments: base.net. {onsets, termini} can be specified together. vertex.pid can be used for network panels of different sizes. start, end cand be used to define censoring. net.obs.period.
+
+  If net.obs.period not specified, default to {{{list(observations=list(c(0,length(network.list)),mode="discrete", time.increment=1,time.unit="step")}}} replacing 0, length(network.list) with start and end if they are not null
+
+  If base.net is specified, constructs a new network with matching parameters.  If vertex or edges or attributes are present, adds them to new network as non-TEA attributes?
+
+  Determines if all the networks in the list are the same size. If not, checks for vertex.pid parameter to specify which vertex attribute should be used as a unique identifier.
+
+  In onsets is not set, it defaults to seq(from=0,length=length(network.list)). If terminus not set defaults to seq(from=1,length=length(network.list))
+
+  If vertex.pid is set to the name of a network attribute, use that attribute to match vertex.id's across different panels, for when inputs are not the same sizes.
+
+  Steps through the list of networks. Edges are added automatically if not already present. All vertices are assumed to be active. Edges in each panel are activated according to onsets and termini. If inconsistencies are encountered, perform as indicated by construct.mode.  Add any network, vertex, or edge attributes found in the list networks to nD as TEA with appropriate spells. 
+
+
+'''Constructing from edge and vertex dataframes'''
+
+  Create new network with properties given by base net.if present
+  
+  '''Vertex data schema''':
+
+  If toggles
+
+    * activate all vertices present in base net, assuming onset time of -Inf  
+    * loop through toggles, activating and deactivating vertices at appropriate times. vertices where last toggle is to active given Inf as terminus. 
+
+  If changes
+
+    * If the first change is "activate", it should assume that it was previously inactive (from -Inf). This is default behavior in the function activate.vertices().
+    * vertices where last change is to active given Inf as terminus
+
+  If spells 
+
+    * apply activation spells to vertices
+  
+  '''Edge data schema''':
+
+  If base.net exists, determine if the set of vertex.ids present in the edges data is consistent with it and take action appropriate to construct.mode. Edges present in the base.net should be set to active with -Inf as onset; assume edges in base.net to be active initially.
+
+  If toggles  
+    * Add all edges present in base.net 
+    * If edge is not present in base.net but implied by the edge.data, then assume it is inactive from (-Inf, Inf) initially.
+    * Add all additional edges implied by toggles  
+    * loop through toggles, activating and deactivating edges at appropriate times. All edges where last state is active given Inf as terminus. 
+
+  If changes  
+    * Add all edges present in base.net  
+    * Add all additional edges implied by toggles, assuming it is inactive from (-Inf, Inf) initially.  
+    * loop through changes, activating and deactivating edges at appropriate times. All edges where last state is active given Inf as terminus 
+
+  If spells
+    * apply activation spells to edges
+    
+  Set start and end censoring on nD observation attribute {{{net.obs.period}}}. If net.obs.period not specified, default to {{{list(observations=list(c(start,end)),mode="discrete", time.increment=1,time.unit="step")}}} if start and end are specified. If start and end not specified, default to smallest and largest observed time values. For toggles and changes, set {{{mode="discrete"}}}; for spells, set {{{mode="continuous"}}}
+
+Return constructed networkDynamic object silently. 
+
+
+
+==== Edge cases to consider ====
+
+* toggles, changes arguments present, but have zero rows: base.net state applied to entire network, respecting start and end if present. if no base.net, no spells added activity status will be determined by active.default argument during query
+
+* spells arguments present, but have zero rows: no spells added, activity status will be determined by active.default argument during query
+
+* network list: base.net size different than list net sizes
+
+* base net has multiplex edges? Not sure how to interpret for toggles, changes and spells. Activate all matching edges?
+
+* network.list has networks with multiplex edges or edges with multiple vertex head- tail-sets. (I think this will work if we write code correctly)
+
+* if all arguments empty, should return empty network, but still no way to specify that. 
+
+* edge activity not consistent with vertex activity (edge active when incident vertex is not) : behavior determined by construct.mode
+
+* watch out for NULL edge rows caused by deleted edges. 
+
+==== Notes / Questions ====
+
+* Should additional columns present on toggles, spells, changes be added as TEA attributes?
+
+* If we want to support multiplex edges, need to expand toggles etc to allow specifying a persistent eid
+
+* Not sure how we would support multiple vertex head- and tail-sets on edges, vertex pid?
+
+* What if base.net is a nD object, should we try to append to it? If so, need a way to determine the last state of network for toggles and edges. 
+
+* What if vertices/edges need to be inactive at the start of observation in toggles case? User can specify "changes" by adding an additional column for direction but that may be inconvenient.
+
+* If vertex activity is specified, should vertices implied by network size that are never activated be removed?
+
+* need more detail on how to implement construct.mode
+
+
+==== Proposed vertex.pid behavior ====
+
+  How to handle alpha ids and convert them in a stable way to vertex.ids .  See pid spec: PersistentIdProposal
+
+==== Proposed "expand" construction.mode ====
+
+  If vertex.ids appear in edge records which are outside the range implied by the known network size, add them to the network, including implied vertices.  i.e if network size if 5, and an id of 8 is found, add add vertices 6,7 and 8. Activate vertices whenever incident edges are active. 
+
+== Exporting from nD ==
+ 
+ get.vertex.activity(nD, v=1:network.size(x),as.spellList=FALSE):: currently this returns a list of spell matrices, one for each v specified.  Add argument as.spellList to return same info as a single spell matrix [onset,terminus,vertex.id].  Sort order by onset,terminus,vertex.id. Should we include attributes?
+
+ get.edge.activity(networkDynamic,as.spellList=FALSE):: currently this returns a list of spell matrices.  Add "start" and "end" arguments for specifying censoring. Add argument to return same info as a single spell matrix [onset,terminus,tail,head,onset.censored, terminus.censored, duration, edge.id]. Sort order by onset,terminus,tail,head?. 
+
+ as.data.frame() function aliased to return a list of edge spells in the form [onset,terminus,tail,head,onset.censored, terminus.censored, duration, edge.id] for the whole networkDynamic object.  
+
+ get.networks(dnet,start=NULL,end=NULL,time.increment=NULL,onsets=NULL,termini=NULL,...):: return a list with a series of networks produced by network.extract.  Allow specifying a series of onsets, termini  instead of / in addition to  start,step,duration,end.
+
+All of these methods should handle censoring. Check the soon-to-be-added {{{net.obs.period}}} attribute #155 (if present) and set all onset.censored spells (-Inf) to value of start, and terminus-censored spells (Inf) to value of end. (discussion on #149)
+
+ don't include export toggle methods unless we have a use case. 
+
+== Dynamic Attributes ==
+
+The import functions provide limited support for TemporallyExtendedAttributes 
+(dynamic attributes of edges and vertices). Because there is some ambiguity (and significant performance cost) in creating teas, they will only be added if {{{create.TEAs=TRUE}}}.
+
+ list of networks:: The static network, vertex, and edge attributes appear in each element of the list of networks will be converted to TEAs in the output network, with onset and terminus times corresponding to those of the slice. 
+
+ edge and vertex spells:: Additional columns can be included with the matrices or data.frames passed in via {{{edge.spells}}} or {{{vertex.spells}}}.  Names for the attributes should be specified via {{{edge.TEA.names}}} and {{{vertex.TEA.names}}}. (If they are not specified and the input is a data.frame, it will attempt to use the colnames). The length of names vector must match the number of additional columns. The timing of the attribute spells will match the timing of the vertex and edge activation. 
+
+
+
+== Questions: == 
+
+Should we use "fake" S3 method names to be consistent?  (i.e. networkDynamic.spell.list): NO
+
+Is it better to pass in a network object to be populated YES, or specify full list of network options (directed,bipartite,etc)? 
+ 
+For matrix input formats, better to assume column order, or allow specifying column indicies/names?
+
+Preferred format for returned data objects? (array, matrix, data.frame)?
+
+Censoring behavior (Inf should not automatically be censored, right)  change to start.censored, end.censored.
+
+Implement for multiple head/tail set, or just return error?
+
+Support multiplex edges? When 1-mode networks are induced from two mode networks it often the case that a dyad is linked by multiple edges at the same time. In the dynamic version, this means we need to use multiplex edges (because overlapping spells are not allowed) so we need a way to load in and distinguish multiplex edges from multiple spells. 
+
+Include missing edges / vertices in output? '''include.missing=FALSE''' If true, include extra column for missingness?
+
+Argument to include additional columns for attributes?  Or user should lookup using eids?  (simple attributes would be fine, but lists of objects might not work in data.frame output.) '''include.attrs=c("attrName1","attrName2")''' IMPLEMENTED TEAs for edge.spells and vertex.spells
+
+Support for non-numeric,non integer input ids. '''pid=attrName''' Sort into alphabetic order, assign to ids 1:n
+
+
+Add "include.censoring=T" attribute
+
+get.slice.networks: how do we handle censoring here?
+
+get.slice.networks: the output list of networks should have time labels (perhaps as a network attribute?)
+
+since "changes" is so similar to "toggles" should we just make those the same argument? The converter can detect whether there is an extra column or not (what should the column be called?)
+
+should the argument be called '''as.spellmatrix''' instead of '''as.spellList''', since its matrix not a list?
+
+If we are guessing at network size based on ids present in vertices and edges, should we give warning?
+
+Should we allow setting of network properties by passing standard network prams (bipartite, etc) via ... ?
+
+
+
+== A list of source / target schemas for dynamics ==
+
+=== toggles: start network + edge toggles ===
+{{{[ onset, terminus, tail, head, onset.censored, terminus.censored, duration, edge.id}}}
+what about vertex dynamics?   DONE
+
+=== changes: edge toggles with times and direction ===
+likes toggles, but also includes a column indicating if edge was formed or dissolved. Activate = 1, deactivate = 0. DONE
+
+=== spell matrix: arrays of spells ===
+possibly two arrays, one for edges and one for vertices. DONE
+
+=== list of networks ===
+each network is one panel in discrete time. DONE
+possible subtypes, list of matrices, or sna style graph stack
+
+
+=== file formats with dynamics ===
+.net, .son, some xml formats

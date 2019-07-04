@@ -1,0 +1,48 @@
+= CONCURRENCY TUTORIALS =
+
+== EXERCISE 1: Thinking conceptually about concurrency at the local level (Answers) ==
+
+ 
+[[Image(samandchris.png, 400px)]]
+
+'''Scenario 1''': The blue partners are each infected with the same STI, while Sam, Chris and the red partners are uninfected. 
+
+	'''Question 1''': Who is more likely to get infected—Sam or Chris? 
+		'''Both are equally likely'''. Sam and Chris can each be infected by their blue partner only.  And they each have the same amount and type of exposure (sex acts) with them.
+
+	'''Question 2''': If Sam and Chris do get infected, who is more likely to transmit to their red partner? 
+		'''Chris'''. In fact, Sam has zero probability of transmitting to the red partner. Chris is capable of doing so; we don’t know the exact probability, but it is presumably greater than 0.
+		Let us call this phenomenon “'''backwards transmission'''.” The word “backwards” refers to the fact that because Chris has concurrent partners, an infection can be transmitted from the second partner Chris acquired (blue) '''back''' to the first partner Chris acquired (red).
+
+	'''Question 3''': If Sam and Chris do get infected, who is likely to do so sooner?
+		'''Chris'''. Chris's window of exposure to the blue partner occurs earlier than Sam's, even though overall (across both partners) Chris does not have sex any earlier than Sam does on average.   We will call this effect “'''accelerated acquisition.'''”
+
+'''Scenario 2''': The red partners are each infected with the same STI, while Sam, Chris and the blue partners are uninfected.
+
+	'''Question 1''': Who is more likely to get infected—Sam or Chris? 
+		'''Both are equally likely'''. Sam and Chris can each be infected by their red partner only.  And they each have the same amount and type of exposure (sex acts) with them.
+
+	'''Question 2''': If Sam and Chris do get infected, who is more likely to transmit to their blue partner? 
+		'''Not enough information'''.  This one is the most tricky; the answer depends on a number of pieces, including the overall level of transmissibility of the infection in question; whether or not that level varies over time; and the frequency of sex acts within each relationship. Clearly, both Sam and Chris are capable of infecting their blue partner. Beyond that, there are two different possible effects that work in opposite directions:
+			''Favoring transmission by Chris'': Some STIs can be cleared by the body naturally, or as result of treatment.  Examples include gonorrhea and chlamydia.  Other STIs, like HIV, cannot be cured, but have a short period early in infection during which an individual is highly infectious to others.  For HIV, this period lasts perhaps 2-3 months, and an individual may be 10 to 40 times more infectious than they are subsequently.  (See Hollingsworth et al. 2008, Abu Raddad and Longini 2008, and Pinkerton 2008 for these estimates).  In these contexts, Chris may be more likely to infect the blue partner than Sam is, since Chris is more likely to be having sex with the blue partner during the time shortly after being infected by red, while still infected (for curable STIs) or highly infectious (for HIV). For example, if Sam and Chris are each infected by their red partner at the beginning of those partnerships, three months will pass before Sam has sex with blue for the first time, but only two months will pass for Chris.  If they are each infected one month into their relationships with red, then two months will pass for Sam before initiating sex with blue, and only one month for Chris.  And so on.  In each case, Sam is more likely to have been cured of the disease, or to have moved out of the period of high infectiousness before being with blue. Let us call this effect “'''acute infectivity'''”.  We will use the term to refer to all cases in which infectiousness goes down with time, whether to 0 or to some positive value, and whether through cure or through treatment or through the natural history of the infection.  Note that the likelihood of Sam and Chris getting infected early or late in their relationship with the red partner—which determines the importance of the acute infectivity effect—is a function of overall infectiousness per act and number of acts per relationship.
+
+			''Favoring transmission by Sam'': If Chris is infected towards the tail end of the relationship with red, then some of the sex acts that Chris has with blue may have already happened.  Thus, some of Chris’s opportunities to infect blue will be missed, and the probability of transmitting to blue will decline. Sam does not face this; no matter when Sam is infected by red, it is always before the start of any sex acts with blue.  We will call this “'''reduced forward transmission'''.” Note that, as with acute infectivity, the likelihood of Sam and Chris getting infected early or late in their relationship with the red partner—which determines the importance of the reduced forward transmission effect—is a function of overall infectiousness per act and number of acts per relationship.
+
+		So, the answer to this question may be Sam, or it may be Chris, depending on the exact nature of the infectiousness of the STI of interest over time, and the number of sex acts. We will return to this point in detail on the next page, and explore it mathematically in later exercises.
+
+        '''Question 3:''' If Sam and Chris do get infected, who is likely to do so sooner?
+                '''Sam'''. Sam's window of exposure to the red partner occurs earlier than Chris's, even though overall (across both partners) Sam does not have sex any earlier than Chris does on average. However, the implications of this depend on the answer to the next question....
+
+	'''Question 4:''' If Sam and Chris do infect their blue partner, who is likely to do so sooner in time? Sooner after getting infected themselves? 
+		'''Chris''', on both counts.  For the first half of the question, we simply note that the blue partner's exposure period to Chris occurs earlier in time than their exposure period to Sam. For the second half of the question, we use the same basic logic as in the description of acute infectivity above (under Scenario 2, Question 2). If Sam and Chris are each infected at the beginning of their relationships with red, the range over which Sam might infect blue is 3-6 months later, but for Chris, it’s 2-5 months later.  If Sam and Chris are each infected during their second month with red, the range over which Sam might infect blue is 2-5 months later, but for Chris, it’s 1-4 months later.  And so on.  Although the logic is roughly the same as for the “acute infectivity” process, the implication here is slightly different.  There, we were focused on the fact that Chris would be more likely to be highly infectious when encountering blue than Sam would.  But here we see that even in the absence of any mechanism that causes greater infectivity during a short period after infection, with concurrency an STI can “hop” along chains of three people (from person A to B to C) on average more quickly than it could when people are practicing sequentially monogamous relationships of the same length. We will call this phenomenon “'''path acceleration.'''”  So despite the fact that Sam was probably infected earlier than Chris was (as we saw in the answer to the previous question), the disease ends up moving further along to another member of the population sooner via Chris.  This is because sequential monogamy causes the infection to remain "locked" in the partnership between Sam and the red partner until that relationship ends; this does not happen with Chris and the red partner because of concurrency.
+
+[wiki:ConcurrencyExercise1 Back to Exercise 1 introduction]
+
+[wiki:ConcurrencyExercise1D Forward to Exercise 1 discussion]
+
+[ConcurrencyIndex Return to index]
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

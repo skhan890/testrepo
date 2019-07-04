@@ -1,0 +1,112 @@
+=== NEW! Export HTML5 animations with ndtv-d3 ===
+
+The ndtv package now includes a command {{{render.d3movie}}} which will export an HTML5 SVG animation of a network movie that can be be viewed in a modern web browser.  This does not require installing additional components on your system. Examples at http://statnet.github.io/ndtv-d3/
+
+== Installing ndtv and its external dependencies == 
+[[Image(https://statnet.csde.washington.edu/trac/raw-attachment/wiki/ndtvInstallation/short.stergm.gif,right)]]
+The [http://cran.r-project.org/web/packages/ndtv/ ndtv: Network Dynamic Temporal Visualizations package] renders dynamic network data from networkDynamic objects as animated movies or other representations of relational structure and node attributes that change over time. It relies on many other packages to do much of the heavy lifting, especially [http://cran.r-project.org/web/packages/animation/ animation] and [http://cran.r-project.org/web/packages/networkDynamic/ networkDynamic]. For some features, it also requires external libraries (FFmpeg) to save movies out of the R environment, and Java to be able to apply some of the better layout algorithms.
+
+These instructions are copied from the ndtv tutorial and most of the content can also be found in the R help files for the various functions indicated. These instructions assume you already have a R [wiki:Installation installed]
+
+== Getting started with ndtv ==
+
+There a several ways to try out the ndtv features
+
+* The [https://cran.r-project.org/web/packages/ndtv/vignettes/ndtv.pdf ndtv package vignette] (can be displayed with {{{browseVignette(package='ndtv)}}}).
+* There is a longer and more detailed [http://statnet.csde.washington.edu/workshops/SUNBELT/current/ndtv/ndtv_workshop.html ndtv tutorial].
+* the ndtv-d3 HTML5 animation component has its own [http://statnet.csde.washington.edu/workshops/SUNBELT/current/ndtv/ndtv-d3_vignette.html tutorial]
+* The help file {{{?render.animation}}} is a good place to get started in the technical documentation. A [http://cran.r-project.org/web/packages/ndtv/ndtv.pdf PDF version] of the complete documentation is on CRAN.
+* Or jump right in with:
+{{{
+library(ndtv)
+# load an example dataset
+data(short.stergm.sim) 
+
+# render an animation in the R plot window
+render.animation(short.stergm.sim) 
+
+# play back the animation in the R plot window
+ani.replay()  
+
+# open the HTML5 version of the animation in a web browser
+render.d3movie(short.stergm.sim)
+}}}
+
+=== Installing the ndtv R package ===
+
+R can automatically install the packages ndtv depends on when ndtv is installed.
+So open up your R console, and run the following command:
+{{{
+install.packages('ndtv',repos='http://cran.us.r-project.org', dependencies=TRUE)
+}}}
+If the installation worked, than the following command should load the package and print version information.
+{{{
+library(ndtv) # also loads animation and networkDynamic packages
+}}}
+
+
+
+=== Installing FFmpeg for saving animations ===
+In order to save out animations as video files and use the better-quality layouts, we need to install some additional non-R software dependencies on the computer. [http://ffmpg.org FFmpeg ] is a cross-platform tool for converting and rendering video content in various formats. It is used as an external library by the animation package to save out the animation as a movie file on disk. (see {{{?saveVideo}}} for more information.) The instructions for how to do this will be different on each platform. You can also access these instructions using {{{?install.ffmpeg}}}.
+
+==== Windows FFmpeg instructions ====
+* Download the recent 'static' build from http://ffmpeg.zeranoe.com/builds/
+* Downloads are compressed with 7zip, so you may need to first install a 7zip decompression program before you can unpack the installer.
+* Decompress the package and store contents on your computer (probably in Program Files)
+* Edit your system path variable to include the path to the directory containing mpeg.exe
+ 
+==== Mac FFmpeg instructions ====
+* Download most recent build from http://www.evermeet.cx/ffmpeg/
+* The binary files are compressed with 7zip so may need to install an unarchiving utility: http://wakaba.c3.cx/s/apps/unarchiver.html
+* Copy ffmpeg to {{{/usr/local/bin/ffmpeg}}}
+
+==== Linux / Unix FFmpeg instructions ====
+* FFmpeg or the alternate avconv is a standard package on many Linux systems. You can check if it is installed with a command like {{{dpkg -s ffmpeg}}}. If it is not installed, you should be able to install with your system's package manager. i.e. {{{sudo apt-get install ffmpeg}}} or search 'mpeg' in the Software Center on Ubuntu.
+
+After you have installed FFmpeg on your system, you can verify that R knows where to nd it by typing 
+{{{
+Sys.which('ffmpeg')
+}}}
+
+in the R terminal, this should print out the path. You many need to first restart R after the install.
+
+=== Installing Java and MDSJ setup ===
+To use the MDSJ layout algorithm, you must have Java installed. Java should be already installed by default on most Mac and Linux systems. If it is not installed, you can download it from http://www.java.com/en/download/index.jsp. On Windows, you may need to [http://www.java.com/en/download/help/path.xml edit your `Path' environment variable] to make Java executable from the command-line.
+
+When java is installed correctly the following command should print out the version information:
+{{{
+system('java -version')
+}}}
+
+Due to CRAN's license restrictions, necessary components of the MDSJ layout (which we will use in a minute) are not distributed with ndtv. Instead, the
+first time the MDSJ layout is called after installing or updating the ndtv package, it is going to ask to download the library. Lets do that now on a pretend
+movie to get it out of the way:
+
+{{{
+network.layout.animate.MDSJ(network.initialize(1))
+}}}
+
+This will give a prompt like
+{{{
+The MDSJ Java library does not appear to be installed.
+The ndtv package can use MDSJ to provide a fast
+accurate layout algorithm. It can be downloaded from
+http://www.inf.uni-konstanz.de/algo/software/mdsj/
+Do you want to download and install the MDSJ Java library? (y/N):
+}}}
+Responding y to the prompt should install the library and print the following
+message:
+{{{
+MDSJ is a free Java library for Multidimensional Scaling (MDS).
+It is a free, non-graphical, self-contained, lightweight
+implementation of basic MDS algorithms and intended to be used
+both as a standalone application and as a building block in
+Java based data analysis and visualization software.
+CITATION: Algorithmics Group. MDSJ: Java Library for
+Multidimensional Scaling (Version 0.2). Available at
+http://www.inf.uni-konstanz.de/algo/software/mdsj/.
+University of Konstanz, 2009.
+USE RESTRICTIONS: Creative Commons License 'by-nc-sa' 3.0.
+}}}
+
+

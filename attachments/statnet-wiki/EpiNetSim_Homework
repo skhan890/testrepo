@@ -1,0 +1,52 @@
+{{{
+#!html
+<h3 style="padding:5px; text-align: left; background-color: #cccc99"><b>statnet</b> : <a href='https://statnet.csde.washington.edu/trac/wiki/WikiStart' style="color: #550">Introduction</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/Installation' style="color: #550">Installation</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/Resources' style="color: #550">Resources</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/FrequentlyAskedQuestions' style="color: #550">FAQ</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/License%20and%20attribution' style="color: #550">Citing statnet</a></h3>
+}}}
+{{{
+#!html
+<h3 style="padding:5px; text-align: left; background-color: #cccc99"> 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_2012' style="color: #550">EpiNetSim Course</a> :
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Location' style="color: #550">Location</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Lectures' style="color: #550">Lectures</a> |
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Homework' style="color: #550">Homework</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Projects' style="color: #550">Projects</a> |
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Examples' style="color: #550">Installation</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Discussion' style="color: #550">Discussion</a>
+</h3>
+}}}
+
+=== A 1 week intensive course on: ===  
+= Network Modeling of Infectious Disease =
+== Homework ==
+'''Day 0''':    Background Prep for Workshop\\
+    [attachment:'2008 Cassels Clark Morris JAIDS.pdf' Overview of behavioral modeling for HIV (Cassels et al., 2008)]\\
+    [http://www.statmethods.net/ Good online intro to R]
+
+'''Day 1''':	Prep for day 2:  Network Analysis\\
+ required:\\
+  [http://en.wikipedia.org/wiki/Social_network_analysis Brief overview of classical network analysis]\\
+  [http://www.jstatsoft.org/v24/i01/paper Overview of statnet and the ERGM package (Handcock et al., 2008)]\\
+  [attachment:'2009 GKM Demography.pdf' Example application of ERGMs to adolescent friendship networks (Goodreau et al., 2009)]\\
+ supplemental:\\
+  [http://www.analytictech.com/networks/ Comprehensive online overview materials for classical network analysis (from Steve Borgatti)]\\
+  [http://www.jstatsoft.org/v24/i04/paper ERGM computational aspects and model specification (Morris et al., 2008)]\\
+
+ Homework code labs:\\
+    [attachment: 'Day 1 labs.docx' Day 1 lab]\\
+
+'''Day 2''':	Prep for Day 3:  Network Analysis and Simulation with ERGM and STERGM\\
+   required:\\
+    [attachment:'ergm tutorial NMID 2012.pdf' ERGM tutorial]\\
+    [attachment:STERGMslides.pdf STERGM slides]\\
+    [attachment:STERGMtutorial.pdf STERGM tutorial]\\
+   supplemental\\
+    [http://arxiv.org/pdf/1011.1937v2.pdf Statistical Theory behind STERGMs (Krivitsky, 2011)]
+
+'''Day 3''':	Prep for Day 4:  Simulating disease transmission on dynamic networks \\
+   required:  \\ 
+    [attachment:'2009 Morris AJPH.pdf' Example application for the US (Morris et al., 2009)]\\
+    [attachment:'2010 Goodreau Zim Recency.pdf' Example application for Zimbabwe (Goodreau et al., 2010)] \\ 
+   supplemental\\
+    [attachment:'STERGM exercise.docx' STERGM exercise (doc)]\\
+'''Day 4''':	Prep for day 5:  Individual Projects \\
+ 

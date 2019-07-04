@@ -1,0 +1,23 @@
+[[Include(statnetnav)]]
+
+= Statnet's Repositories = 
+
+== Statnet's public CRAN-like repository ==
+
+The statnet team maintains a local public repository of our current CRAN released packages, along with their dependencies and suggestions.  You can install from this directory using:
+
+{{{ install.packages('statnet',repos='http://statnet.csde.washington.edu') }}}
+
+The list of included packages is here: http://statnet.csde.washington.edu/src/contrib/PACKAGES
+
+The purpose is to maintain, in case there are any issues with CRAN during a workshop, or if  we need to deploy a bug fix to a package that won't have time to propagate to CRAN mirrors.  This also also gives us a way to provide "released" packages that are not yet up on CRAN.  The repository is only updated periodically (via deploy_public script on statnet server) but the intention is that it should roughly mirror the versions of things on CRAN.
+
+== Statnet's 'Preview' repository == 
+
+During the package release process, we make preview releases of the packages available so that the developers of packages which depend on statnet packages can use them to test their code.  These pre-release packages can be found in the Preview repository. 
+
+http://statnet.csde.washington.edu/preview/
+
+== Nightly build repositories ==
+
+The NightlyBuildsPrivate repositories are intended for use only by the statnet team.

@@ -1,0 +1,23 @@
+= CONCURRENCY TUTORIALS =
+
+== Concurrency Exercises: Overall Summary ==
+
+On this website, we explored four ways of thinking about concurrency: at the local level and at the population level, using conceptual tools and computational tools.  Overall, we saw a few themes appear repeatedly:
+
+1. Concurrency does not increase the risk of an individual who practices it, relative to having two consecutive partners.[[br]][[br]]
+2. However, concurrency can increase the risk to that person’s partners.[[br]][[br]]
+3. Concurrency increases transmission in two ways:  by creating more possible transmission paths, and by speeding up potential transmission on existing paths.[[br]][[br]]
+4. High acute infectivity can amplify these impacts.[[br]][[br]]
+5. The population-level effects of concurrent partnerships can be enormous.[[br]]
+
+We also saw a variety of ways that the simple models we looked at could be made more complex and more realistic. Many of these have been explored in the literature.  And readers may have some ideas of new questions that have not been explored. The beauty of modeling is that it allows many of these questions to be posed and explored and refined in a shared framework. And just as important as having good modelers is having good consumers of models—researchers and policy makers who can read models and understand the assumptions they are making, so that they can do the best job in deciding which they consider to be most realistic.
+
+[wiki:ConcurrencyResources Forward to More Resources]
+
+[ConcurrencyIndex Return to index]
+
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

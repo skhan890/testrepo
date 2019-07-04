@@ -1,0 +1,48 @@
+
+= Open source collaboration with {{{GitHub}}} =
+
+Example ergmuserterms repository: https://github.com/lxwang/ergmuserterms
+
+=== Workflow for creating and submitting user terms ===
+
+* Fork the {{{ergmuserterms}}} repository to your own.
+* Create a working branch from the {{{master}}} branch.
+* Modify the working branch, add your ergm terms. Test the package. Make sure it has help pages and examples.
+* Submit the package with a pull request from your working branch to the master branch on the origin. In comments, include the name you want your package to have, and a description of the new terms.
+* If you make changes in the future, you can pull request to the new branch on {{{ergmuserterms}}}.
+
+Detailed instructions below.
+
+=== For the repository maintainer ===
+
+* Look at pull requests.
+* Clone submitted branch to local machine and test it.
+* Create a branch on {{{ergmuserterms}}} with the submitted name.
+* Merge the submission to the new branch.
+
+Now the submitted user terms are publicly accessible.
+
+=== For someone browsing the repository ===
+
+* Browse all the user-created terms at https://github.com/lxwang/ergmuserterms/branches/all
+* Each user-created term is a branch. Use "Download ZIP" to download and install the terms as an R package.
+
+=== Detailed instructions for package submission ===
+
+* Fork the {{{ergmuserterms}}} repository to your own.
+
+  [[Image(fork.png, 800px)]]
+
+* Create a working branch from the {{{master}}} branch.
+
+  [[Image(branch.png, 800px)]]
+
+* Modify the working branch, add your ergm terms. Test the package. Make sure it has help pages and examples. The {{{README.md}}} file should have the format shown.
+
+  [[Image(readme.png, 650px)]]
+
+* Submit the package with a '''pull request''' from your working branch to the master branch on the origin. In comments, include the name you want your package to have, and a description of the new terms.
+
+  [[Image(pullrequest.png, 800px)]]
+
+* If you make changes in the future, you can pull request to the new branch on {{{ergmuserterms}}}.

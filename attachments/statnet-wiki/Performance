@@ -1,0 +1,103 @@
+= Statnet performance and improvement =
+
+
+== ERGM ==
+
+These tests assess the core functionalities of the ergm package, so we can compare the output between older and new versions by inspection. It replicates the results from a simple dyadic dependent model, using both default control parameters and “reasonable” parameters. Each section of the test is a self contained R file that can be run on its own. The overall test should be run on a machine with multiple CPU cores, to take advantage of parallel functionality.
+
+[[attachment:ergm_performance_3.4.html]]
+
+[[attachment:ergm_performance_3.5.1.html]]
+
+=== Related Ticket ===
+[https://statnet.csde.washington.edu/trac/ticket/569 Ticket 569][[BR]]
+
+=== Related Links ===
+[http://statnet.csde.washington.edu/workshops/SUNBELT/current/ergm/ergm_profile.html ERGM Profiling]
+
+[https://docs.google.com/a/uw.edu/spreadsheet/ccc?key=0AgX-95x2nbICdHZMN0ZVWkVHeU1GTE1Da0UyUGhKV0E&usp=drive_web#gid=0 ERGM timing spreadsheet for edges model] -- note code to reproduce is on the third sheet.
+
+=== Parallel functionality ===
+[http://students.washington.edu/lxwang/ergm_parallel_examples.html Parallel functionality examples]
+
+'''Open tickets:'''
+
+#924 ERGM parallel on a single machine is slower than non-parallel 
+
+#889 ERGM's Parallel Future: aka Rmpi dependency causing trouble on OSX and Windows builds 
+
+#884 migrate ergm from package 'snow' to 'parallel' 
+
+=== Version comparison ===
+Comparing how long it takes to fit a dyadic dependent model, between CRAN (3.1.2) and trunk (3.2-13096-13098.1-2014.06.20-18.18.46): Trunk version takes fewer iterations to converge, but takes 20 times longer per iteration.
+
+[[Image(ergm_cran_time.png, 500px)]]
+[[Image(ergm_trunk_time.png, 500px)]]
+
+Code:
+
+{{{
+library("ergm", lib.loc="~/R/win-library/3.1")
+
+data(faux.magnolia.high)
+nw <- faux.magnolia.high
+replicate(n=20, {
+  t0 <- proc.time()
+  fauxmodel.01 <- ergm(nw ~ edges + isolates + gwesp(0.2, fixed=T), 
+                       control=control.ergm(MCMLE.maxit=100))
+  
+  c(proc.time() - t0[3], nrow(fauxmodel.01$stats.hist), fauxmodel.01$coef)
+}) -> t.cran
+save(t.cran, file='tcran.Rdata')
+
+x=t.cran[6,]
+y=t.cran[3,]
+plot(y~x, main='ergm fit time, CRAN', xlab='iterations', ylab='seconds')
+abline(lm(y~x))
+legend('topleft', paste('slope', round(lm(y~x)$coef[2], 2)))
+}}}
+
+==== Diagnostic ====
+
+Kirk: 
+
+I also found the similar results as above. I am pretty sure it is because some recent change of convergence/burnin criterion. I am looking deep into it. 
+
+[[Image(04.png,1000px)]]
+
+
+The diagnostic above shows the trunk ergm take 13x proposals (26,397,968) in MCMC compared with the cran version (2,060,403). I will look into the reason. 
+
+OK, the difference is in the trunk version, in ergm.MCMLE.R, "Insufficient effective sample size for MCMLE optimization. Rerunning with the longer interval.", and requires repeated MCMC chains (to reach sufficient effective sample size). For each repeat, the control$MCMC.interval is increased to 20x than the previous (initial default value is 100). 
+
+Therefore in practise, effective sample size will be sufficient after the second or third MCMC chains, which makes lots more proposals than the CRAN version, due to longer MCMC interval used. 
+
+In addition: 
+
+control$MCMC.burnin.retries=0 in CRAN version, however MCMC.burnin.retries: 100 in trunk version. 
+
+The CRAN version, the warning "In ergm.getMCMCsample(nw, model, MHproposal, mcmc.eta0,  ... : Burn-in failed to converge after retries" is suppressed. 
+
+
+  
+
+We need to discuss how to solve these both in theory and in practise.
+
+The related commit is [https://statnet.csde.washington.edu/trac/changeset/12310/statnet_commons 12310]
+
+== TERGM ==
+
+Estimation times for two different models, varying network size and duration. Sam's model (with -Inf offset) was more difficult to fit than Steve's model (with degree constraint). [attachment:"stergm timing test.xlsx"]
+
+
+=== Related Ticket ===
+[https://statnet.csde.washington.edu/trac/ticket/634 Ticket 634][[BR]]
+
+
+
+
+== EpiModel ==
+
+
+
+== NetworkDynamic ==

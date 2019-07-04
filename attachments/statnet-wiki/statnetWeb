@@ -1,0 +1,43 @@
+
+== About statnetWeb ==
+
+statnetWeb is the first graphical user interface for the statnet suite of R packages! Using the [http://shiny.rstudio.com/ Shiny] framework from RStudio, we have built an application that runs in a web browser and gives the user access to powerful network modeling functionality from the ergm, network and sna packages, without requiring knowledge of programming in R.
+
+This GUI is useful for teachers and students of introductory network analysis, for newcomers to exponential random graphs models, and for experienced network modelers who want easier access to analysis results.
+
+With statnetWeb you can:[[BR]]
+* Load and edit network data from R, Excel or Pajek
+* Look at plots and summaries of descriptive statistics
+* Compare the observed network with null models
+* Fit ERGMs to the observed network
+* Diagnose the model specification and goodness-of-fit
+* Simulate from models
+* Customize and download plots and summaries for later use
+
+'''Accessing statnetWeb'''
+
+There are two ways to interact with the application. [[BR]]
+* On the shinyapps.io server: [https://statnet.shinyapps.io/statnetWeb]
+ * ''Note,'' your session will time-out after 15 minutes of inactivity
+* Locally from the R command line: 
+{{{
+install.packages("statnetWeb")
+library(statnetWeb)
+run_sw()
+}}}
+
+'''Nota Bene:'''  The '''statnetWeb''' application runs in a browser, so closing the browser window ends your session.  You cannot restart from where you left off.  Download plots and summaries you want to keep before exiting. [[BR]]
+
+
+== Sunbelt 2015 ==
+We are teaching a workshop on statnetWeb at the 2015 Sunbelt conference. Find more information on all of our workshops [[Sunbelt2015|here]].
+
+* Slides: [attachment:statnetWeb_slides.pdf PDF]
+* Electronic handout: [attachment:statnetWeb_Guided.pdf PDF]
+
+== Keep in touch ==
+
+
+statnetWeb is under active development, so stay tuned for updates! [[BR]]
+If you have questions, suggestions or complaints about statnetWeb, please share them with us through our [https://github.com/statnet/statnetWeb GitHub repository] or the [https://mailman13.u.washington.edu/mailman/listinfo/statnet_help statnet_help mailing list]
+

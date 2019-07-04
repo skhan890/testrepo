@@ -1,0 +1,110 @@
+== Proposal to add optional Persistent and/or external Ids for Vertices and Edges ==
+
+We will use this document to hash out the spec for persistent ids.  This version is skye's adaptation of emails from Li Wang
+
+=== Goals and motivation ===
+
+The existing vertex.id in network objects must always range from 1:network size. This means that if some vertices are not active when we extract time slice networks from dynamic networks, the numbering and order of the ids may change. In some cases programmers have worked around this using the vertex.name attribute, but that is not the intended purpose of that attribute (it is used as a descriptive label).  Goal here is to provide standard way to use and store persistent ids for vertices and edges so that code knows where to find the information, if present. 
+
+We want users to clearly understand the differences between network indexes (vertex.id)  and overall dataset ids (vertex.pid)
+
+=== Use cases ===
+
+
+Constructing a nD object from a list of slice networks of varying sizes. Need vertex.pid to know which vertices are present at each timestep 
+
+Correctly identifying the relationship between a subset network and its parent network (i.e. stergm extract-sim-remerge model). The vertex.pid is preserved in the sub network, so don't have to look up vertex activity, and match to original net (which could be expensive) 
+
+Distinguishing multiple spells from multiplex edges when importing from a table.  Need an edge.pid to determine if two rows with the same tail and head nodes should be added as two spells on the same edge, or two different edges between the same vertices.
+
+Maintaining a reference to a specific edge when lists of edge ids are extracted from networks where some edges have been deleted. 
+
+
+=== Proposal ===
+
+==== Vertices ====
+
+An optional reserved network attribute called "vertex.pid" may be added to networkDynamic objects. It gives the name of a vertex attribute containing unique vertex.pids It will be added by default by some converter functions. 
+
+If the vertex.pid exists, it is required to have the following properties and structure. 
+
+The vertex.pid should be a unique numeric vertex attribute that persists through time and addition / deletion of vertices. It should never be missing (NA) or unset for any vertices.
+
+To be able to ensure uniqueness, vertex.pid methods should create/check for a network-level attribute 'nnext' which indicates the possible vertex.pid of the next vertex to be added (if not specified by user).  nnext must be updated after use and should not be modified by user. 
+
+The vertex.pid should be set by default as equal to the internal id (vertex.id) when a networkDynamic object is created or converted. If the vertex.pid attribute is specified by the network or networkDynamic object, carry those over. Methods which construct nD objects will include (where appropriate) the option to specify the name of an attribute (column, etc) containing the vertex.pid information. The methods must verify the properties of the id (uniqueness, etc) and convert non-numeric ids into numeric ids.
+
+Non-numeric vertex.pid attributes will be converted to numeric attributes by first sorting in alpha order and assigning each an integer in sequence.
+
+Users should not modify vertex.pids or edge.pids, (although nothing prevents them from using standard attribute methods to do so)
+
+Converter functions that allow specification of vertex.pid (i.e. networkDynamic(network.list=networks,vertex.pid='myId') ) should store the value in the network vertex.pid attribute.
+
+When converter function create a new vertex.pid, its default name should be 'vertex.pid'. 
+
+Activation and deactivation of vertices should not affect its vertex.pid attribute
+
+Explicitly setting vertex.pid=NULL will disable pid functionality (in case it is slowing things down)
+
+
+ vertex.pid.check(nd):: utility function to check if the attributes exists, are unique, and not NAs. Throws errors if conditions not met. All converter functions should call this.
+
+ get.vertex.id(nd,pid):: utility function to get the vertex id from vertex.pid. Usage example: activate.edges(net, at=1, v =get.vertex.id(c(1,2,5))
+
+ get.vertex.pid(nd,id):: utility function, to get the pid from the id.
+
+ add.vertices(x, nv, vattr = NULL, last.mode = TRUE, vertex.pids=NULL):: overrides add.vertices() in network, calls network::add.vertices() internally, then adds a vertex.pid attribute to it 
+
+ initialize.vertex.pid(nd):: utility function to create a new vertex.pid if none exists.  Probably only used inside converter functions.
+ 
+This function needs to be modified to include vertex.pid info
+
+ add.verticies.active()::
+
+==== Edges ====
+
+An optional reserved edge attribute named "edge.pid" may be added to networkDynamic objects.  It shall have properties and functions analogous to the vertex.pid. 
+
+
+ add.edge():: overides add.edge in network, calls network::add.edge() internally, then adds edge.pid
+
+ add.edges():: overides add.edges in network, callses network::add.edges() internally, then adds edge.pid
+
+This function needs to be modified to include edge.pid info
+  
+  add.edges.active()::
+
+
+=== Implementation notes ===
+
+pids should be implemented using standard attributes
+
+adding a vertex will require us to set the new vertex's vertex.pid
+attribute. We can inherit the add.vertex function from network package
+and modify it. The new vertex should have, by default, the max of
+vertex.pid +1. This operation may be expensive if we are adding a lot
+of vertices (which seems unlikely for a networkDynamic object).
+
+deleting a vertex will automatically handle the deletion of its
+vertex.pid; this is permanent.
+
+=== Questions ===
+
+should converter functions permit use of vertex.pid id values in edge definitions?
+
+Do we need a "network.pid" TEA attribute that provides a way to reference the time ranges slice networks after they have been merged into an nD object?
+
+Under what conditions should pids be included in output when converting vertices or edges into data.frames
+
+Should vertex.pid.check return an error, or FALSE if no network attribute name vertex.pid is present?
+
+should the get.vertex.pid and get.vertex.id  functions allow specifying a vertex.id attribute name (i.e. 'vertex.names') so that they can be used even if attribute has not been defined?
+
+=== Notes ===
+
+Skye still wants this to be a non-numeric attribute (defaults to "v1", "v2", "e1", "e2" etc) so that it can't be confused with vertex.ids 
+
+
+
+[[AddComment]]
+

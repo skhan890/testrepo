@@ -1,0 +1,39 @@
+
+== Practical Statistical Models for Networks ==
+
+
+=== Recent developments in exponential random graph (p*) models ===
+
+THURSDAY 2/16	12:00-2:00pm	Redondo 1
+
+=== Co-Chairs ===
+Martina Morris, Garry Robins
+
+=== Presenters ===
+Steve Goodreau, Mark S. Handcock, Dave Hunter, Pip Pattison, Tom Snijders
+
+In this special session we outline the recent developments in exponential random graph models (ERGM, also known as p*) that now make them a practical and useful tool for the statistical analysis of social networks.
+
+It has been customary to use a Markov random graph specification (Frank & Strauss, 1986; Wasserman & Pattison, 1996) when applying p* models to data. But most commonly used Markov graph models do not represent observed social networks well. The resulting estimated models are often near degenerate, and in such cases coherent parameter estimates can not be obtained.
+
+The problem of degeneracy is a function of both the fit of a specific model, and the sensitivity of the general modeling framework. Over the past few years, substantial progress has been made in understanding both of these issues and the connection between them. Statistical theory has been developed to define and analyze the problem of degeneracy (Handcock 2003). New model specifications have been proposed that help to avoid degenerate estimates (Snijders, Pattison, Robins and Handcock, 2005). And computer packages are being developed to implement general ERGM estimation using maximum likelihood (rather than pseudo-likelihood). The result is improved robustness, accuracy, diagnostics and ability to handle missing data.
+
+Sunbelt XXV
+International Sunbelt Social Network Conference
+Redondo Beach, CA, February 16-20, 2005
+
+The special session will include:
+
+* a non-technical overview of exponential random graph models (ERGM), Markov models, and new specifications of network dependence ([attachment:1Pattison.pdf Pip Pattison]);
+* a non-technical review of the statistical theory that explains the problem of degeneracy in ERGMs ([attachment:3Handcock.pdf Mark S. Handcock]);
+* a comparison of Markov models and the new models for the standard networks distributed with UCINET ([attachment:2Robins.pdf Garry Robins])
+* techniques for estimation, and a brief review of two currently available programs ([attachment:4Snijders.pdf Tom Snijders], [attachment:5Hunterrev.pdf Dave Hunter]);
+* a comparative analysis of about 60 friendship networks from the Add Health study that range in size from 80 to 3000 nodes ([attachment:6Goodreau.pdf Steve Goodreau])
+* an assessment of these recent developments ([attachment:7Morris.pdf Martina Morris])
+* Overheads from "Curved Exponential Family Models" [attachment:8HunterHandcock.pdf Mark S. Handcock and David R. Hunter]. Provides an introduction to the weighted degree and weighted shared partner (WSP) models.
+
+Computer packages for statistical analysis of networks:
+
+* SIENA: http://stat.gamma.rug.nl/siena.html 
+* StOCHNET: http://stat.gamma.rug.nl/stocnet/ 
+* Statnet (beta):	http://csde.washington.edu/statnet/ 

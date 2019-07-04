@@ -1,0 +1,64 @@
+
+== Exercise 3: Thinking numerically about concurrency at the local level (Hints) ==
+
+
+Need help on either of these two questions?
+
+'''Question 10''': If the red partner is infected and the blue is not, what is the probability that Chris gets infected AND transmits to the blue partner?
+
+'''Question 11''': If the blue partner is infected and the red is not, what is the probability that Chris gets infected AND transmits to the red partner?
+
+Our first piece of guidance is to work through the [wiki:ConcurrencyTutorialProb probability tutorial], if you have not already.  The example at the bottom of that page provides some hints as to how to proceed with the above.
+
+Then, with that tutorial in mind, consider the following steps in order.
+  
+* What set of conditional probabilities does one need to calculate in order to get the final answer?
+
+* As examples, try calculating a few of these conditional probabilities.  Say, the 1st, 2nd, and 37th.
+
+* Now, develop a general expression for the nth of these conditional probabilities.
+
+* Now, given the rules of probability, and the relationship among the probabilities you have just calculated, how does one combine them together to get the joint probability?
+
+If you would like some more hints, scroll down below!
+
+[wiki:ConcurrencyExercise3 Return to Exercise 3]
+
+
+[[br]][[br]][[br]][[br]][[br]][[br]][[br]][[br]]
+
+
+== Exercise 3 further hint: ==
+
+For Question 10: There are 100 mutually exclusive ways that Chris can get infected by red and pass it on to blue:
+
+1. Chris is infected on the first sex act with red, and then subsequently passes to blue; 
+2. Chris is infected on the second sex act with red, and then subsequently passes to blue; 
+3. Chris is infected on the third sex act with red, and then subsequently passes to blue; etc. 
+ 
+Try the following:
+
+* Calculate the probability for the first of these (Chris is infected on the first sex act with red, and then subsequently passes to blue). Note that this probability can be broken down further into two pieces:
+  * P(Chris is infected on the first sex act with red) * P(Chris infects blue | Chris is infected on the first sex act with red)
+
+* Calculate the probability for the second of these (Chris is infected on the second sex act with red, and then subsequently passes to blue). Note that this probability can be broken down further into two pieces:
+  * P(Chris is infected on the second sex act with red) * P(Chris infects blue | Chris is infected on the second sex act with red)
+
+* Since Chris must avoid infection on the first sex act with red in order to become infected on the second sex act with red, this can be further broken down into:
+  * P(Chris is infected on the second sex act with red | Chris avoided infection on the first sex act with red) * P(Chris avoids infection on the first sex act with red) P(infects blue | Chris is infected on the second sex act with red)
+
+* Calculate the probability for the 37th of these (Chris is infected on the 37th sex act with red, and then subsequently passes to blue).
+
+* Looking at these three expressions, try developing an expression for the probability that Chris is infected on the nth sex act with red, and then subsequently passes to blue
+
+* Use a software package with which you are familiar (Excel, R, etc.) to calculate all 100 values
+
+* Since the events are mutually exclusive, use the basic rules of probability to determine the probability that any one of these 100 events can happen.
+
+The structure of the solution for Question 11 is exactly the same, although the resulting expression differs slightly.  
+
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

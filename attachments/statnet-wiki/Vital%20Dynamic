@@ -1,0 +1,178 @@
+= Vital Dynamics in tergm simulations =
+
+Summary of current position:
+
+There are 3 specific issues that are somewhat independent wrt the desired behavior of the dynamic model:
+
+1. proper specification of the dissolution term
+
+relationships end for two reasons:  breakup (we've been calling this "endogeneous", meaning endogenous wrt to the tergm) and death ("exogeneous" wrt to tergm).  we have been estimating from empirical data the combined hazard (as 1/d where d=mean age of extant ties), but using this in the model as the endogenous hazard.  the result is that, in a model with node vital dynamics, durations are too short, and the mean degree is too low.
+
+SMG noticed this years ago, and came up with a "death adjustment" that he uses to modify the edge coefficient in the tergm dissolution model.
+
+after discussion, we agreed that it would be better to make the adjustment during *estimation*, so that we estimate a the endogeneous hazard rather than the combined hazard.  this is essentially a competing risk model, and Li is working on developing the appropriate estimation methodology.
+
+2. understanding departures from "equilibrium"
+
+estimating the tergm from a cross-sectional sample requires an assumption of "equilibrium" -- in the sense that the sufficient statistics will match the targets (stochastically) when the simulation is in the same state as the original target population.  if there are large shocks to the system (say a large mortality shock) or changes in the exogeneous parameters (say, a persistent increase in mortality due to the impact of disease), the targets will not necessarily be matched.
+
+this is somewhat obvious, but also means that we need to be careful when using the target stats for validation in simulations with vital dynamics.
+
+3. order of updating in a discrete time simulation
+
+because both births and deaths reduce mean degree, we think the tergm step (for edge dynamics) has to happen last -- after vital dynamics and TEA updates.  
+
+and here is where the interface between nD and tergm becomes important again...  so that is what we'll be discussing on Friday Dec 6.  
+
+Reading assignment is Skye's writeup:  [[attachment:"Skye time_model.pdf"|Interaction of networkDynamic and STERGM (pdf)]]
+
+For those of you with trac access, he also has a ticket with a proposal to an additional param to simulate.stergm to be able to tell it how it should update the nD with the just-simulated network slice:
+
+https://statnet.csde.washington.edu/trac/ticket/602
+
+== Resources ==
+
+=== Steve's materials ===
+http://faculty.washington.edu/goodreau/vitaldyn.html
+
+[[attachment:"SMGs death adjustment.docx"|SMG's Death adjustment writeup (doc)]]
+
+=== Pavel's stuff ===
+
+[[attachment:"Krivitsky_Dissertation.172-173.pdf"|dissertation pages on duration estimation (pdf)]]
+
+Seems like Pavel has a paper on this: http://stat.psu.edu/research-old/technical-reports/2012-technical-reports/TR12021A.pdf
+
+
+=== Kirk's docs ===
+https://statnet.csde.washington.edu/trac/attachment/wiki/Vital%20Dynamic/vital_dyn_kk.pdf
+
+extant tie mean duration estimates in STERGM simulation
+https://statnet.csde.washington.edu/trac/attachment/wiki/Vital%20Dynamic/use_pic_matplot.pdf
+
+simulation code for investigation of death effect on mean duration estimation using extant duration. 
+https://statnet.csde.washington.edu/trac/attachment/wiki/Vital%20Dynamic/duration_test.R
+
+Result:
+https://statnet.csde.washington.edu/trac/attachment/wiki/Vital%20Dynamic/duration_test.pdf
+
+=== Skye's writeup ===
+[[attachment:"Skye time_model.pdf"|Interaction of networkDynamic and STERGM (pdf)]]
+
+Li's note: A small powerpoint with pictures about this issue: [[attachment:'vital sim.pdf']]
+
+=== Li's write up ===
+
+[[attachment:"vital.pdf"|A derivation for using the age of extant ties to estimate duration (pdf)]]
+
+'''Behavior of STERGM simulation:'''
+
+The stergm simulation function uses formation and dissolution parameters for calculating two micro-level probabilities:
+
+P(form edge | no edge) = expit(theta+) [[br]]
+P(dissolve edge | edge) = 1 - expit(theta-)
+
+These probabilities are balanced so that at equilibrium number of edges (what we call the target):
+
+Expected number of edges formed = expected number of edges dissolved
+
+When the number of edges is not at target, formation and dissolution will not balance, but they will move toward the target. See Kirk's writeup for equations.
+
+The recurrence relation is:
+
+Y(t) = a*N - (a-b)*Y(t-1)
+
+where Y(t) is the number of edges at time t, a=expit(theta.form) and b=expit(theta.diss), and N is total number of dyads.
+
+This gives exponential solutions that contain the form (b-a)^t^ , depending on initial conditions. Suppose there is a shock so that the number of edges is (d) away from target at time t=1. The expected number of edges at time t is:
+
+-(b-a)^t-1^ d + target
+
+So, whenever the number of edges moves away from target by d, it will reduce the difference by a factor of (b-a) at each time step. I have simulated this behavior by introducing two shocks to the equilibrium, removing half of the edges (mean degree drops from 2 to 1).
+
+[[Image(vital.png)]]
+
+The model fits simulation well. Note that there's not enough time between the shocks for full recovery, so
+the number of edges at time 30 was still below the target. What if external shocks (external meaning not
+part of the stergm simulation) happen at every time step, as in the vital dynamics model? 
+Then the "equilibrium" network will have lower than target number of edges. How much lower? 
+
+* at each time step we lose approximately (for small death rate) k = mean.deg * population * death.rate number of edges, due to deaths. 
+
+* at each time step we gain (target-Y)*(1-b+a) number of edges due to stergm simulation
+
+Setting them equal, we can solve to get 
+
+Y(unadjusted) = target*(1-b+a) / (2*death.rate+(1-b+a))
+
+In Steve's simulations with death.rate = 0.05, target=1000, this works out to 500 edges, or mean degree 1, which matches the "stergm without death correction" results.
+
+'''Model:'''
+
+Equilibrium in a dynamic network depends on the two conditional probabilities and by the target number of edges.
+
+We can get the target number of edges by estimating the mean degree.
+
+We can get the dissolution coefficient (and so the probabilities) by estimating the duration.
+
+Vital dynamics lowers the equilibrium number of edges by deleting them at each time step.
+
+We should adjust the model coefficients to get back to the target, and so preserve the mean degree. In doing so, we assume
+that our mean degree estimate is not affected by births or deaths.
+
+We can either adjust the formation coefficient (theta+) or the dissolution coefficient (theta-). (see Kirk's equations)
+
+* Changing formation coefficient: this does not change the endogenous relationship durations. Here, we assume that our estimate of the duration is based on dissolutions NOT from death. We can interpret the adjusted model as: edges are broken due to deaths at each timestep, so additional edges must be formed to compensate.
+
+* Changing the dissolution coefficient: this increases the endogenous duration of relationships in the simulation. We can interpret this adjustment as: our duration estimate is based on both breaking up AND from death, therefore the network simulation should reflect it. The combined mean duration in this model should match the duration from data.
+
+So, how we adjust the coefficients should depend on how we estimated the mean relationship duration.
+
+'''Estimating the relationship duration'''
+
+The mean relationship duration is estimated using the average age of extent ties ("how long have you been with your current partner?") from a population sample. When birth and deaths are involved, does this estimator correspond to 
+
+H0: the duration due to endogenous dissolution (the one used by STERGM), or [[br]]
+H1: the duration due to both death and break-ups?
+
+I ran two simulations using a endogenous duration of 10: one in a population with no deaths, and one with death rate of 0.05 at each time step. If the null hypothesis is correct, then the two simulations should give the same estimate.
+
+The results of the simulation, with the code, are here: http://students.washington.edu/lxwang/vital%20and%20relational%20dynamics%203.html
+
+The first simulation (no deaths) gave an estimated duration of 9. The difference from 10 here may be a bug in my code (see explanation below). The recorded average duration for all ties in the simulations is 9.577.
+
+The second simulation (birth and deaths) gave an estimated duration of 4.677. This is significantly lower than the estimate in the first simulation. 
+
+Why does this happen?
+
+Suppose the expected age of extent ties (A) for a population with no deaths is equal to d. Then the expected age of extent ties for birth and deaths is a weighted average, where p is the proportion of edges that are new:
+
+E(A) = E(A|survivors) * (1-p) + E(A|new) * p
+
+Assuming the deaths occur at random, as in the simulation, the survivors should have the same expected age of extent ties as the whole population at last time step. 
+
+Assuming the newly "born" form ties with the same probability as the general population, the expect age of extent ties is equal to 1.
+
+So, in the simulation
+
+E(A|t) = E(A|t-1) * (1-p) + 1 * p
+
+This is another recurrence relationship. The important point is that the expected age of extent ties is lowered at each time step until it reaches equilibrium, just like the relationship duration and the number of edges.
+
+TO DO: calculate the equilibrium for expected age of extent ties.
+
+'''Age of extant ties, in discrete time'''
+
+In networkDynamic, the duration of a spell is measured by
+
+duration = terminus - onset
+
+However, an edge is considered "active" in the interval [onset, terminus) so that if the terminus is 8, it will not be considered active at t=8.
+
+Suppose we want to use the average age of extant ties (active edges) at time at=8 to estimate the mean duration. Consider a restricted model where all edge spells have duration 1. Then all the active edges at time t=8 will have onset=8 and terminus=9.  Note that there are no active edges at any other times.
+
+If we use the formula
+
+age = at - onset
+
+to calculate the age of extant ties, we will only get age=0 instead of 1. To correct for this, we'll need to add 1 to the age of extant ties. A more rigorous derivation will follow, and requires characterizing the age of extant ties as an estimator.

@@ -1,0 +1,44 @@
+= Source Code Utilities =
+
+This (private) page contains utilities useful for working with Statnet source code.
+
+== C Utilities ==
+
+=== [[attachment:mk_h_stubs|"Stubify" Header files]] ===
+
+ Description::
+   Given a list of C header files, constructs C file(s) containing stubs of functions declared in the header files. Each stub calls R_FindSymbol() to locate the function in question in the target R package and then calls it. This provides a simple mechanism for "importing" C routines of another R package. The stubs can be used either directly in the {{{src/}}} directory of the target package or via R's {{{inst/include}}}+{{{LinkingTo:}}} mechanism. In particular, using {{{-1}}} option puts all the stubs in the same file, allowing the linking package to import everything with one {{{#include}}}.
+ Requirements::
+   * Python 2.4 or later
+   * C toolchain, particularly `cpp` (only GCC toolchain tested so far)
+   * R header files
+ Last updated::
+   `2012-11-27`
+
+== R Utilities ==
+
+== Documentation Utilities ==
+
+=== [[attachment:Rd2tests.zip|Extract the skipped tests in the package's examples into a test]] ===
+
+ Description::
+   Given an R package source, extracts documentation's example code that's wrapped in `\donttest{}` into `tests/examples.R`, wrapped in an `opttest()` function (included). This way, one can quickly test all the example code, but the same package submitted to CRAN won't cause complaints about tests taking too long.
+
+   `opttests()` can be used separately, to wrap other tests in the package.
+
+   See `latentnet` for an application.
+ Contents::
+   * `Rd2tests`: A Unix shell script that runs all the others.
+   * `find_Rpkg_src`: A Unix shell script that finds the package source directory path and prints it. (E.g., if it's run in the tests directory, it'll print the path of the directory that contains DESCRIPTION.)
+   * `extract_donttests`: A Perl script that, given an Rd file on standard input, prints the code wrapped in `\donttest{}`, excluding that wrapped in `\dontrun{}`. Note that it can be confused by unbalanced braces, even escaped or in a string.
+   * `opttest.R`: R function that must be added to the package source or in a library (e.g., {{{statnet.common}}}).
+ Usage::
+   1. Extract the zip file into a directory in the execution path, and set permissions to executable.
+   2. Add the function in opttest.R to the package of interest, customizing it as described.
+   3. Either change the working directory to somewhere in the package source and run `Rd2tests` without arguments, or run `Rd2tests PATH_TO_PKG`.
+ Requirements::
+   * A recent version of Perl.
+   * A Unix shell
+   * Some Unix utilities: `basename` and `sed`
+ Last updated::
+   `2012-07-08`

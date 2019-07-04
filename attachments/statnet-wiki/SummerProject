@@ -1,0 +1,57 @@
+== Summer 2014 Research Project / Training Workshop ==
+
+We are soliciting applications for an unpaid internship in statistical research and computing for Summer 2014. 
+The project description and requirements are listed below.  To apply, please use the UW Catalyst form here
+
+** Project Description **
+
+The goal of this project is to implement a prototype for a web-based GUI for network analysis and visualization, by integrating leading-edge software for user interfaces (Shiny) and social network analysis (statnet).  The interface should provide seamless and intuitive access to R functionality within a web browser.  This removes the need for a user to learn how to operate R via a command line interface, but should not provide a barrier to learning those commands if desired.
+
+We anticipate the project will take about 40 hours, during the month of July 2014.
+
+On completion of the project, students are expected to 
+
+* know how to manipulate and visualize social network data
+* develop R-Shiny UIs
+
+See info below for details on R, shiny, and statnet.
+
+References:
+
+[http://www.r-project.org/ R program]
+
+[http://www.rstudio.com/shiny/ R shiny app]
+
+[https://statnet.csde.washington.edu/trac statnet package suite]
+
+[https://statnet.csde.washington.edu/trac/wiki/Sunbelt2014 latest statnet tutorials]
+
+This project will focus on the package "ndtv", which allows users to create dynamic network movies from temporal network data:
+
+[http://statnet.csde.washington.edu/workshops/SUNBELT/current/ndtv/ndtv_workshop.pdf ndtv tutorial]
+
+** Requirements **
+
+* Junior or Senior status
+* Major in Statistics preferred, Applied Math and Computer Science majors with a minor in Statistics are also welcome to apply
+* Experience with the R statistical software environment
+* Experience with programming at some level (via coursework or other experience)
+* Experience with different OS
+* Familiarity with Maximum Likelihood Estimation, MCMC, Hypothesis Testing, Exponential Family Distributions 
+* Good communication and writing skills
+
+Optional or helpful
+* Javascript and HTML programming experience would be very helpful
+* Some familiarity with SVNs and software ticketing systems would be helpful  
+
+
+** Miscellaneous **
+* For international travelers, VISA are '''not''' sponsored. 
+* Travel and housing arrangement are '''not''' provided. 
+* Students will be advised by Faculties/PhD students on weekly basis.
+* A letter of evaluation will be provided upon completion of the project if requested
+
+** APPLY **
+
+[https://catalyst.uw.edu/workspace/morrism/45137/ UW Catalyst]
+

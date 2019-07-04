@@ -1,0 +1,80 @@
+This page documents automated package building and testing environments used by the Statnet Project.
+= Testing on Linux: {{{statnet.csde.washington.edu}}} =
+
+{{{statnet.csde.washington.edu}}} is a virtual Linux server, currently with 4 CPUs and 1 GB of RAM. Building and testing tasks are handled by the user {{{rpackagebuilder}}}, whose home directory, {{{/net/home/rpackagebuilder}}}, hosts the building and testing environment.
+
+== Concepts ==
+ Package:: a specific version of an {{{R}}} package
+ Suite:: a set of Packages, whose mutual compatibility is to be tested; a Suite may not contain more than one version of any given package
+ R version:: a build of {{{R}}} against which a Suite is to be tested
+
+== Procedure ==
+
+The testing scripts will, loosely, do the following:
+ 1. Update the R versions and rebuild any core packages.
+ 1. For each R version, update the packages installed from CRAN.
+ 1. For each Package source, update the source code (if applicable).
+ 1. Build a {{{.tar.gz}}} file for each Package source. (This turns out to be necessary to avoid a race condition later on.)
+ 1. Iterate through the Suites, performing the following for each Suite:
+  1. Install all the Packages in the Suite to all of the R versions.
+   * If a Package does not build, for any reason, leave it unbuilt (i.e., if it had been installed before, delete it).
+   * If a Package has a dependency or a suggestion, it will be installed from CRAN, *unless* another package in the Suite fulfills it.
+  2. For each Package in the Suite, build it (to a {{{.tar.gz}}} file using each of the R versions, and then {{{R CMD check --as-cran --timings}}} it.
+   * This is done in parallel: each combination of Package and R version can be done concurrently.
+ 1. Summarize the output from setting up the Suites, and from testing the Packages.
+
+== Directory Layout ==
+
+=== Source directory {{{~/src}}} ===
+The source directory contains the sources for Packages and R versions to be tested, each in its own subdirectory. A Package source directory, distinguished from an R version directory by the presence of a {{{DESCRIPTION}}} file, may be of one of three types:
+ Subversion working copy:: identified by the presence of a {{{.svn}}} subdirectory, it must be set up so that running {{{svn up}}} in it will update it (e.g., it may not require a password, so the URL should be of the {{{file://}}} type), and it will be updated every at the beginning of a test run
+ CRAN package:: identified by a {{{Repository: CRAN}}} line in its {{{DESCRIPTION}}} file, if CRAN has a newer version, it will be downloaded at the beginning of a test run
+ static source:: otherwise, the source package will not be updated
+
+Each R version directory needs to be updated in different ways. Currently, there is {{{R.trunk}}}, which is updated by the {{{update_R_trunk}}} script using {{{svn up}}}, and {{{R.latest}}}, which is updated by the {{{update_R_release}}} script, downloading a new version when it's released. The {{{VERSION}}} file in an R version directory is used to identify the version of R against which the packages are being tested in the output.
+
+=== Configuration directory {{{~/cfg}}} ===
+The configuration directory contains files that control which Suites and R versions get tested. There are to types of files:
+ {{{Rs}}} file:: a newline-separated (and newline-terminated!) file (only one!) giving paths, relative to {{{rpackagebuilder}}} home directory, of the R version source directories against which packages are to be tested
+ {{{.ste}}} files:: files defining the Suites to be tested, each containing a newline-separated (and newline-terminated!) list of paths, relative to {{{rpackagebuilder}}} home directory, of the package sources (located in {{{~/src}}}) in the Suite; the paths must be such that if the packages are built in sequence, their mandatory dependencies will be satisfied
+
+=== Script directory {{{~/bin}}} ===
+
+Some of the key scripts:
+
+{{{run_tests}}}   the 'top level' script to run all the test suites, called nightly as a cron job
+
+{{{update_src}}}   updates the source directories (from svn and download packages) and rebuilds R versions as needed
+
+{{{run_suite}}} actually runs the tests in the suite (in parallel), first setting up packages for the suite, and removing them afterwards
+
+{{{test_package}}}  builds and checks a specific package against an R version
+
+{{{deploy_all}}}
+
+{{{deploy_release_candidate}}} deploys the release candidate (RC) built packages to the repo and assembles the dashboard page http://statnet.csde.washington.edu/release_candidate/
+
+{{{deploy_unstable}}} deploys the trunk built packages to the repo and assembles the dashboard page http://statnet.csde.washington.edu/unstable/
+
+{{{deploy_public}}} downloads all of the CRAN version of packages and all of their dependencies into the http://statnet.csde.washington.edu/ backup repository.  Optionally copies a few packages from release_canidate
+
+{{{post_release_cleanup}}} this script delete orphan build files in the various release candidate (RC) directories.  It should be run after a release has been accepted by cran and development shifts back to trunk, etc
+
+
+
+
+
+=== Output directory {{{~/out}}} ===
+
+At the end of a successful (not necessarily in the sense that {{{R CMD check}}} passes, or even that all Packages build, but in the sense that the scripts don't fail in ways that they shouldn't), the output directory should have the following contents:
+ {{{R CMD check}}} output:: located in {{{~/out/$RVERSION/$SUITENAME/$PKGNAME.Rcheck}}}, the result of running {{{R CMD check --as-cran --timings}}} for for Package {{{$PKGNAME}}} in Suite {{{$SUITENAME}}}, run on R version {{{$RVERSION}}}, with the other packages in Suite {{{$SUITENAME}}} installed
+ Package sources for distribution:: located at {{{~/out/$RVERSION/$SUITENAME/$PKGVERSION.tar.gz}}}, the result of running {{{R CMD build}}} for for source of the Package {{{$PKGVERSION}}} on R version {{{$RVERSION}}}
+ Setup logs:: located in {{{~/out/$RVERSION/$SUITENAME/setup.log}}}, giving the output from compiling all the Packages in the Suite on the R version in question; a package may compile, even if it fails {{{R CMD check}}}
+ Setup summaries:: located at {{{~/out/setup_summaries.log}}}, copies of {{{setup.log}}} for Suites and R versions where at least one error was found, with the Suite and R Version identified
+ Test summaries:: located at {{{~/out/check_summaries.log}}}, lists of ERRORS, WARNINGS, and NOTES from testing the packages, with the Suite and R Version identified, and four lines of context given
+
+Here,
+ {{{$RVERSION}}}:: is the name of the directory containing the R source code used; currently, {{{R.latest}}} and {{{R.trunk}}}
+ {{{$SUITENAME}}}:: name of the file in the configuration directory listing the Packages for the Suite tested, with {{{.ste}}} stripped
+ {{{$PKGNAME}}}:: the name of the R package tested
+ {{{$PKGVERSION}}}:: the name and version of the R package tested, as produced by {{{R CMD build}}}

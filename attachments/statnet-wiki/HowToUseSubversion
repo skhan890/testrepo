@@ -1,0 +1,66 @@
+== How to Use Subversion (SVN) to access statnet source code ==
+
+The statnet project uses a source code management tool called Subversion (SVN) to make it possible for lots of developers to work on the project at the same time without overwriting eachother's edits.  Each developer works on their own local copy of the code, and "checks in" changes to a central repository or runs an "update" to receive other's changes.  (There is a much more detailed [http://svnbook.red-bean.com/en/1.7/index.html manual] for svn.) 
+
+=== Accessing source code with SVN ===
+
+You must have a CSDE user account to check out code via svn . 
+
+ The repository URL for statnet_commons is ::
+  {{{svn+ssh://YOUR_USERNAME@statnet.csde.washington.edu/svn/statnet_commons}}}
+
+ The repository URL for statnet_research is ::
+  {{{svn+ssh://YOUR_USERNAME@statnet.csde.washington.edu/svn/statnet_research}}}
+ 
+ The repository URL for RDS is ::
+   {{{svn+ssh://YOUR_USERNAME@statnet.csde.washington.edu/svn/rdsworkinggroup}}}
+
+So if you have svn installed and you are on a linux or mac, you can get a copy of the code with
+ {{{svn checkout svn+ssh://YOUR_USERNAME@statnet.csde.washington.edu/svn/statnet_commons}}}
+ {{{svn update}}}
+
+After you make changes you can commit them back with 
+ {{{svn update}}}  (make sure you get any changes other people have made)\\
+ {{{svn commit -m "hey I made some really cool changes, hope I didn't break everything"}}} 
+
+
+For windows, use [http://tortoisesvn.net/ TortiseSVN] GUI client. If you are using svn with RStudio on windows, you will need an alternate svn version, instructions here: [http://www.rstudio.com/ide/docs/version_control/overview?version=0.98.490&mode=desktop]
+
+If you only need to check out one package (such as network), and want to avoid the having to navigate through branch and tags directory, you can use a url like:
+ {{{svn checkout svn+ssh://YOUR_USERNAME@statnet.csde.washington.edu/svn/statnet_commons/network/trunk}}}
+
+ 
+=== Switching / updating SVN to new repository location ===
+
+We recently moved the statnet SVN sourcecode repository to a new server so that it can be integrated with this awesome bug tracking site.  If you have code checked out in a local repository (on your laptop) you will need to tell svn to point to the new repository location.  The command is
+ {{{svn switch --relocate OLD_LOCATION NEW_LOCATION}}}
+
+So for most of us the command will be:
+
+ {{{svn switch --relocate svn+ssh://YOUR_USERNAME@svn.csde.washington.edu/svn/statnet_commons svn+ssh://YOUR_USERNAME@statnet.csde.washington.edu/svn/statnet_commons}}}
+
+But some people may have alternate address (like {{{svn.statnet.org}}} that need to be entered instead of {{{svn.csde.washington.edu}}}
+
+For windows, use the [http://tortoisesvn.net/docs/nightly/TortoiseSVN_en/tsvn-dug-relocate.html Relocate] option on the TortiseSVN pop-up menu. 
+
+Note: TortiseSVN 1.8 may have problem accessing to svn, try to use TortiseSVN 1.7 instead if that happens. 
+
+Make sure that you run this command in the top level of your repository!
+
+=== Problems with svn ===
+
+We have had some issues in the past with subversion clients, such as Tortoise SVN ,
+creating and destroying TCP socket connections so quickly that the traffic is indistinguishable
+from a brute-force SSH attach against the CSDE data center.  If you suddenly cannot connect
+to CSDE systems after running a subversion client, here is what you should do:
+
+1) Verify that you cannot open http://csde.washington.edu If you are banned at the firewall, you will not be able to connect to 
+*anything* at CSDE, including our web site
+
+2) If you cant see our web site,  find out what your IP address is by pointing your client computer's web browser at a web site like:  http://www.whatismyip.com/
+
+Copy and email that IP address to the CSDE Help desk  and ask that we check the firewall for a banned IP address.
+
+We have not been able to figure out how to de-tune certain SVN clients to prevent this from happening, but are
+open to suggestions, if you find setting in your client to limit the # of simultaneous TCP connections please send us
+screenshots or suggestions we can give to others with similar issues.

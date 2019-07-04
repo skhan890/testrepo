@@ -1,0 +1,32 @@
+{{{
+#!html
+<h3 style="padding:5px; text-align: left; background-color: #cccc99"><b>statnet</b> : <a href='https://statnet.csde.washington.edu/trac/wiki/WikiStart' style="color: #550">Introduction</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/Installation' style="color: #550">Installation</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/Resources' style="color: #550">Resources</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/FrequentlyAskedQuestions' style="color: #550">FAQ</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/License%20and%20attribution' style="color: #550">Citing statnet</a></h3>
+}}}
+{{{
+#!html
+<h3 style="padding:5px; text-align: left; background-color: #cccc99"> 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_2012' style="color: #550">EpiNetSim Course</a> :
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Location' style="color: #550">Location</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Lectures' style="color: #550">Lectures</a> |
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Homework' style="color: #550">Homework</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Projects' style="color: #550">Projects</a> |
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Examples' style="color: #550">Installation</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Discussion' style="color: #550">Discussion</a>
+</h3>
+}}}
+
+=== A 1 week intensive course on: ===  
+= Network Modeling of Infectious Disease =
+
+== Location ==
+University of Washington\\
+Johnson Hall\\
+Room 111\\
+[[Image(wiki:Course:uwcampus-JHN.png, 600)]]
+== Directions ==
+[[Image(wiki:EpiNetSim_Location:SeaTac2UW-cropped.png, 600)]]
+== Interactive Map ==
+{{{
+#!html
+<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=214105562479554236720.0004c857f3271abceeffa&amp;gl=us&amp;ie=UTF8&amp;ll=47.550377,-122.307444&amp;spn=0.212996,0.008411&amp;t=m&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=214105562479554236720.0004c857f3271abceeffa&amp;gl=us&amp;ie=UTF8&amp;ll=47.550377,-122.307444&amp;spn=0.212996,0.008411&amp;t=m&amp;source=embed" style="color:#0000FF;text-align:left">See Interactive Google Map</small>
+}}}

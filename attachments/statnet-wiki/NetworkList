@@ -1,0 +1,69 @@
+== Purpose: ==
+
+Obtain a list of network slices from nD object which describe the evolution of the network by binning it into specified intervals. This function can be thought of as the inverse of the networkDynamic(network.list=) function.  
+
+== Uses cases ==
+  
+* Sample/bin a dynamicNetwork object at regular intervals to create a series of 'static' networks that can be evaluated by traditional non-temporal network metrics (i.e. density, betweenness) to create a time series describing the network
+
+* Sample/bin a dynamicNetwork object at regular intervals in order to export or output to formats that use multiple network (or multiple matrices) to represent network dynamics. 
+
+== Specifications ==
+* The function supports arbitrary, (non-discrete) binning intervals. (i.e. sample every 10.7 time units)
+
+* It is possible to specify the duration of the samples (slices) being extracted. (i.e slices may be ((1,1),(2,2),...) or ((0,10),(10,20),...)
+
+* It is possible to specify samples that overlap in time (useful for 'rolling average' networks).  ((1,5),(2,6),(3,7),...)
+
+* Allows binning a specific sub-range of time of the input network (collect samples fom 0 to 10 from a network that ranges from -Inf to Inf)
+
+* Allows specifying whether the output networks should vary in size due to network activity, or maintain the same size and network indices as the input network (retain.all.vertices argument)
+
+* Behavior for collapsing/merging TEA attributes or multiple edge activity spells will follow network.collapse
+
+* Can guess default values from net.obs.period of nD argument, if it exists. 
+
+== Function: ==
+
+{{{
+get.slices.networkDynamic <- function(dnet, onset=NULL, terminus=NULL, 
+   at=NULL, length=NULL, rule=c("any","all"), active.default=TRUE,retain.all.vertices=FALSE,...)
+}}}
+
+Skye's proposal:
+{{{
+get.networks<- function(dnet,start=NULL, end=NULL, time.increment=NULL, onsets=NULL,termini=NULL,...}
+}}}
+
+pass args to collapse.network via ...
+
+Or maybe just make it so that {{{network.extract}}} accepts multiple values for onset and terminus?
+
+ dnet::
+a networkDynamic object
+
+ onset::	
+optionally, the start of the specified interval. This must be accompanied by one of terminus or length. Note: -Inf is not allowed
+
+ terminus::
+	
+optionally, the end of the specified interval. This must be accompanied by one of onset or length. Note: Inf is not allowed
+
+ time.increment::how much time to increment between networks (probably 1 for most discrete sim nets)
+
+ rule::	
+
+a text string for defining “active” for this call: any if elements active at any time during the interval are to be used, or all if elements must be active over the entire interval.
+
+ active.default::	
+logical; should elements without an activity attribute be regarded as active by default?
+
+ retain.all.vertices::	
+logical; should the extracted network retain all vertices, ignoring the vertex activity spells of x in order to ensure that the network returned has the same size as x?
+
+ trim.spells::	
+logical; should the spells of vertices, edges and their attributes in the extracted network be trimmed to match the query range? (Sensible thing to do, but could be expensive)
+
+== Notes ==
+
+Network collapse (which is being called internally) sets trim.spells=TRUE, so probably don't need it.  Unless we want to sometimes return nD objects that are just extracted?

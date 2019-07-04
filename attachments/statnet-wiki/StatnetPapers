@@ -1,0 +1,59 @@
+[[Include(statnetnav)]]
+
+= Papers that use statnet =
+
+Published papers based on analyses using statnet
+
+* '''[[Papers from Google Scholar|Citations from Google Scholar]]'''
+
+
+== 2010 ==
+
+
+''Forty years of secondhand smoke research: The gap between discovery and delivery.'' 
+Harris JK, Luke DA, Zuckerman R, Shelton S. '''''American Journal of Preventive Medicine''''', 36(6): 538–548.
+
+[http://download.journals.elsevierhealth.com/pdfs/journals/0749-3797/PIIS0749379709001548.pdf Download pdf]
+
+''Food-Sharing Networks in Lamalera, Indonesia: Reciprocity, Kinship, and Distance.'' 
+Nolin, David A. '''''Human Nature''''', 21(3) 243–268.
+
+
+== 2009 ==
+
+''Concurrent partnerships and HIV prevalence disparities by race: Linking science and public health practice.'' 
+Morris, M., Kurth, A., Hamilton, D. T., Moody, J., Wakefield, S. & The Network Modeling Group. '''''Amer J Pub Health''''' 99(6):1023 - 1031
+
+Supplementary material:
+
+* [http://statnet.org/movies Movie from the network simulation of the growth of the reachable path of infection]
+
+''Birds of a Feather, or Friend of a Friend? Using Statistical Network Analysis to Investigate Adolescent Social Networks.'' 
+Goodreau, S., Kitts, J. & Morris, M. (2009).  '''''Demography''''', 46(1): 103–125.
+
+Supplementary appendix material:
+
+* [attachment:'School Selection.doc' School selection information]
+* [attachment:'Coefficient Tables.xls' Coefficient tables]
+* [attachment:'Coefficient Comparison Plots.pdf' Coefficient comparison plots]
+
+== 2008 ==
+
+
+Updated code for the [http://www.jstatsoft.org/v24/i09/ Tutorial] from the Journal of Statistical Software (Vol. 24, Issue 9, May 2008)
+
+We modify  the tutorial code periodically to incorporate updates to R and the statnet suite that affect the functionality of the originally published code.  Select the version that corresponds to your setup:
+
+* [attachment:tutorial.2.r R 2.8.1, ergm 2.2 (March 2009)]
+
+== Preprints ==
+
+The papers in this section will appear in print soon.
+
+Luke D.A., Harris J.K., Mueller N.B., Shelton S.C., Allen M., Carothers B. In Press. ''When is a Network a
+network? Systems science approaches to exploring collaboration in three national tobacco control networks.''
+'''''American Journal of Public Health'''''. [Accepted December 2009]
+
+Harris J.K. In Press. ''Connecting discovery and delivery: The need for more evidence on effective smoking
+cessation strategies for people living with HIV/AIDS''. '''''American Journal of Public Health'''''. [Accepted August
+2009]

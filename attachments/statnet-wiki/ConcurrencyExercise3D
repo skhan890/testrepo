@@ -1,0 +1,88 @@
+= CONCURRENCY TUTORIALS =
+
+== Exercise 3: Thinking numerically about concurrency at the local level (Discussion) ==
+
+As in the conceptual version of this scenario ([wiki:ConcurrencyExercise1 Exercise 1]), Exercise 3 demonstrates the basic properties of concurrency at the local level. Sam had two sequential partners and Chris had two concurrent partners.  Sam and Chris had the exact same probability of getting infected.  But Chris’s uninfected partner had a probability of getting infected that was 32% larger than Sam’s uninfected partner did. 
+
+Let us think about how our numbers relate to the various components of concurrency’s effect that we explored in the [wiki:ConcurrencyExercise1D discussion of Exercise 1].  We first focus on two of these:
+
+* '''“backwards transmission”''' : Indeed, Chris has created a potential transmission path that is missing from Sam’s case: becoming infected by blue and then transmitting to red.  The probability of this happening was 26.4% for Chris; for Sam, it was 0%, of course.
+
+* '''“missed forwards transmission”'''.  Somewhat offsetting this is the reduction for Chris in the probability of acquiring from red and transmitting to blue.  For Chris, this probability was 26.8%, compared to 40.2% for Sam.
+
+As we foreshadowed in Exercise 1, however, the combined effect of these two phenomena favors transmission by Chris (the mean of 26.4% and 26.8%, which equals 26.6%), compared to Sam (the mean of 0% and 40.2%, which equals 20.1%).  Using the code we provided, or one’s own, we can see that this is always the case:  for our model system, the combined effects of backwards transmission and missed forwarded infection always favor transmission by the person with concurrent partners.
+
+The third feature affecting transmission probabilities is the '''“acute infectivity”''' effect.  This did not play a role in this example, because we assumed that transmission probabilities remain constant over the course of infection.  We will, however, include this in [wiki:ConcurrencyExercise4 Exercise 4].
+
+Finally, since we were only focused on transmission probabilities, we did not explore the issue of the expected time until transmission (given that transmission happens).  This is the '''“path acceleration”''' effect that we also mentioned in [wiki:ConcurrencyExercise1 Exercise 1]. Path acceleration is indeed present here; that is, the expected time between becoming infected and then transmitting is shorter for Chris than for Sam.  The mathematics behind this are quite complicated, however, and we do not show them.  We encourage interested readers to try deriving this result for themselves as an exercise. In [wiki:ConcurrencyExercise4 Exercise 4], we will explore the collective population-level effects of concurrency, which brings together all of the various phenomena, including path acceleration.
+
+One important phenomenon that relates to concurrency is coital dilution—the possibility that people in multiple relationships have fewer coital acts with one or more of their partners per unit time than they would if they were only in one relationship. Notice that in Exercise 3, we did not specify the time frame for either set of relationships. We would get the same result regardless of whether we consider Chris's relationships to be the same length as Sam's and have no coital dilution; or to be twice as long as Sam's and have major coital dilution; or somewhere in between. In the first case, Chris would spend half the time having twice as many coital acts as Sam, and have none at all the other half. In the second case, Chris would be having as many coital acts as Sam all the time, but would be having half as many per time period within each relationship.
+
+Some readers may be wondering: how are our findings in this exercise affected by different parameters?  What if the per-contact risk of transmission is higher or lower?  What if the number of sex acts in each relationship is higher or lower?  We can re-calculate the numbers by hand for any pair of values, if we wish.  Or, those readers who are familiar with R can use the functions at the bottom of the [wiki:ConcurrencyExercise3De previous page] (repeated below for convenience), combined with an additional piece of code below that calculates the transmission ratio for Chris to Sam, for many different values of beta and c, and then plots them.
+
+Whether you calculate the values by hand, write your own functions, or use our R functions, you will notice a clear pattern. Chris’s probability of transmitting is always at least as large as Sam’s, and may go up to being twice as large.  (If you use the code below, note that the large area in the upper-right of the figure is where Chris is twice as likely as Sam to transmit to an uninfected partner). The larger the number of sex acts, the closer Chris gets to transmitting with twice the probability of Sam. The higher the per-act transmission probability is, the faster they diverge as well.  This is because as the two numbers (number of acts, per-act transmission) rise, Chris’s probability of transmitting reaches 100%, but Sam’s can only get as high as 50% given the impossibility of Sam transmitting to red. 
+
+There are two important things to note about this finding that a person with concurrent partners can be up to twice as likely to transmit as one with sequential partners:
+
+* This observation is limited to a single non-infected partner.  We are not considering the possibility that Chris and Sam may each have many partners. We are also not considering the “down-stream” effects, wherein their partners may or may not transmit to others.  Said another way, this maximum ratio of 2:1 transmission probabilities to a single non-infected partner does not imply anything about a limit on the population-level differences in epidemic potential between concurrency and sequential monogamy.  We will explore the latter issue in the next exercise.
+
+* Although Chris’s probability of transmitting to the one uninfected partner could never get more than twice as large as Sam’s in our example, the same need not be true in the real world.  We made the simplifying assumption that transmission probabilities are constant.  If, in fact, they are much higher right after infection (as for HIV), then Chris’s transmission probability might get much larger than Sam’s, given how often Chris has sex with both blue and red in quick succession while Sam does not. We could try to introduce variable infectivity into our basic calculations here, although it turns out to get very complicated quickly.
+
+Instead, we will turn to our final exercise, which allows us to explore the population-level impacts of concurrency.  In that setting, we will be able to model variable infectivity over time, as well as different assumptions about relational counts and durations.
+
+[wiki:ConcurrencyExercise3De Back to Exercise 3 derivations]
+
+[wiki:ConcurrencyExercise4 Forward to Exercise 4]
+
+[ConcurrencyIndex Return to index]
+
+-------
+
+{{{
+
+#Function to calculate Sam’s probability of acquiring and then transmitting
+sam <- function(beta,c) {
+	red.to.sam.to.blue <- (1-(1-beta)^c)^2
+	blue.to.sam.to.red <- 0
+	result <- red.to.sam.to.blue/2 + blue.to.sam.to.red/2
+	return(result)
+}
+
+#Function to calculate Chris’s probability of acquiring and then transmitting
+chris <- function(beta,c) {
+	index <- 1:c
+	red.to.chris.to.blue <- sum( (1-beta)^(index-1) * beta * (1-(1-beta)^(c-index+1)) )
+	blue.to.chris.to.red <- sum( (1-beta)^(index-1) * beta * (1-(1-beta)^(c-index)) )
+	result <- red.to.chris.to.blue/2 + blue.to.chris.to.red/2
+	return(result)
+}
+
+#Function to calculate the ratio of Chris’s to Sam’s probability of acquiring and then transmitting
+conc.ratio <- function(beta,c) {
+	result <- chris(beta,c) / sam(beta,c)
+	return(result)
+}
+
+#Code to calculate the ratio of Chris’s to Sam’s probability of acquiring and then transmitting for many different scenarios, and then plot the results
+
+beta.set <- seq(.01,0.4,.005)                                             # create list of betas to try
+c.set <- seq(10,100,5)                                                   # create list of c’s to try
+betas <- matrix(beta.set,length(beta.set),length(c.set),byrow=F)          # make a matrix with the betas values copied in each row
+cs <- matrix(c.set,length(beta.set),length(c.set),byrow=T)                # make a matrix with the c values copied in each column
+concvals <- sapply(1:(length(beta.set)*length(c.set)),function(x)         # calculate the conc.ratio for each combination of beta and c
+conc.ratio(as.vector(betas)[x],as.vector(cs)[x]))
+concs <- matrix(concvals,length(beta.set),length(c.set))                  # place them in a matrix 
+contour(beta.set,c.set,concs,xlab="per-act prob of transmission",         # make a contour plot thereof
+          ylab="num. of acts per relationship",
+          main="Ratio of transmission probs. to partner",
+          levels = seq(1.0,1.9,0.1))
+mtext("for a person w/ concurrent partners relative to a person w/
+sequential partners (in absence of acute infectivity effects)",cex=0.7)
+
+}}}
+ 
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

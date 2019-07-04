@@ -1,0 +1,99 @@
+= Using Parallel Functionality in {{{ergm}}} =
+
+The following examples demonstrate how to speed up {{{ergm}}} estimation using  parallel functionality.
+
+== Parallel on a Single Machine ==
+
+The following example works on Windows, Mac, and Linux platforms, without any additional requirements. By default, {{{ergm}}} uses the {{{parallel}}} package, with PSOCK clsuters. The R commands can be run interactively, inside Rstudio. The downside is that it the number of parallel processes is limited to the number of CPU cores on the machine.
+
+{{{
+# single machine. detects the number of CPU cores
+library(parallel)
+np = detectCores()
+
+library(ergm)
+
+data(faux.mesa.high)
+nw <- faux.mesa.high
+
+t0 <- proc.time()
+fauxmodel.01 <- ergm(nw ~ edges + isolates + gwesp(0.2, fixed=T), 
+                     control=control.ergm(parallel=np, parallel.type="PSOCK"))
+proc.time() - t0
+}}}
+
+
+== Parallel on a Cluster ==
+
+Using MPI on a high performance unix cluster: we can use MPI to spread the parallel processes across multiple nodes, creating as many as allowed on the cluster. This method requires MPI to be set up on the cluster, and the packages {{{snow, Rmpi}}} installed. It also requires you to run the R commands as a script; remember to save your output!
+
+First, set up ssh without password on cluster. This may be different for your cluster; ask the admin if you can't get it working. http://tweaks.clustermonkey.net/index.php/Passwordless_SSH_(and_RSH)_Logins
+
+  1. ssh to mosix.csde.washington.edu
+  2. set up RSA key. In your home directory:
+
+  {{{
+$ cd .ssh  
+$ ssh-keygen -t rsa  
+(accept defaults and leave passphrase empty)    
+$ cp id_rsa.pub authorized_keys  
+$ ssh n4
+  }}}
+
+  3. In the last line, you should be able to connect to n4 without entering in a password.
+
+To run the script, you can either use a host file to specify which nodes to use (the default one contains all nodes), or specify the hosts yourself.
+
+{{{
+mpirun --hostfile /etc/openmpi/openmpi-default-hostfile -n 1 R --slave -f parallel_test_ergm.R
+}}}
+
+{{{
+mpirun -H n3,n4,n5 -n 1 R --slave -f parallel_test_ergm.R
+}}}
+
+With a hostfile, MPI will create processes on nodes in the order it is specified. You may want to avoid nodes that are overloaded (check using {{{mosmon}}}).
+
+The R script {{{parallel_test_ergm.R}}}:
+
+{{{
+library(Rmpi)
+library(snow)
+library(methods)
+
+# create a cluster with 2 processes per node
+# np <- mpi.universe.size() * 2
+
+# create a cluster with fixed number of processes
+np <- 10
+cluster <- makeMPIcluster(np)
+
+# Print the hostname for each cluster member
+sayhello <- function()
+{
+  info <- Sys.info()[c("nodename", "machine")]
+  paste("Hello from", info[1], "with CPU type", info[2])
+}
+
+message('RMPI nodes: ', mpi.comm.size())
+names <- clusterCall(cluster, sayhello)
+print(unlist(names))
+
+library(ergm)
+
+data(faux.mesa.high)
+nw <- faux.mesa.high
+
+t0 <- proc.time()
+fauxmodel.01 <- ergm(nw ~ edges + isolates + gwesp(0.2, fixed=T), 
+                     control=control.ergm(parallel=cluster, MCMLE.maxit=100))
+proc.time() - t0
+
+stopCluster(cluster)
+
+print(fauxmodel.01)
+
+mpi.exit()
+}}}
+
+.

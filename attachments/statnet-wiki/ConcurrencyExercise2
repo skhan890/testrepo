@@ -1,0 +1,39 @@
+= CONCURRENCY TUTORIALS =
+
+== EXERCISE 2: Thinking conceptually about concurrency at the population level (Introduction) ==
+
+
+Now imagine a whole group of people – let’s say there are 24 of them.  And exactly 1 of them is infected with an STI – Person 7.  We will color Person 7 red, and everyone else blue.  And we will consider two scenarios, and two questions with each scenario.
+
+'''Scenario 1''': In this scenario, everyone begins with 1 partner, with whom they stay sexually active for 3 months.
+
+[[Image(Pop1.png, 500px)]]
+
+After that time, they all end their existing partnerships, and start a new 3-month relationship, as follows:
+
+[[Image(Pop2.png, 500px)]]
+
+'''Scenario 2''': In this scenario, everyone has two partnerships concurrently, in a single giant circle, which they maintain for 3 months:
+
+[[Image(Pop3.png, 500px)]]
+ 
+
+After this, everyone spends the next 3 months with no partners at all.
+
+[[Image(Pop4.png, 500px)]]
+
+=== Questions ===
+
+1. Over time, how many partners did each person have in Scenario 1?
+2. Over time, how many partners did each person have in Scenario 2?
+3. Over time, how many people (including Person 7) could possibly get infected in Scenario 1?
+4. Over time, how many people (including Person 7) could possibly get infected in Scenario 2?
+
+[wiki:ConcurrencyExercise2A Check your answers]
+
+[ConcurrencyIndex Return to index]
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

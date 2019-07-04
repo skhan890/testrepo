@@ -1,0 +1,64 @@
+= CONCURRENCY TUTORIALS =
+
+== PROBABILITY TUTORIAL ==
+
+There are only a few pieces of notation and basic rules of probability that one must know in order to follow the calculations in Exercise 3.  These are:
+
+1. The probability of an event X happening is written P(X)
+
+2. The probability of an event X happening, given that Y happens, is written P(X | Y)
+
+3. If there are a set of events in which exactly one event must happen, their probabilities sum to 1.  
+   * For example, P(it will rain in Seattle tomorrow) + P(it will not rain in Seattle tomorrow) = 1.
+
+4. Events X and Y are mutually exclusive if no more than one of them can happen.  When this is the case, P(X or Y) = P(X) + P(Y).
+   * For example, P(either Kenya or Tanzania will win the World Cup in 2022) = P(Kenya will win the World Cup in 2022) + P(Tanzania will win the World Cup in 2022)
+
+5. X and Y are independent if the probability of X does not change if Y occurs, and vice versa.  When this is the case, P(X and Y) = P(X)*P(Y)
+   * For example, P(getting heads two times in a row when flipping a fair coin) = P(getting heads on first flip) * P(getting heads on second flip) = ½ * ½ = ¼
+
+6. P(X and Y) = P(X) * P(Y | X) = P(Y) * P(X | Y).  This is true for all X and Y.
+   * For example, P(Both Kulwinder and Balwinder get the measles) = P(Kulwinder gets the measles) * P(Balwinder gets the measles | Kulwinder gets the measles). It also equals P(Balwinder gets the measles) * P(Kulwinder gets the measles | Balwinder gets the measles). If Kulwinder and Balwinder are siblings living in the same household, it is easy to see how these conditional probabilities may matter.
+
+7. If X can only be true when Y is also true, then if X is true, Y must be.  In this case, P(Y | X) = 1. Thus:
+     From Rule 6:							
+
+{{{
+P(X) * P(Y | X) = P(Y) * P(X | Y)
+}}}
+
+     So, in cases where X can only be true if Y is true,	
+
+{{{
+P(X) * 1 	= P(Y) * P(X | Y)
+P(X) 		= P(Y) * P(X | Y)
+}}}
+ 
+
+8. Finally, there is one way that a few of these rules come together that is worth highlighting, because it will appear in our calculations. Let’s say we want to know the probability that Magdalena will get the flu, given ten consecutive exposures, where the probability of a flu-free person acquiring the flu is 0.03 per exposure.  One’s instinct might be simply to multiply 0.03 by ten, but this would be wrong.  One can see this by asking: what if there were 50 exposures?  The same method would lead to a probability of 0.03 x 50 = 150%, which is impossible.  The reason is that the events are not independent: if Magdalena acquires the flu on the first exposure, she cannot acquire it on the second, so that probability goes to 0.  One could calculate each of the mutually exclusive possibilities (probability Magdalena is infected on first exposure, probability on second, etc.)  and then sum them up.  But, it turns out that it is much easier to arrive at the same correct answer by first flipping the question around: what is the probability that Magdalena will not get infected in ten exposures?  Here, there is only one way for her to achieve this outcome – she needs to avoid infection at every single step.  We can break this probability down into:
+
+
+{{{
+P(Magdalena avoids infection for 10 steps) = P(M is not infected at time step 1) * 
+P(M is not infected at time step 2 | not infected at time step 1) * 
+P(M is not infected at time step 3 | not infected at time steps 1 or 2) * 
+Etc.
+}}}
+
+
+     Although this may look complicated, it is actually leads us somewhere quite simple, because each line is equal to 0.97 -- that is, 1 – 0.03. So the entire probability can be expressed as (0.97)^10^ = 0.737.
+
+     That is Magdalena’s probability of avoiding infection.  And since there are only two possibilities (getting infected, avoiding infection), the probability of her getting infected must equal 1-(0.97)^10^ = 0.263.  One can see that the correct answer is less than if we had simply multiplied 0.03 by ten. This will always be the case.
+
+[wiki:ConcurrencyExercise3 Back to Exercise 3 introduction]
+
+[wiki:ConcurrencyExercise3Hint Back to Exercise 3 hints]
+
+[wiki:ConcurrencyExercise3A Forward to Exercise 3 answers]
+
+[ConcurrencyIndex Return to index]
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

@@ -1,0 +1,223 @@
+
+= Effective Sampling Size =
+
+== Flowchart summary of ESS algorithm ==
+
+[[attachment:ergm ESS flowchart.pdf]]
+
+== Pavel's intro to ESS ==
+
+This idea is basically embracing the fact that our optimisation
+algorithm will, inherently, produce noisy results. Generally, our
+approach has been to set run parameters like MCMC sample size and, at
+the end, find out how much precision we've lost due to this
+stochasticity. I think that this backwards, that what we *should* be
+doing is letting the user specify how much precision the user is
+prepared to lose, and then tuning the run parameters to attain that much
+precision, and no more, because any further computational effort will be
+wasted.
+
+Now, since the amount of additional variability due to MCMLE relative to
+the model variance is, loosely, a function of the effective sample size
+(ESS) during the last MCMLE iteration, setting a target ESS works well
+as a proxy for the loss of precision target. In fact, so far, I've set
+target ESS to 100, and, indeed, I get 0%-1% MCMC% for the model fit. Of
+course, this is on the small networks used as examples in the ergm
+package.
+
+I've also run into this here Master's Thesis
+http://www2.math.su.se/matstat/reports/master/2011/rep2/report.pdf ,
+which describes a clever idea for automatically determining the burn-in
+via ESS: if a burn-in period is needed, then the early iterations would
+have different mean, which would increase the estimated autocorrelation
+in the chain, which would reduce ESS. Discarding early observations can,
+therefore, increase ESS, so that thesis proposes to define burn-in as
+that amount which must be discarded to maximise ESS.
+
+All this leads to the procedure implemented: given a target ESS,
+     1. Draw an MCMC sample of the size of the target ESS, with a small
+        interval (could be 1, really).
+     2. Find the burn-in that maximises ESS.
+     3. If the maximised ESS is greater than the target ESS [1], discard
+        the burn-in and return the sample. (Note that a particular
+        sample size is not guaranteed, just the ESS.)
+     4. Otherwise, continue the MCMC sampling, appending the output to
+        the MCMC sample so far.
+     5. If the cumulative MCMC sample is too big, thin it by a factor of
+        2 and double the MCMC interval for future MCMC draws.
+     6. Repeat from 2.
+
+The procedure, if it returns, should return an MCMC sample which isn't
+too big, but which has the ESS desired.
+
+                 What do y'all think?
+                 Pavel
+
+[1] Really, we should be putting some confidence bounds on the ESS, but
+figuring out figuring out the sampling distribution of the estimator of
+ESS is a whole separate problem.
+
+P.S. Is it just me, or is most of the MCMC diagnostics literature geared
+towards MCMC as the penultimate step of inference, generating the
+distribution of interest (e.g., the posterior), so that the only thing
+left to do after is making summaries of the sample? There doesn't seem
+to be that much literature out there on using MCMC output as an
+intermediate result, as we do in MCMLE.
+
+'''Commit notes:''' [13158/statnet_commons]
+
+=== Additional comments from Pavel ===
+
+From ticket #1022
+
+> There are several separate issues here. Basically, The old way of deciding when to stop estimation and return the coefficients was as follows: 
+> 
+> 1. Run the MCMC at the current parameter guess.
+> 2. Use a modified Hotelling's T^2^ test to test the statistical hypothesis that the MCMC's sample statistics (i.e., ERGM sufficient statistics) were equal to those observed.
+> 3. If the test failed to reject at alpha=0.5 (not 0.05), do another MCMLE update (usually a very small one), and return. If the test rejected at alpha=0.5, do an MCMLE update and repeat from Step 1.
+> 
+> This is basically what the CRAN version does. There were other complications (particularly in the trunk version), like step length calculation, but this is it in a nutshell.
+> 
+> The approach worked pretty well in practice, but it had conceptual problems and some practical problems as well:
+> I. The decision to stop and return was, conceptually, accepting the null hypothesis. This means that, say, too much autocorrelation (and therefore low effective sample size and low power for the test) could lead to stopping prematurely.
+> II. Worse yet, conceptually, the expected value of the simulated moments was not ''actually'' ever going to be 0 unless the initial value were exactly spot on (i.e., MLE=MPLE), so the null hypothesis would always be false. Therefore, the probability of stopping on a given configuration was actually the probability of committing a Type II error with the "true" parameter equalling the current guess.
+> III. Conversely to item I, too big an MCMC sample size (i.e., upping MCMC.samplesize) would cause the test to have ''too much'' power, so it would continue refining the estimate beyond all reason.
+> 
+> The new approach uses a different stopping criterion:
+> 1. Run the MCMC at the current parameter guess. ergm.getMCMCsample() doesn't exit until the target ESS is reached (or it runs out of attempts).
+> 2. Use Hummel et al. convex hull method to calculate the step length. [12558/statnet_commons]
+> 3. Perform the MCMLE update.
+> 4. If the step length is 1, calculate the Model SE of the estimates (by inverting the Hessian) and calculate the MCMC SE, which depends on the effective sample size of the sample and on how much the parameter estimate had been moved in Step 3.
+> 5. Calculate how much noise does the MCMC SE add to the Model SE. If it falls below a threshold (a control$MCMLE.MCMC.precision ), return. If it doesn't, increase the target ESS to approximately what should be needed to reach the threshold and repeat from 1.
+> 
+> This means several things:
+> I. MCMC diagnostics don't quite mean what they used to. In the old approach, ''by construction'', iteration didn't stop until the simulated statistics matched the observed. However, that's actually running one iteration more than necessary, since when the simulated are very close to observed, the MCMLE update is tiny. The new approach doesn't bother with that extra iteration.
+> II. The criterion for deciding when to return is based on, essentially, the MCMC%, and I think I had set the default MCMC% target to MCMC.MCMLE.precision=0.1%, which, in retrospect, is too small. Loosely, to go from MCMC% of 1% to 0.1%, you need ESS 10 times greater. Not, incidentally, 100, because MCMC%=100%*(sqrt(MCMCSE^2^ + ModelSE^2^) - ModelSE)/ModelSE, which has different properties.)
+> III. When MCMC% required is too small, ESS required might end up bumping up against MCMC.samplesize control parameter, which means that it never terminates, but just keeps increasing the MCMC interval.
+> 
+> I've upped MCMC.MCMLE.precision to 0.005, which should, hopefully, make things finish up faster.
+
+[[br]]
+
+== Issues ==
+
+* Does MCMC diagnostics still matter? If not, we should get rid of that test (and update vignette).
+* How does ESS affect simulate? What interval should we use there?
+* How do ergm estimates and SE compare to previous version?
+* What do the various control parameters do? How do they affect the estimation? (Documentation) [13315/statnet_commons]
+  {{{
+         MCMC.burnin=10000,
+         MCMC.interval=1,
+         MCMC.samplesize=10000,
+         MCMC.effectiveSize=NULL,
+         MCMC.effectiveSize.damp=10,
+         MCMC.effectiveSize.maxruns=1000,
+         MCMC.effectiveSize.base=1/2,
+         MCMC.effectiveSize.points=5,
+         MCMLE.MCMC.precision=0.005, 
+  }}}
+  
+* Is there a way to go back to the old sampling process, using control params? (Backward compatibility)
+* Estimation sometimes taking too long: issue fixed by changing the MCMC.MCMLE.precision to 0.005.
+
+== Testing ==
+
+Lots of autocorrelation in simulated networks, with default control settings.
+
+{{{
+data(faux.mesa.high)
+nw <- faux.mesa.high
+t0 <- proc.time()
+fauxmodel.01 <- ergm(nw ~ edges + isolates + gwesp(0.2, fixed=T))
+}}}
+
+=== MCMC diagnostics not matching target: ===
+
+[[Image(mcmcdiag.png)]]
+
+=== Simulate shows high autocorrelation ===
+
+When using the default controls, simulate grabs the control parameters from ergm. The small MCMC.interval and burnin from ergm causes high autocorrelation when simulating multiple samples.
+
+{{{
+simulate(fauxmodel.01, nsim=100, statsonly=T) -> faux.sims
+targets = summary(nw ~ edges + isolates + gwesp(0.2, fixed=T))
+matplot(faux.sims, ylim=c(40, 220), main='Simulated networks from faux mesa fit')
+abline(h=targets)
+}}}
+
+[[Image(simulate.png)]]
+
+=== Behavior of ergm estimation when changing different control params ===
+
+For a simple edges model, comparing the effects of different controls on '''trunk''':
+
+[[Image(ESSinterval.png)]]
+
+[[Image(ESSeffsize.png)]]
+
+[[Image(ESSprecision.png)]]
+
+Comparing '''trunk''' to different '''CRAN''' MCMC.interval values.
+
+[[Image(ESScompare.coef.png, 800px)]]
+
+[[Image(ESScompare.SE.png, 800px)]]
+
+[[Image(ESScompare.time.png, 800px)]]
+
+Each of these boxplots represents 50 runs.  The distribution of the final MCMC.interval for the ESS runs is:
+
+{{{
+# final interval, default settings
+table(coef.trunk.def[8,])
+
+interval: 32  64 128
+num runs: 12  34   4
+
+# final inteval, MCMC.interval=100
+table(coef.trunk.vars[[1]][8,])
+
+interval: 25  50 100
+num runs:  7  28  15
+
+# final interval, MCMC.interval=800
+table(coef.trunk.vars[[2]][8,])
+
+interval: 200
+num runs:  50
+
+# final interval, MCMC.interval=1500
+table(coef.trunk.vars[[3]][8,])
+
+interval: 375
+num runs:  50
+}}}
+
+=== Dyadic dependent model ===
+
+[[attachment:ergmMCMCtest.R]]
+
+The {{{edges + isolates + gwesp}}} model show the same behavior. Higher MCMC.interval actually takes less time. This is probably because ergm doesn't have to repeat the ''append'' and ''thin'' steps if the MCMC sample has less autocorrelation to begin with. 
+
+For the default controls, the final MCMC.interval (from the ergm output) varies from 32 to 128. For input interval of 100, the final MCMC.interval varies from 25 to 100. For input interval of 800, the final MCMC.interval does not change, and is at 200. So it seems that the final interval can go below the one specified by input, but not below 1/4 of the input.
+
+The timing plot also shows that the large variation in estimation time (#1020) is due to the repeated sampling, thinning, and appending operations to reach the target ESS. I'm reopening that ticket to see if there is any optimization possible. It's important to figure out how this variation affects parallel functionality.
+
+Both the coefficient and SE estimates have less variation when MCMC.interval is higher. Not sure how to explain this.
+
+[[Image(ESSinterval.edges.png)]]
+
+[[Image(ESSinterval.gwesp.png)]]
+
+Comparison of trunk default to CRAN: [attachment:ergm.ESS.tests.pdf]
+
+== Other tickets ==
+
+#1052: a proposal to change simulate.ergm's default MCMC.interval to not depend on ergm control
+
+#1040: ESS documentation: general description, a vignette of sorts, with examples. How much detail do we need to make public?
+
+#991: Updating the help pages for control.ergm
+
+#1022: Updating examples in ergm vignette to reflect changes in ESS.

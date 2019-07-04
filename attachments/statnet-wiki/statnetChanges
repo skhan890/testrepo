@@ -1,0 +1,99 @@
+
+== Changes to statnet packages in 2014.11 release ==
+
+These are changes that may affect users' code or experimental results. Below is a summary of each of the packages NEWS or changelog files.
+
+=== statnet 2014.11===
+
+* statnet will automatically check for package updates when it loads. #671
+
+=== ergm 3.2 ===
+
+* ergm MCMLE estimation, by default, uses the stepping algorithm by Hummel et al (2012) to determine step length, and terminates estimation when the step length = 1 for two consecutive iterations. The old method (from version 3.1) is still available by setting control parameter {{{MCMLE.termination="Hotelling"}}}. See flow chart.
+
+* As a result, the final MCMC sample average may be different from the observed statistics. This is reflected in {{{mcmc.diagnostics()}}}
+
+* Default ergm MCMC parameters changed to {{{MCMC.interval=1024, MCMC.samplesize=1024, MCMC.burnin=MCMC.interval*16}}}. The final sample size in the Hummel stepping algorithm is boosted by a factor of {{{MCMLE.last.boost}}}
+
+* Parallel functionality: ergm can take user-created clusters as the parallel control parameter. This is the recommended method for using ergm on a high-performance computing cluster. Usage examples here: [[wiki:ergmParallel]]
+
+* Networks where some statistics are at the lowest value, leading to some terms being -Inf, was not giving the correct estimated coefficients. Now fixed. See #971 for example.
+
+* The "iterations" output in an ergm object now returns the number of MCMLE iterations taken by the estimation.
+
+* The estimated covariance matrix of the ergm estimate can be extracted using {{{vcov}}} function.
+
+
+=== tergm 3.2 ===
+
+NEW FEATURES
+
+* Speed improvements. Internal data handling has been modified to avoid allocating (and passing around) a large matrix of tie ages unless the formula/model explicitly requires tie duration information. This increases speed of model initialization, which is especially helpful when simulating a network where the model must be re-initialized at each timestep (i.e. models with vital dynamics).
+
+* Use Carnegie approximation for initializing formation models with offset term; 
+{{{
+modx <- stergm(flowbusiness, formation= ~edges + offset(degree(3)), 
+               offset.coef.form=.8, 
+               dissolution= ~offset(edges),
+               offset.coef.diss=log(9), 
+               targets=~edges, target.stats = 10, 
+               estimate="EGMME"
+)
+}}}
+  will no longer result in an error.
+
+* Offset terms in the target formula are automatically removed. This includes the case where the target is set equal to formation (targets = "formation"). Use Carnegie approximation for initializing formation models with offset term.
+
+* The simulate.networkDynamic and related function now make use of networkDynamics persistant id (PID) functionality. If the network does not have any persistent.ids defined for vertices, a vertex.pid will be attached in a vertex attribute named 'tergm_pid' to facilitate 'bookkeeping' between the networkDynamic argument and the simulated network time step.
+
+* Parallel functionality: tergm can take user-created clusters as the control.stergm(parallel) control parameter. This is the recommended method for using tergm on a high-performance computing cluster. See ergm-parallel. Functionality is now implemented via the parallel package, direct dependence on snow package is removed
+
+* Addition of bipartite formation and dissolution Metropolis-Hastings proposals
+
+* Addition of a TNT dissolution proposal constraint
+
+* Inclusion of a Stergm vignette
+
+
+BUG FIXES
+
+* Namespace prefixing has been added to some functions called from external packages to deal with CRAN check warnings
+
+OTHER USER-VISIBLE CHANGES
+
+* Changes to control.stergm parameters:
+
+  - init.method If NULL (the default), the initial values are computed using the edges dissolution approximation (Carnegie et al.) when appropriate. If set to "zeros", the initial values are set to zeros.
+
+  -  SA.oh.memory = 100000 Absolute maximum number of data points per thread to store in the full optimization history.
+
+* Changes to simulate.stergm parameters: addition of duration.dependent parameter: Logical: Whether the model terms in formula or model are duration dependent. E.g., if a duration-dependent term is used in estimation/simulation model, the probability of forming or dissolving a tie may dependent on the age the dyad status. If TRUE, the matrix of tie ages will be allocated.
+* Allows simpler specification of offset values in formation model, when using stergm.EGMME with target statistics. Usage examples: [[wiki:tergmUsage]]
+
+
+=== network 1.11 ===
+* minor changes to print.network to give more informative info about some network attributes
+* get.edge.attribute now has C-level backend
+* get.edge.attribute and get.edge.value now have arguments to avoid returning attribute values from 'missing' edges (na.omit) and unset/deleted edges (deleted.edges.omit) and edges with no value assigned for the attribute (null.na). 
+* network now includes an explicit list of exported functions in NAMESPACE
+* the following 'internal' functions have been removed from NAMESPACE: networkOperatorSetup, switchArcDirection, readAndVectorizeLine, read.paj.simplify
+* network now follows R conventions for exporting some of its C-level API functions for use by other packages
+* get.inducedSubgraph() now has an optional 'eid' argument for inducing a network including specified edges and their incident vertices
+* fixed bug in as.network.matrix that caused it to ignore the na.rm argument.
+* added patch to which.matrix. type to handle NAs submitted by Philip Leifeld
+* fixed na.rm argument to as.network.matrix
+* changed plot function to force lazy evaluation of displaylabels=!missing(label) argument before value of label is changed
+
+=== networkDynamic 0.7 ===
+
+* networkDynamic now uses (and requires) C-api exported by the network package
+* additional spell operations moved to C level
+* the networkDynamic() data conversion function as additional arguments "edge.TEA.names"" and "vertex.TEA.names" and can now load dynamic edge or vertex attributes included as extra columns to edge.spells and vertex.spells.
+* pids will now be removed by as.network.networkDynamic()
+* added read.son function for parsing SoNIA-formatted files with dynamic network data
+* added nd_test_nets dataset, a list networkDynamic objects with unusual configurations and parameters to be used for testing
+* fixed bug in spells.overlap and adding missing tests
+* added when.vertex.attrs.match and when.edge.attrs.match functions for getting times at which TEA attributes of network elements match specified values according to specified operators.
+* added nd_test_nets dataset, a list networkDynamic objects with unusual configurations and parameters to be used for testing 
+
+

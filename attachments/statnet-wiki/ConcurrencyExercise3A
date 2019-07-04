@@ -1,0 +1,54 @@
+= CONCURRENCY TUTORIALS =
+
+== Exercise 3: Thinking numerically about concurrency at the local level (Answers) ==
+
+On this page, we provide the numerical answers only. For those readers who wish to see derivations of them, see [wiki:ConcurrencyExercise3De Exercise 3 derivations].  Or for those readers who had some incorrect answers and want to try again, check out the [wiki:ConcurrencyTutorialProb Probability Tutorial].
+
+'''The probability of transmission from a single act of sex between an infected and an uninfected person is 1%.'''
+
+'''Let us imagine that Sam has sex 200 times: 100 times with the red partner, and then 100 times with the blue partner.'''
+
+* Question 1: If the red partner is infected and the blue is not, what is the probability that Sam gets infected from the red partner? '''63.4%'''
+
+* Question 2: If the blue partner is infected and the red is not, what is the probability that Sam gets infected from the blue partner? '''63.4%'''
+
+* Question 3: If we assume that exactly one of Sam’s partners is infected, and it is equally likely to be the red partner or the blue partner, what is Sam’s probability of becoming infected? '''63.4%'''
+
+* Question 4: If the red partner is infected and the blue is not, what is the probability that Sam gets infected AND transmits to the blue partner? '''40.2%'''
+
+* Question 5: If the blue partner is infected and the red is not, what is the probability that Sam gets infected AND transmits to the red partner? '''0%'''
+
+* Question 6: If we assume that exactly one of Sam’s partners is infected, and it is equally likely to be the red partner or the blue partner, what is the probability that Sam both becomes infected and transmits to an uninfected partner? '''20.1%'''
+
+'''Now let us imagine that Chris has sex 200 times: once with the red partner, then once with the blue partner, then once with red, then blue, and back and forth 100 times for a total of 200 sex acts.'''
+
+* Question 7: If the red partner is infected and the blue is not, what is the probability that Chris gets infected from the red partner? '''63.4%'''
+
+* Question 8: If the blue partner is infected and the red is not, what is the probability that Chris gets infected from the blue partner? '''63.4%'''
+
+* Question 9: If we assume that exactly one of Chris’s partners is infected, and it is equally likely to be the red partner or the blue partner, what is Chris’s overall probability of becoming infected? '''63.4%'''
+
+* Question 10: If the red partner is infected and the blue is not, what is the probability that Chris gets infected AND transmits to the blue partner? (This one is hard—do your best!) '''26.8%'''
+
+* Question 11: If the blue partner is infected and the red is not, what is the probability that Chris gets infected AND transmits to the red partner? (This one is hard—do your best!) '''26.4%'''
+
+* Question 12: If we assume that exactly one of Chris’s partners is infected, and it is equally likely to be the red partner or the blue partner, what is the probability that Chris both becomes infected and transmits to an uninfected partner? '''26.6%'''
+
+'''Now let’s compare Sam and Chris.'''
+
+* Question 13:  What is the difference between Sam’s chance of becoming infected and Chris’s chance of becoming infected?  '''Nothing – Sam and Chris have the exact same chance of becoming infected.'''
+
+* Question 14:  What is the difference between Sam’s chance of transmitting and Chris’s chance of transmitting?  '''Chris’s probability of transmitting is 1.3 times that of Sam’s (26.6% vs. 20.1%).'''
+
+[wiki:ConcurrencyExercise3 Back to Exercise 3 introduction]
+
+[wiki:ConcurrencyExercise3De Forward to Exercise 3 derivations]
+
+[wiki:ConcurrencyExercise3D Forward to Exercise 3 discussion]
+
+[ConcurrencyIndex Return to index]
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

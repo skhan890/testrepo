@@ -1,0 +1,75 @@
+[[Include(statnetnav)]]
+
+= Developer Info =
+Information for statnet developers about the trac system for bug tracking, processes, tools, source code repositories, etc. 
+
+JobDescriptionPrivate 
+
+SpeedOptimization
+
+== Developer mailing list ==
+If you are a statnet developer with commit access, you should be subscribed to this list so you will receive commit message updates and stay in the loop with other developers (this is not a public list): http://mailman13.u.washington.edu/mailman/listinfo/statnet_dev
+
+== Statnet's project tracker == 
+
+You must login before you can see tickets, milestones, or source code.  
+
+Here are lists of [https://statnet.csde.washington.edu/trac/report/3 Active Tickets by Milestone] or [https://statnet.csde.washington.edu/trac/report/7 Tickets assigned to you]  
+
+Don't forget to enter your email in the Preferences panel so that you'll get updates when people edit tickets you are involved with.  
+
+== Process Info ==
+
+DeveloperMtgAgendaPrivate
+
+DevelopmentProcessOutline checklist of tools and steps to add a feature of fix a bug
+
+StatnetRepository info about the backup repository with released versions of statnet packages and their dependencies
+
+NightlyBuildsPrivate info on how to access the nightly build repositories with binaries of the packages under development. 
+TestServersPrivate gives some information about how the nightly build tests are run and configured.
+
+
+
+This is the current PermissionsHierarchy for the trac system.  
+
+There is a  HowToUseSubversion (source code management) page with basic info on how to check out a copy of the code. 
+
+TracGuide is a good place to start for more information on Trac and the creation of 'tickets' for issues. 
+ 
+
+== Spec Docs == 
+
+Working drafts of specs for various sets of features
+
+NetworkDynamicSpecs
+
+NetworkDynamicConverterFunctions
+
+TemporallyExtendedAttributes
+
+PersistentIdProposal 
+
+ErgmAPIChangesPrivate
+
+
+== Statnet Commons Docs ==
+Commons forms:  These organizational StatnetCommonsDocsPrivate outline the agreements between developers, contributing users, and their institutions.
+
+Statnet attribution:  This page StatnetAttributionPrivate is for the discussion of citation and attribution formats.
+
+== Cool Tracker Feature == 
+You can reference and close tickets with svn commit messages! The description of the commit needs to contain one of the following formulas: 
+	 	 
+ * Refs #123 - to reference this changeset in #123 ticket 
+ * Fixes #123 - to reference this changeset and close #123 ticket with the default status fixed 
+
+== Developer Notes ==
+A place to store per-developer notes regarding topics outside the scope of tickets.
+
+ * JeffreyHornernotes
+
+
+
+
+	 	 

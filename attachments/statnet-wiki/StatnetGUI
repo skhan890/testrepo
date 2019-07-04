@@ -1,0 +1,85 @@
+
+== Collaborative elements of the statnetGUI project ==
+
+
+**Project Goals:** The development of a new social network modeling graphical user interface (GUI), which will provide a point and click front end for the modeling algorithms present in statnet.
+
+
+=== User Stories ===
+
+4-5 User stories should illustrate the range of our target audience with a paragraph or two about who the user is, and what (from their point of view) they want to accomplish with the GUI.
+
+**Sally The Social Scientist:** (IF: this is just an example. Change this to a more relevant story) Sally studies injection drug users and is interested in leveraging the network based data that she has collected. She has a solid head for stats, but her only knowledge of network analysis is what she has gleaned from the intros on the statnet site. She would like to understand what social structures are important look at in her community of interest and would like to report them in a research paper. Her data may not have originally been collected in an explicit network form (emails, publication references).
+
+**Eunice the Ego-network Aggregator:** Studies epidemic potential in populations using ego-network survey samples to estimate the community sex-contact networks. Would like to model what various assumptions about partnering patterns and interventions impact network connectivity.
+
+**User 3:** TODO
+
+**Umberto the UCINET User** Umberto is an advanced network researcher who is comfortable with existing SNA software but would like to import his panel data into statnet order to run specific analyses using tergms (See also Polly the Pajek Proponent). 
+
+=== Initial Project Coverage ===
+
+A list of the covered features slated for the first release, and a supplementary list for features which we would like in future versions.
+
+** Initial Release **
+
+** Future: Road Map Feature **
+
+=== UI Designs ===
+
+TODO: Here we will have links to the design documents. (IF: Do we want the actual docs to be on dropbox?)
+
+
+=== UI Resources ===
+
+http://blog.iconspedia.com/icons/159-159/
+
+http://wijmo.com/widgets/
+
+http://960.gs/
+
+http://tutorialzine.com/2009/11/beautiful-apple-gallery-slideshow/
+
+http://documentcloud.github.com/backbone/
+
+https://github.com/chrisdone/jquery-console
+
+http://kevinbatdorf.github.com/codaslider/
+
+http://www.datatables.net/
+
+http://code.google.com/p/dynatree/
+
+http://jsfiddle.net/maxgalbu/UfyjW/
+
+http://lab.smashup.it/flip/
+
+http://gridster.net/#documentation
+
+http://heartcode.robertpataki.com/canvasloader/
+
+http://reclinejs.com/
+
+http://filamentgroup.com/lab/jquery_ipod_style_and_flyout_menus/
+
+http://www.wbotelhos.com/stepy
+
+http://www.kelvinluck.com/assets/jquery/jScrollPane/jScrollPane.html
+
+http://www.jstree.com/
+
+http://css-tricks.com/long-dropdowns-solution/
+
+http://fgnass.github.com/spin.js/
+
+http://www.webinterfacelab.com/snippets/top-bar
+
+http://layout.jquery-dev.net/
+
+http://xing.github.com/wysihtml5/
+
+http://akquinet.github.com/jquery-toastmessage-plugin/
+
+http://damirfoy.com/projects/icheck/
+
+

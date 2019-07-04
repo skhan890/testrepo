@@ -1,0 +1,42 @@
+{{{
+#!html
+<h3 style="padding:5px; text-align: left; background-color: #cccc99"><b>statnet</b> : <a href='WikiStart' style="color: #550">Introduction</a> | <a href='Installation' style="color: #550">Installation</a> | <a href='Resources' style="color: #550">Resources</a> | <a href='FrequentlyAskedQuestions' style="color: #550">FAQ</a> | <a href='License%20and%20attribution' style="color: #550">Citing statnet</a></h1>
+}}}
+
+
+== Training Workshop Materials (Sunbelt 2012)==
+
+The team teaches workshops on statnet in various settings. The main venue is the annual ''INSNA Sunbelt Social Network Conference'', where we now teach a set of 6 workshops that range from an introduction to social network analysis with R and Statnet, to programming your own ergm model terms. The materials from the most recent Sunbelt workshops can be found below:
+* An Introduction to Network Analysis with R and statnet
+  * [attachment:introToSNAinR_sunbelt_2012_slides.pdf:wiki:Resources Slides]
+  * [attachment:introToSNAinR_sunbelt_2012_tutorial.pdf:wiki:Resources Tutorial]
+  * [attachment:relationalData.csv:wiki:Resources relational data csv file]
+  * [attachment:vertexAttributes.csv:wiki:Resources vertex attributes csv file]
+  * [attachment:introToSNAinR_sunbelt_2012.Rdata:wiki:Resources .Rdata file]
+  * [attachment:introToSNAinR_sunbelt_2012.R:wiki:Resources Tutorial Code]
+
+* Moving Beyond Descriptives: Basic Network Statistics with statnet
+  * [attachment:BasicStat_sunbelt_2012_slides.pdf:wiki:Resources Slides]
+  * [attachment:BasicStat_sunbelt_2012_tutorial.pdf:wiki:Resources Tutorial]
+  * [attachment:basicstats_sunbelt_2012.Rdata:wiki:Resources .Rdata file]
+
+* Exponential-family Random Graph (ERG or p*) Modeling with statnet
+  * [attachment:ERGMtutorial.pdf:wiki:Resources Tutorial]
+  * [attachment:ergm.fit.diagnostics.pdf:wiki:Resources ergm fit diagnostics from tutorial]
+  * [attachment:ergm_code.r:wiki:Resources Tutorial Code]
+
+* STERGM - Separable Temporal ERGMs
+  * [attachment:STERGMslides.pdf:wiki:Resources Slides]
+  * [attachment:STERGMtutorial.pdf:wiki:Resources Tutorial]
+  * [attachment:ndtvDemo.pdf:wiki:Resources ndTV Demo]
+  * [attachment:STERGM.Snw:wiki:Resources Tutorial Code]
+  * Technical reports describing these models and their properties can be found at http://arxiv.org/abs/1011.1937 (maximum likelihood estimation), http://stat.psu.edu/Research/technical-reports-1/2012-technical-reports/TR1201A.pdf (equilibrium generalized method of moments estimation), and http://stat.psu.edu/Research/technical-reports-1/2012-technical-reports/TR12021A.pdf (duration distribution).
+
+* Modeling Relational Event Dynamics with statnet
+  * [attachment:sunbelt_rem_1.pdf:wiki:Resources Tutorial slides]
+  * [attachment:statnet_sunbelt2012_relevent.pdf:wiki:Resources Handout]
+  * [attachment:relevent_sunbelt_2012.Rdata:wiki:Resources .Rdata file]
+
+* Extending ERGM Functionality within statnet: Building Custom User Terms
+  * [attachment:EUTtutorial.pdf:wiki:Resources Tutorial]
+  * [attachment:ergmusertermsPaper.pdf:wiki:Resources JSS manuscript]

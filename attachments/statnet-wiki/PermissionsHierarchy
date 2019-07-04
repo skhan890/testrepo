@@ -1,0 +1,46 @@
+
+== Proposed Hierarchy of Permissions for Statnet Trac users ==
+
+
+The idea is to outline here the different types of users, roles and permissions so that we can keep track and so that everyone knows who can see what. We could also list who has what privileges so we know who to ask to do things. 
+
+ Basic Statnet User / The web at large::
+  Can access and install released code on CRAN, Can See everything on this wiki, except for pages with names that end in 'Private'
+
+ Contributing User::
+  If given a Trac login, can see Roadmap and View tickets, edit wiki,  view "Private" developer pages. 
+
+ Bug Reporter::
+  If given a Trac login, can see Roadmap, View tickets, Create tickets, but cannot edit wiki.  This role is for advanced users who should be able to report and trac status of bugs. 
+
+ Statnet Researcher::
+  given CSDE and Trac login, can checkout and commit code to statnet_research with svn, create tickets, resolve tickets, browse code in trac
+
+ Statnet Commoner::
+  given CSDE and Trac login, can checkout and commit code to statnet_commons (main packages)  with svn, create tickets, resolve tickets, browse code in trac
+
+ Trac Admin:: 
+ Can grant privileges to new users, create milestones and alter structure of Trac 
+
+ Website Admin:: Can add and edit content of statnet.org website hosted on statnet.csde.washington.edu. Must be a csde user and added to the "statnet_web" group. 
+
+ Webserver Admin:: Super user access to web server, trac, and svn.  Can break everything. 
+
+
+Note that anyone who now or in the future has access to check out the svn repositories will also have access to embargoed (not yet released code) and all past versions of code. 
+
+
+
+== Adding Source Browser Permisions ==
+
+Currently, giving someone permission to browse the source directory requires modifying the fine-grained permissions "authz" file located in /trac/statnet/conf/authzpolicy.conf.   Add the user to the appropriate line in the [groups] section at the top of the file. 
+
+
+== Adding Repository Commit Permisions ==
+Need to request a CSDE user id (if you don't all ready have one) and one of the project leads needs to email CSDE support to have the user added to the 'statnet_commons' or' statnet_research' unix groups
+
+== Private wiki pages ==
+ThisPageShouldBePrivate as a test for developer-only wiki pages. Currently any wiki page with a title ending in "Private" is only accessible to logged-in users. We could restrict this to only developers in the future if need be. 
+
+
+

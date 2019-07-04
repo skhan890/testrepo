@@ -1,0 +1,21 @@
+= Proposed changes to ergm api =
+
+Below is a list of all the terms aliased to the "Internal ergm Objects" help page.  I was thinking that we could comment on each one about how it should be handled (documented, made internal, etc).  See tickets #1097 #540   Perhaps once we've reached some internal consensus, we could share the page with developers of reverse-Depending packages for their comments as well, making it clear that we can make public any functions they need access too. 
+
+Functions that we make public also need tests.
+
+Many of these functions already have some documentation embedded in the source code (which is probably how 3rd party developers figured how to use them) 
+
+There are a number of sna-like terms (several of which wrap sna functions) that are very useful, but we probably don't want to support them from ergm at this point, so probably should be marked as internal for next release.  But are they used elsewhere by ergm.userterms?
+
+If we change the namespace file to only export a list of functions (instead of everything not starting with a ".") we can avoid having to rename functions that we are making internal and just mask them with the namespace. 
+
+== Listings of undocumented ergm functions and their proposed fate ==
+
+This listings of functions and their fate moved to google sheet to make easier to edit:
+
+https://docs.google.com/spreadsheets/d/1gEtsAA_inViP-csa8zK4mxw-BBW130L5fF_pvPlTi8o/
+
+== Ergm term registration proposal ==
+
+We also need to decide how to handle the {{{InitErgmTerm.*}}} functions wrt namespace. See #540, #1162

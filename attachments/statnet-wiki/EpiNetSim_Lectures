@@ -1,0 +1,73 @@
+{{{
+#!html
+<h3 style="padding:5px; text-align: left; background-color: #cccc99"><b>statnet</b> : <a href='https://statnet.csde.washington.edu/trac/wiki/WikiStart' style="color: #550">Introduction</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/Installation' style="color: #550">Installation</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/Resources' style="color: #550">Resources</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/FrequentlyAskedQuestions' style="color: #550">FAQ</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/License%20and%20attribution' style="color: #550">Citing statnet</a></h3>
+}}}
+{{{
+#!html
+<h3 style="padding:5px; text-align: left; background-color: #cccc99"> 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_2012' style="color: #550">EpiNetSim Course</a> :
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Location' style="color: #550">Location</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Lectures' style="color: #550">Lectures</a> |
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Homework' style="color: #550">Homework</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Projects' style="color: #550">Projects</a> |
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Examples' style="color: #550">Installation</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Discussion' style="color: #550">Discussion</a>
+</h3>
+}}}
+
+=== A 1 week intensive course on: ===  
+= Network Modeling of Infectious Disease =
+
+== Lectures and Lab Code==
+'''Day 1''':	Introduction to epidemic modeling \\
+
+ //Lecture:
+
+ [attachment:'wiki:EpiNetSim_Lectures:Day 1 morning.pdf' Morning Lecture on SIR models (pdf)]\\
+ [attachment:'wiki:EpiNetSim_Lectures:Day 1 afternoon.pdf' Afternoon Lecture on coding SIR models (pdf)]\\
+ [attachment:'wiki:EpiNetSim_Lectures:Day 1 labs.docx' SIR coding lab (docx)]\\
+
+ //Lab Code:
+  [attachment:'wiki:EpiNetSim_Examples:Stochastic R code.zip' Stochastic Code (zip/R)]\\
+  [attachment:'wiki:EpiNetSim_Examples:Deterministic R code.zip' Deterministic Code (zip/R)]\\
+
+'''Day 2''':	Network analysis: Traditional methods and Exponential Random Graph Models\\ 
+
+ //Lecture:
+
+ [attachment:'wiki:EpiNetSim_Lectures:Day 2 morning.pdf' Morning Lecture (DCMs and Traditional SNA)(pdf)]\\
+ [attachment:'wiki:EpiNetSim_Lectures:Day 2 afternoon.pdf' Afternoon Lecture (ERGMs)(pdf)]\\
+
+ //Lab Tutorial:
+  [attachment:'wiki:EpiNetSim_Lectures:ergm tutorial NMID 2012.pdf' ERGM tutorial (pdf)]\\
+
+ //Lab Code:
+  [attachment:'wiki:EpiNetSim_Examples:sna_lab_NMID_2012.r' sna lab Code (R)]\\
+  [attachment:'wiki:EpiNetSim_Examples:ergm_lab_NMID_2012.r' ergm lab Code (R)]\\
+  [attachment:'wiki:EpiNetSim_Examples:egosim_2012_code.r' egosim lab Code (R)]\\
+
+ //Data:
+  [attachment:'wiki:EpiNetSim_Examples:relationalData.csv' example network data]\\
+  [attachment:'wiki:EpiNetSim_Examples:vertexAttributes.csv' example nodal attribute data]\\
+   
+'''Day 3''':	Modeling epidemics on networks: Independent network and epidemic processes\\
+
+ //Lecture:
+
+  [attachment:'Day 3 - stergms.pdf' STERGM Lecture Slides (pdf)]\\
+
+ //Lab Tutorial:
+  [attachment:'STERGM.pdf' STERGM Tutorial (pdf)]\\   
+
+ //Lab Code:
+  [attachment:'wiki:EpiNetSim_Examples:egosim_2012_code.r' Egocentric sample simulation]\\
+  [attachment:'STERGM.R' STERGM Lab (R)]\\    
+
+'''Day 4''':	Modeling epidemics on networks: Dependent network and epidemic processes
+
+ //Lecture:
+
+ [attachment:'Day 4 Lecture.pdf' EpiNetSim Lecture Slides (pdf)]\\   
+
+ //Code:
+  Epidemic Code [attachment:'day_4_code.zip' zip] [attachment:'day4code.tar' tar]\\

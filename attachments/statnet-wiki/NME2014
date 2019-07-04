@@ -1,0 +1,81 @@
+= 2014 Network Modeling for Epidemics (NME) Course = 
+
+'''5+1 day Summer Workshop[[br]]
+University of Washington, Seattle WA[[br]]
+June 16-21, 2014'''
+
+'''Course Website''':  http://statnet.csde.washington.edu/EpiModel/nme/2014/index.html [[br]]
+'''Target Audience''':	Researchers and PhD students from any field who have an interest in epidemic modeling [[br]]
+
+
+'''Apply for Course''': The deadlines have passed for 2014 [[br]]
+{{{#!comment
+https://catalyst.uw.edu/webq/survey/morrism/225354 
+}}}
+
+'''Deadlines''':  
+* March 1st:  Fellowship applications must be received by this date to be considered.
+* April 1st: Regular applications will be processed on this date, applications received after this date will be considered only if space is available.
+
+Mathematical modeling plays a growing role in infectious disease epidemiology, for studying the dynamics of pathogen invasion and persistence, understanding the determinants of disease disparities among populations, and predicting the impact of interventions. Deterministic compartmental models (based on ordinary differential equations) have been the traditional basis for this work during the past three decades. However, recent advances in statistical theory and methods have given rise to a new class of stochastic network models that provide an integrated framework for the statistical estimation of generative contact network parameters and the stochastic simulation of dynamic networks and transmission processes.  Stochastic network models are more appropriate when infection is spread by a small number of highly structured contacts, as with HIV and other STIs, or for small scale assessments, where the effects of chance lead to wide variation in potential outcomes.
+
+This course will start with a brief review of traditional compartmental (SI, SIR, SIS) models, and the methodology for classical descriptive network analysis.  It will then provide a thorough introduction to the new statistical methods for network analysis:  Exponential family Random Graph Models (ERGMs).  The course will conclude with instruction on using these methods to develop an integrated framework for stochastic network models for epidemics, with a focus on empirical models of HIV transmission and control.  
+
+This will be a “hands-on” course, with integrated lectures, example-driven computer lab sessions, and extensive tutorial materials.  The labs will develop programming skills in statnet and EpiModel, an integrated suite of R-based software packages that simplify statistical network analysis, simulation and visualization, and provide built-in functionality for both deterministic compartmental and stochastic network modeling of epidemics.   Participants will learn to estimate and evaluate generative network models from empirical data, use the estimated models to simulate dynamic transmission networks consistent with the data, analyze the results (using all the functionality of R packages) and construct network movies that show the infection spreading on the network. 
+
+The course outline for the week is:
+
+||= '''Date''' =||= '''Course Content''' =||
+||  Mon, June 16 || Introduction to epidemic modeling[[br]] Deterministic and stochastic models for epidemics[[br]] ''Lab'': Programming simple deterministic and stochastic SI, SIS and SIR models with EpiModel ||
+|| Tue, June 17 || Classical network analysis[[br]] Introduction to Exponential Random Graph Models (ERGMs) for statistical network analysis[[br]] ''Lab'': Using [WikiStart statnet] for static network modeling and visualization ||
+|| Wed, June 18 || Separable temporal ERGMs (STERGMs) for dynamic networks[[br]] Using egocentrically sampled network data in ERGMs and STERGMs[[br]] ''Lab'': Using [WikiStart statnet] for dynamic network modeling and visualization ||
+|| Thu, June 19 || Simple epidemic models on networks [[br]] Epidemics in fixed populations with network dynamics independent of disease state [[br]] ''Lab'': Using the EpiModel package for dynamic networks in a fixed population ||
+|| Fri, June 20 || General epidemic models on networks [[br]] Epidemics in open populations, with interactions between networks, demographics and infection [[br]] ''Lab'': EpiModel and dynamic networks with changing population size/composition ||
+
+''Participants interested in using EpiModel for their own research projects should consider staying for the advanced topic session on Saturday. Saturday attendance is optional, and applicants who wish to attend should indicate this on the application form.''
+
+
+||= '''Date''' =||= '''Course Content''' =||
+|| Sat, June 21 || Extending EpiModel:  Modifying the code for user-specific research applications [[br]] Computing Issues:  Parallelization, memory management, and other computing tips and tricks [[br]] Individual Consultations:  Discussion of participant research projects [[br]] ||
+ [[br]]
+
+== Course Instructors ==
+
+||= '''Instructor''' =||= '''Title''' =||= '''Department''' =||= '''Webpage	''' =||= '''email	''' =||
+|| Martina Morris || Professor || Dept. of Sociology and Statistics, [[br]] University of Washington || http://faculty.washington.edu/morrism/ ||  morrism at uw.edu ||
+|| Steven M. Goodreau || Assoc. Professor || Dept. of Anthropology, [[br]] University of Washington || http://faculty.washington.edu/goodreau/ ||  goodreau at uw.edu ||
+|| Samuel M. Jenness || PhD Candidate || Dept. of Epidemiology, [[br]] University of Washington || http://samueljenness.org/ ||  sjenness at uw.edu ||
+[[br]]
+
+== Prerequisites ==
+
+''Required:''  Basic familiarity with R (see below). [[br]]
+''Recommended:'' Knowledge of intermediate level statistics, especially generalized linear models, and some epidemic modeling experience (broadly defined).
+
+
+Those with general statistical/modeling skills but no knowledge of R may apply now, and obtain familiarity with R in the interim, via:
+
+* http://jeromyanglim.blogspot.com/2010/05/videos-on-data-analysis-with-r.html
+* http://www.cran.r-project.org/manuals.html
+* http://csde.washington.edu/courses/statcore/RIntro/
+* http://www.statmethods.net/
+
+You may also want to look through some of the [[wiki:Resources#TrainingWorkshopMaterialsSunbelt2013|tutorials]] for the [WikiStart statnet] software.
+
+This [http://www.tb.ethz.ch/education/model/SIR/sir.pdf online tutorial] contains a nice, brief introduction to compartmental models for infectious disease, for those new to this area.
+[[br]]
+
+== Logistics ==
+
+'''Dates''': Monday, June 16 – Saturday, June 21, 2014
+
+'''Times''': 9:30 am (sharp) – 4:30 pm
+
+'''Location''': On the main campus of the University of Washington in Seattle. [[http://www.washington.edu/maps/]]
+
+'''Accommodations''': A block of hotel rooms will be available at a discounted rate.
+
+'''Costs''': Registration cost is $250. A small number of fellowships will be provided to predoctoral students and/or international (non-US/Canada) scholars.
+
+''This course is supported by grant number R01HD68395 from the National Institute of Child Health and Human Development''
+

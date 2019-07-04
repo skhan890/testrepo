@@ -1,0 +1,118 @@
+= Draft Text for Statnet Developer Job Description =
+
+== Link to active job posting ==
+
+https://uwhires.admin.washington.edu/eng/candidates/default.cfm?szCategory=jobprofile&szOrderID=105022
+
+== Statnet Developer Job Description ==
+
+
+Seeking a full-time developer to join the team of researchers working on the 
+'statnet' suite of R packages for Exponential Random Graph Modeling 
+(http://statnet.org).  The developer will be responsible for maintaining the 
+existing packages (written in R and C) and implementing new features. The job 
+requires a mix of excellent programing skills, statistical thinking, network 
+thinking and good development process. The developer must communicate 
+effectively with other developers on the project as well as internal and 
+external users. They must be able to work well with a somewhat collective 
+decision-making process, as the project is managed by the "Statnet Commons", 
+a group of researchers from multiple institutions who contribute their code, 
+time, and expertise.
+
+The developer's duties will include helping the team set priorities, managing 
+software development processes, triage of incoming bug reports, identifying 
+and fixing bugs, refactoring code, determining realistic release schedules. 
+Other major components are:
+* Assessing the performance and accuracy of cutting-edge statistical optimization algorithms.
+* Optimizing existing code for maintainability and performance. Designing and implementing new algorithms.
+* Writing documentation and package vignettes.
+* Supporting affiliated researchers on their primary research goals and assisting with curriculum development.
+* Maintain cross-platform build and testing scripts.
+
+Requirements:
+
+* Experienced R programmer
+* Experienced with R package development and release processes
+* Experienced developer in C and/or C++
+* Experienced with Social Network Analysis concepts, algorithms, and data structures
+* Unix shell scripting and maintenance skills
+* Multi-platform development experience (unix, Mac and Windows)
+* Experienced with source code management systems (SVN)
+* Superb debugging skills
+* Excellent English written and oral communication skills
+* Demonstrates good team development work flow
+* Demonstrates project management ability
+* Can write design specifications for software components
+* Can write effective concise documentation
+* Capable of quickly learning an unfamiliar codebase
+* Experienced with test-driven development processes
+* Strong statistics background (Stats requirements?)
+
+
+Pluses:
+
+* Familiar with statistical optimization techniques and concepts (MCMC, etc)
+* Familiar with basic website admin and tools (HTML, CSS)
+* Applied SNA experience
+
+
+
+== Possible Interview Questions: ==
+
+=== General goals ===
+
+* What aspects of the statnet project seem the most interesting to you, or are related to your own research interests?
+
+=== Software development experience ===
+
+* What software projects have you contributed to and what was your role?
+
+* Please provide urls for source code and documentation for a project that you consider to be a good example of your work.
+
+* Please describe any experience you've had with R code or package development. Do you have thoughts about pros/cons of code written in R vs C/C++? Have you used RCPP?
+
+* Please describe your experience in optimizing code performance. What tools / processes do you use?
+
+* Have you developed code that needs to run cross-platform? What is your preferred development environment / tool-chain?  
+
+* What is the most recent programming language or tool you have needed to learn?
+
+=== Domain specific knowledge ===
+
+* What training have you had in statistical methodology?  In computational methods for statistical estimation?
+
+* Have you written any software that uses MCMC algorithms?  What kinds of issues did you encounter?
+
+* Have you written any software using network/graph data structures?  What kinds of issues did you encounter?
+
+
+=== Software development process ===
+
+* Have you worked on a project with large numbers of internal and external dependencies? If so, how did you manage them?
+
+* Have you worked on a project with multiple developers?  How did you determine who worked on what and who was responsible for fixing things? How did you manage versions and authors' revisions? 
+
+* Have you ever joined an ongoing project before? How did you become familiar with the existing codebase?
+
+* How do your development processes differ when writing research code vs. writing tools to be used by other researchers?
+
+* What processes do you employ to help you write code that you and other developers can maintain over the long term?
+
+* What techniques or process do you use to ensure software correctness and quality?
+
+=== Communications and work processes ===
+
+* What is your ideal mode / style / frequency of communicating with other researchers and developers?
+
+* Describe a situation that caused conflict with a colleague or team member.  What was the outcome?
+
+* Have you worked on projects without direct formal leadership?  What were pros / cons?
+
+* What is your preferred process to organize tasks / set priorities for a project? 
+
+* Have you had a 'public facing' (answering support emails, etc,) role on a software project before?  What techniques (if any) have you used to increase project visibility and community participation?
+
+* What types of feedback do you prefer about your work performance?
+
+
+

@@ -1,0 +1,123 @@
+[[Include(statnetnav)]]
+
+= 2013 INSNA Sunbelt Conference statnet Workshop Page =
+
+Note: the current materials for the INSNA 2014 Sunbelt Workshops are located at [wiki:Sunbelt2014 Sunbelt2014]
+
+''WELCOME'' to the 2013 Sunbelt workshops on social network analysis with R and statnet! On this page, you will find all the information you need to prepare for this year's workshops. Please check this site periodically for updates and announcements.
+
+The sections below cover the following topics:
+
+* [[#WorkshopSessions|List of workshops]]
+* [[#AnnouncementsandUpdates|Announcements and Updates]]
+* [[#Prerequisites|Basic info on workshop format and recommended prerequisites]]
+* [[#WorkshopMaterials|Workshop materials]] (tutorials and slides) for download and printing (NB:  we will not distribute hardcopy handouts at the workshops)
+* [wiki:Installation Instructions for downloading and installing R and statnet] (NB: you should do this before the workshop)
+
+So scroll down to the section you need.
+
+== Workshop Sessions ==
+
+This year we are pleased to offer seven workshop sessions, listed below. The first four of these will be on May 21, and the second two on the morning and afternoon of May 22 (respectively). 
+
+||= '''Time''' =||= '''Workshop''' =||= '''Instructors''' =||
+|| 5/21/13, 08:00AM-11:00AM ||  An Introduction to Network Analysis with R and statnet  || Ryan M. Acton, [[br]] Lorien S. Jasny ||
+|| 5/21/13, 11:30AM-02:30PM ||  Modeling Relational Event Dynamics with statnet  || Carter T. Butts, [[br]] Christopher S. Marcum ||
+|| 5/21/13, 11:30AM-02:30PM ||  Moving Beyond Descriptives: Basic Network Statistics with statnet  || Ryan M. Acton, [[br]] Lorien S. Jasny ||
+|| 5/21/13, 03:00PM-06:00PM ||  Exponential-family Random Graph Modeling with statnet  || Martina Morris  [[br]] Carter T. Butts ||
+|| 5/22/13, 08:00AM-11:00AM ||  STERGM - Separable Temporal ERGMs for Modeling Discrete Relational Dynamics  || Pavel N. Krivitsky, [[br]] Steven M. Goodreau ||
+|| 5/22/13, 11:30AM-02:30PM ||  Extending ERGM Functionality within statnet - Building Custom User Terms  || Steven M. Goodreau, [[br]] David R. Hunter ||
+|| 5/22/13, 11:30AM-02:30PM ||  ERGMs for Valued Networks  || Pavel N. Krivitsky, [[br]] Carter T. Butts ||
+
+Workshop Assistants: Zack Almquist, Sean Fitzhugh, Ben Gibson, Aditya Khanna, Emma Smith, and Emma Spiro.
+
+(Last updated: 05/15/13)
+
+-------
+
+== Announcements and Updates ==
+
+* For the workshops, you will need the latest revision of the statnet packages. Please double-check your installation using the instructions below, or obtain the package from one of the assistants prior to the workshop session. Some sessions may also require additional data files, which are included below (and should be downloaded prior to the workshop).
+
+* Workshop slides and handouts will be posted here before the workshop; downloading and printing is optional, but may make it easier to follow along on your own.
+
+* The statnet workshops are best experienced interactively, using your own laptop and software installation (see below). If you would like to simply listen and try out the exercises later, that is fine too -- however, we do ask that attendees who plan on using their laptops during the workshop install the required software before the workshop begins. Our team members will be on hand to help with this process.
+
+* Workshop participants with problems or questions regarding software installation prior to the workshop should email Sean Fitzhugh (sean.fitzhugh at uci.edu) for Linux-related questions, Zack Almquist (almquist at uci.edu) for Mac-related questions, or Emma Spiro (espiro at uci.edu for Windows-related questions. The statnet_help mailing list (mentioned below) is another option for general (non-workshop) statnet questions.
+
+-------
+
+== Prerequisites ==
+
+Although the workshop sessions may be taken independently by those having prior experience with R and statnet, we strongly recommend the following prerequisites:
+
+ An Introduction to Network Analysis with R and statnet::
+  Prerequisites: None
+ Modeling Relational Event Dynamics with statnet::
+  Prerequisites: ''An Introduction to Network Analysis with R and statnet'' (or prior experience with R)
+ Moving Beyond Descriptives: Basic Network Statistics with statnet::
+  Prerequisites: ''An Introduction to Network Analysis with R and statnet''
+ Exponential-family Random Graph Modeling with statnet::
+  Prerequisites: ''An Introduction to Network Analysis with R and statnet'', ''Moving Beyond Descriptives: Basic Network Statistics with statnet''
+ STERGM - Separable Temporal ERGMs for Modeling Discrete Relational Dynamics with statnet::
+  Prerequisites: ''An Introduction to Network Analysis with R and statnet'', ''Moving Beyond Descriptives: Basic Network Statistics with statnet'', ''Exponential-family Random Graph Modeling with statnet''
+ Extending ERGM Functionality within statnet - Building Custom User Terms::
+  Prerequisites: ''An Introduction to Network Analysis with R and statnet'', ''Moving Beyond Descriptives: Basic Network Statistics with statnet'', ''Exponential-family Random Graph Modeling with statnet''
+ ERGMs for Valued Networks::
+  Prerequisites: ''An Introduction to Network Analysis with R and statnet'', ''Moving Beyond Descriptives: Basic Network Statistics with statnet'', ''Exponential-family Random Graph Modeling with statnet''
+
+For these workshops, we will be using the statnet suite of software packages for the R statistical computing system. Following the instructions on this page should help you install the required software prior to the workshop. (See also the statnet web site at http://statnet.org.)
+
+--------
+
+== Workshop Materials ==
+
+Workshop slides and other materials for some sessions will be posted here, for the convenience of session attendees. Some workshop sessions require the use of supplemental data files. Attendees should download the file(s) for their respective workshop sessions and save them in a convenient spot. This section will be updated with new links to materials.
+
+=== An Introduction to Network Analysis with R and statnet ===
+
+* Electronic handouts: [[attachment:introToSNAinR_sunbelt_2012_tutorial.pdf:wiki:Resources|An Introduction to Network Analysis with R and statnet]]
+* Slides:
+* Data Files: [[attachment:introduction_sunbelt_2013.Rdata]] [[attachment:introToSNA-script.R]] [[attachment:relationalData.csv]] [[attachment:vertexAttributes.csv]] 
+
+=== Moving Beyond Descriptives: Basic Network Statistics with statnet ===
+
+* Electronic handouts: [[attachment:basicNetworkStatistics-handout.pdf|Basic network statistics]]
+* Slides: [[attachment:basicNetworkStatistics_slides.pdf|Basic network statistics slides]]
+* Data Files: [[attachment:basicNetworkStatistics.R]], [[attachment:basicstats.Rdata]]
+
+=== Exponential-family Random Graph Modeling with statnet ===
+
+* Electronic handouts: [[attachment:ergm.pdf|ERGM tutorial]]
+* Slides:
+* Data Files:
+
+=== STERGM - Separable Temporal ERGMs for Modeling Discrete Relational Dynamics ===
+
+* Electronic handouts: [[attachment:STERGM.pdf|STERGM tutorial]]
+* Slides:  [[attachment:STERGM_slides.pdf|STERGM slides]]
+* Data Files: [[attachment:Bots_10Kobs_fit.Rdata]]
+
+=== Extending ERGM Functionality within statnet - Building Custom User Terms ===
+
+* Electronic handouts: [[attachment:ergmuserterms.pdf|ergm user terms tutorial]]
+* Slides: [[attachment:"EUT tutorial slides.pptx"|Tutorial slides]]
+* Data Files:
+
+=== Valued networks ===
+
+* Electronic handouts: [[attachment:Valued.pdf|Valued network tutorial]]
+* Slides:
+* Data Files:
+
+=== Modeling Relational Event Dynamics with statnet ===
+
+* Electronic handouts: [[attachment:statnet_sunbelt2013_relevent.pdf|REM Handout]]
+* Slides: [[attachment:sunbelt_rem_1.pdf|REM Slides (Set 1)]], [[attachment:sunbelt_rem_2.pdf|REM Slides (Set 2)]]
+* Data Files: [[attachment:relevent_sunbelt_2013.Rdata|REM Workshop Data File]]
+
+--------
+
+== Installing statnet ==
+
+Please follow the instructions on the statnet [[Installation]] page for downloading the latest version of R, statnet and its related libraries

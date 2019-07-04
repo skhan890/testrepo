@@ -1,0 +1,98 @@
+= tergm package usage examples =
+
+For detailed explanation of STERGM estimation and basic examples, consult the {{{tergm}}} package vignette. This wiki page is intended to additional usage examples.
+
+The following examples use the {{{flobusiness}}} network included in the {{{ergm}}} package. To set up:
+
+{{{
+library(tergm)
+data(florentine)
+net = flobusiness
+}}}
+
+== Estimation with cross-sectional network and duration data ==
+
+If there is data of a cross-sectional network and the mean relationship duration, we can use {{{stergm}}} with EGMME method to estimate the formation coefficients.
+
+* The formation formula specifies the ERGM terms used in the formation model.
+
+* The dissolution formula should be {{{~offset(edges)}}}. The {{{offset.coef.diss}}} should be {{{log(d-1)}}} where d is the mean relationship duration.
+
+* The targets formula specifies the ERGM terms relevant to the network model; {{{stergm}}} estimates coefficients that will produce cross-sectional networks with target statistics similar to the given network. It is usually set as {{{targets = "formation"}}}, so the target terms are same as those in the formation model.
+
+  Example from the vignette:
+{{{
+theta.diss <- log(9)
+stergm.fit.1 <- stergm(flobusiness,
+   formation= ~edges+gwesp(0,fixed=T),
+   dissolution = ~offset(edges),
+   targets="formation",
+   offset.coef.diss = theta.diss,
+   estimate = "EGMME"
+)
+}}}
+
+  If there is no complete data of the cross-sectional network, we can use observed network statistics by specifying {{{target.stats}}}. In this case, the network can be an empty network with the same size as the observed one. The number of target.stats must equal the number of terms in targets formula.
+{{{
+net <- network.initialize(n=16, directed=F)
+stergm.fit.2 <- stergm(net,
+   formation= ~edges+gwesp(0,fixed=T),
+   dissolution = ~offset(edges),
+   targets="formation", target.stats=c(15,12),
+   offset.coef.diss = log(9),
+   estimate = "EGMME"
+)
+}}}
+
+=== Specifying offset terms in the formation model ===
+
+If one of the formation coefficients are known to have a certain value, it can be specified using {{{offset.coef.form}}}. 
+{{{
+mod1 <- stergm(flobusiness, formation= ~edges + offset(degree(3)), 
+               offset.coef.form=0.8, 
+               dissolution= ~offset(edges),
+               offset.coef.diss=log(9), 
+               targets="formation",
+               estimate="EGMME"
+)
+}}}
+Note that offset terms are automatically dropped from the targets formula, so keep that in mind if specifying {{{target.stats}}}. In the case above, the targets formula only contains {{{~edges}}}, so the only target statistic is edges.
+
+If, for some reason, you want to specify the initial values of the coefficients for estimation, you can do so with the {{{init.form}}} control parameter. The number of values should match the number of terms in the formation formula.
+{{{
+mod2 <- stergm(flobusiness, formation= ~edges + offset(degree(3)), 
+               offset.coef.form=0.8, 
+               dissolution= ~offset(edges),
+               offset.coef.diss=log(9), 
+               targets='formation', estimate="EGMME",   
+               control=control.stergm(init.form=c(-3,0.8))
+)
+}}}
+
+=== Constraints and -Inf offsets ===
+
+Constraints may be specified via the constraint formula or a -Inf offset (which prevents ties matching that term from forming). Unless there is real network data, the initial network should be created with {{{san()}} to match the constraints. In the example below, the fitted TERGM model has no male-to-male ties, and the maximum degree is 3.
+
+{{{
+library(tergm)
+nw <- network.initialize(100, directed = FALSE)
+nw %v% "male" <- rbinom(100, 1, 0.5)
+nw2 <- san(nw ~ edges + nodematch('male'), target.stats=c(80,0),constraints = ~bd(maxout=3) )
+
+fit <- stergm(nw2, 
+              formation = ~edges + offset(nodematch("male")), 
+              dissolution = ~offset(edges), 
+              constraints = ~bd(maxout=3),
+              target.stats = c(80),
+              offset.coef.form = -Inf,
+              offset.coef.diss = log(1.5),
+              targets = ~edges,
+              estimate = "EGMME")
+
+summary(fit$network ~ nodematch("male"))
+fit
+
+sim <- simulate.stergm(fit, nsim = 1, time.slices = 100, output = "stats", monitor = ~nodematch("male"))
+
+as.vector(sim)
+}}}

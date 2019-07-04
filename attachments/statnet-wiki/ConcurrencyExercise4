@@ -1,0 +1,34 @@
+= CONCURRENCY TUTORIALS =
+
+== Exercise 4: Thinking numerically about concurrency at the population level (Introduction) ==
+
+This is the most complex of the four exercises, but also potentially the most powerful.  Here we will do a full simulation of a dynamic network to see how the presence or absence of relational concurrency affects the prevalence of an STI.  On this page, we will describe the basic goals and structure of the model.  On the next page, we offer an R tutorial for those users who are not already familiar with the language.  Those who are familiar may choose to skip the tutorial and proceed directly to the next page, which contains the model code and instructions. We also link to an interface that allows one to explore the model without dealing directly with any code, for use alone or in conjunction with code-based explorations; users who only wish to use this interface may skip the R tutorial as well.
+
+Our model will track a population of 10,000 people: 5,000 women and 5,000 men.  We will create two separate data tables: one for women, and one for men. The women will be noted by an ID number (females 1-5000, corresponding to rows 1-5000 in the female data table), as will the men (males 1-5000, corresponding to rows 1-5000 in the male data table).  We will keep track of two pieces of information about each individual over time: their HIV status, and, for those who are infected, the amount of time since they were infected. 
+
+In addition, we will model sexual relationships within this population at any given time.  We will consider only heterosexual relationships. We will store information about the set of ongoing relationships in a matrix, with one relationship per row, and with two columns: the first column will have the ID number of the female in the relationship, and the second column will have the ID number of the male.
+
+Relationships will form and break over time.  To keep the model as simple as possible, we will assume that all existing relationships have the same probability of dissolving. As with the previous exercises, we will implement multiple scenarios for the sake of comparison, with either concurrency present or prohibited.  In fact, this exercise allows the user to turn concurrency on and off separately for women and for men, so that we can see how disease prevalence differs when both sexes, one sex, or neither sex are allowed to have concurrent partnerships. Note that it is indeed mathematically possible for the two sexes to have different levels of concurrency, and for one to have high levels and the other to have none at all.  For instance, imagine a very simple sexual network at one moment in time:
+
+[[Image(sexspecific.png)]]
+
+In this network at this time, 50% of men (1 of 2) have concurrent partners, while 0% of women (0 of 2) do. However, the mean number of ties for men (1 per man, averaged from 2 ties for male 1 and 0 ties for male 2) equals the mean number of ties per woman (1 per woman, averaged from 1 tie for female 1 and 1 tie for female 2).
+
+Although the different versions of the model will differ in the level of concurrency, '''they will have the same overall number of sexual partnerships occurring, the same mean duration for relationships, and the same number of coital acts'''.
+
+Because this model includes more specific information about the absolute time at which events occur, we can and will make use of information about how the probability of transmission changes as a function of the amount of time the transmitting partner has been infected.  That is, we will bring in the “'''acute infectivity'''” effect that we explored in [wiki:ConcurrencyExercise1 Exercise 1]. We will use estimates for HIV specifically, drawn from Hollingsworth et al. (2008), which are based on Ugandan serodiscordant couple data (Wawer et al. 2005). These estimates are calculated as monthly transmission probabilities, so each time step in our model will represent a month.
+
+Some aspects of our model are realistic, and others are not.  Remember, our goal is to isolate the effect of concurrency, while keeping the model as simple as possible for researchers who are relatively new to modeling.  Those who find the insights they gain from these exercises to be provocative are encouraged to learn more about modeling so that they can read both the modeling and the empirical literatures on concurrency with deeper understanding.
+
+[wiki:ConcurrencyTutorialR Forward to R tutorial]
+
+[wiki:ConcurrencyExercise4C Forward to Exercise 4 Instructions and code]
+
+[ConcurrencyIndex Return to index]
+
+
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

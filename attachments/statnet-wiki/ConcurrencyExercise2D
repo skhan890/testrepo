@@ -1,0 +1,28 @@
+= CONCURRENCY TUTORIALS =
+
+== Conceptual Exercises (Discussion) ==
+
+Through two conceptual exercises, we learned that:
+
+* '''Concurrency does not increase risk to the individual practicing concurrency, relative to the same partners sequentially.'''  This means that, even if a real concurrency effect exists, it cannot be detected by analyses that use an individual’s concurrency practices as a predictor of their own infection status (controlling for their cumulative number of partners over time).  If this kind of analysis does show an effect, there are different possible explanations – for instance:[[br]][[br]]
+	* that people with concurrent partners are more likely to have partners who also have concurrent partners
+	* that people with concurrent partners are more likely to choose partners who are infected
+	* that people with concurrent partners tend to have riskier sex in some way not accounted for
+
+	Any of these may be true.  However, none of them must be true in order for concurrency to amplify STI spread in a population.
+
+* '''Concurrency acts in three different ways at the local level to amplify disease transmission'''.  These include increasing numbers of transmission paths, speeding up existing transmission paths, and increasing exposure during periods of relatively high infectiousness.
+	
+* '''These local effects can accumulate up to produce very large differences in epidemic potential at the population level'''.   We saw this with Exercise 2, where the population with concurrency had 6 times more possible infections than the population without.
+For those who wish to see more rigorous examples of these same patterns, we now proceed to the Numerical Exercises.
+
+[wiki:ConcurrencyExercise2A Back to Exercise 2 answers]
+
+[wiki:ConcurrencyExercise3 Forward to Exercise 3: Thinking numerically about concurrency at the local level]
+
+[ConcurrencyIndex Return to index]
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

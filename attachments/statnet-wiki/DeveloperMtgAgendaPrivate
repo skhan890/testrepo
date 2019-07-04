@@ -1,0 +1,29 @@
+= Outline of Topics to be Discussed and Next Developer Mtg =
+Hopefully we will have enough folks at Sunbelt 2015?
+
+== ergm's term locating functionality may need to be redesigned to comply with CRAN #1134 #1162 ==
+
+ergm finds terms by querying the search path for functions named {InitErgm.*}.  If a package is loaded via namespace and not attached (the new CRAN way) it breaks.  We need to design a new way for this to work.
+
+== transitioning stuff to github (and/or transitioning to git) ==
+
+(skye) I think that transitioning our internal source code management from svn to git would be a great thing to do. 
+  * for basic tasks, git commands only slightly different than svn
+    * does separate concept of 'commit' (cache the state of the code into your local branch) from 'push' (update the main branch to the state of your local branch).  I find that this is actually an improvement in workflow
+  * would allow us to push/pull changes from public repositories like github
+    * Svn model is around granting full access to repository, github allows people to clone copies of a repository in such a way that it is really easy to to propose a 'pull request'  (a patch that can incorporate multiple commits and comments).  Maintainers can easily review and cherry pick changes for main repository 
+  * git it is the current standard. it what people learn now days, and what we should teach students
+
+We could also move our development process (ticketing, bug reports, notifications, etc) to github, but that is actually a seperate question.  And if we are using the git protocol,  we can easily pull in updates to our internal repository submitted to github mirrors of our repository.  
+
+== summary.stergm is very slow for large graphs (summary.ergm is the culprit) #1061 ==
+== what package should contain network-related stuff that computes statistics of general utility but do not belong in 'sna' package (or 'network' because it not data structure stuff) ==
+
+We do have some functions (some hidden in ergm) that may be of general utility, should we have a new package i.e. networkSna for these? Or a better mechanism for contributing to sna package?
+== passing dynamic attributes into tergm ==
+
+people have asked for it, shouldn't be hard to impelement
+
+== representing dynamic missingness ==
+
+we need a standard for this

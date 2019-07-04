@@ -1,0 +1,18 @@
+= statnet vignettes =
+
+|| = package =    ||= source =||= to do =||
+||= network  =|| http://www.jstatsoft.org/v24/i02/
+||= ergm  =|| https://statnet.csde.washington.edu/trac/attachment/wiki/Resources/ERGMtutorial.pdf
+||= ergmuserterms  =|| 
+||= networkdynamic  =||
+||= epinetsim  =||
+||= ndtv  =||
+||= tergm  =||
+
+
+
+
+https://statnet.csde.washington.edu/trac/browser#statnet_research/networkDynamic/trunk/networkDynamic/vignettes
+
+https://statnet.csde.washington.edu/trac/browser#statnet_research/ndtv/trunk/ndtv/vignettes
+https://statnet.csde.washington.edu/trac/attachment/wiki/Resources/STERGMtutorial.pdf

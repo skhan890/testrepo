@@ -1,0 +1,40 @@
+= CONCURRENCY TUTORIALS =
+
+== EXERCISE 1: Thinking conceptually about concurrency at the local level (Discussion) ==
+
+We have explored an example in which Sam and Chris each have the same number of new partners during the six-month period; they each have the same number of sex acts with each partner; their relationships each last the same length; and their sex acts occur on average no earlier or later than each other's (that is, both have their sex acts evenly centered around the same time point). Below, and in later exercises, you will have the opportunity to consider other models.  But, for now, '''what do the answers we saw on the previous page tell us about the effects of concurrency in this scenario? A few very important things:'''
+
+Sam and Chris had the exact same risk of getting infected from their red partner. They also had the exact same risk of getting infected from their blue partner. Thus, Sam and Chris had the exact same risk of getting infected overall.
+
+'''INSIGHT 1: All else being equal, whether one’s partnerships are sequential or concurrent makes no difference whatsoever to one’s risk of acquiring an STI.'''
+
+On the other hand, if they do get infected, there are three different processes that affect how likely they are to transmit to someone else.  Two of these increase Chris’s probability of transmitting relative to Sam’s, and one increases Sam’s relative to Chris’s.  These are:
+
+* The “backwards transmission” effect: increases Chris’s probability of transmitting relative to Sam’s.
+* The “acute infectivity” effect: increases Chris’s probability of transmitting relative to Sam’s.
+* The “reduced forward transmission” effect: increases Sam’s probability of transmitting relative to Chris’s.
+
+In terms of backwards transmission, the distinction between concurrency and sequential monogamy is absolute: concurrency generates backwards transmission, and sequential monogamy does not.
+
+In terms of forward transmission: there are two different effects, which work in opposite directions, so the picture is less consistent. Since we are only exploring conceptually right now, we cannot be much more precise than this. However, now that we have identified the three effects, we can also provide some foreshadowing to Exercise 3, which explores the same effects more mathematically.  In the range of scenarios we consider there, we will see that the effect of backwards transmission always outweighs that of missed forward transmission. That is, when one combines their two effects, Chris is always more likely to transmit than Sam, although the exact difference depends on the details. More generally, the broader literature on concurrency shows that across ranges of realistic diseases and relational dynamics, the collective effect of these various pathways strongly favors transmission by those with concurrent partners over sequential.
+
+'''INSIGHT 2. All else being equal, whether one’s partnerships are sequential or concurrent has three effects on one’s probability of transmitting an STI.  The collective effect of these generally favors transmission by the person with concurrent partners, and sometimes by a very large amount, depending on the level of infectiousness and its change over time.'''
+
+Both Sam and Chris can acquire from red and transmit to blue.  But even here, in Chris’s case the STI is capable of spreading more quickly through this path than in Sam’s case.  In Sam’s case, the STI must lose time being “locked” in the monogamous partnership, waiting for it to end and for the next one to begin; the infection does not need to experience the same waiting period with Chris. If the blue partner did have other partners, then the infection would be able to proceed further on through the network more quickly.
+
+'''INSIGHT 3: Sequential partnerships lead to STIs spending some amount of time being “locked” in a partnership; concurrent partnerships allow it to move along a chain of three people (and then perhaps on from there) more quickly.'''
+
+In Exercise 1, and in the insights that resulted from it, we were largely focused on the question of concurrency’s effect at the local level, specifically among an individual and two of their (sequential or concurrent) partners. In reality, of course, these three people are embedded in much larger social networks, something we began to hint at with Insight 3. Any of the three may have additional partners, either concurrently or subsequently; those partners will have other partners, and so on. Differences at the local level have the potential to aggregate up to the population level in different ways. So now that we have some insight into how concurrency affects transmission locally, let us consider in Exercise 2 how much this can matter to the population as a whole.
+
+Note that we made some assumptions about Chris's and Sam's sexual partnerships at the outset in order to make them as comparable as possible, while allowing one to have concurrency and the other not.  But, the approach we took is not the only one possible, nor the only one worth exploring.  Those who wish to consider this in more depth may choose to do so on the [wiki:ConcurrencyExercise1C Exercise 1 follow-up] page.  Other may wish to proceed directly to Exercise 2 below.
+
+[wiki:ConcurrencyExercise1A Back to Exercise 1 answers]
+
+[wiki:ConcurrencyExercise2 Forward to Exercise 2: Thinking conceptually about concurrency at the population level]
+
+[ConcurrencyIndex Return to index]
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

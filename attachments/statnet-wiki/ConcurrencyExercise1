@@ -1,0 +1,40 @@
+= CONCURRENCY TUTORIALS =
+
+== EXERCISE 1: Thinking conceptually about concurrency at the local level (Introduction) ==
+
+In this exercise, we will focus on two people. Let’s call them Sam and Chris.  Each of them had two sex partners in the last six months.  And each of those partnerships lasted for three months.  All four partnerships had the same number and type of unprotected sex acts in them. The only difference is that Sam’s partners were sequential, while Chris’s partners were concurrent for one month. (Notice the simple mnemonic: sequential Sam, concurrent Chris)  During the entire six month period, nobody involved had any other partners.
+
+We can picture this scenario, with each person’s first partner colored red and second partner blue, as follows:
+
+[[Image(samandchris.png, 500px)]]
+
+Notice all of the components that we have kept identical between the two cases: Sam and Chris each have the same number of new partners during the six-month period; they each have the same number of sex acts with each partner; their relationships each last the same length; and their sex occurs on average no earlier or later than each other (that is, both have their sex acts evenly centered around the beginning of June).
+
+Now, think about each of the following questions. For each question, decide on one of four answers:  '''Sam''' is more likely; '''Chris''' is more likely; '''Both''' are equally likely; or perhaps '''Not Enough Information'''.
+
+'''Scenario 1''': The blue partners are each infected with the same STI, while Sam, Chris and the red partners are uninfected. 
+
+* Question 1: Who is more likely to get infected—Sam or Chris?
+
+* Question 2: If Sam and Chris do get infected, who is more likely to transmit to their red partner?
+
+* Question 3: If Sam and Chris do get infected, who is likely to do so sooner?
+
+'''Scenario 2''': The red partners are each infected with the same STI, while Sam, Chris and the blue partners are uninfected.
+
+* Question 1: Who is more likely to get infected—Sam or Chris?
+
+* Question 2: If Sam and Chris do get infected, who is more likely to transmit to their blue partner?
+
+* Question 3: If Sam and Chris do get infected, who is likely to do so sooner?
+
+* Question 4: If Sam and Chris do infect their blue partner, who is likely to do so sooner in time? Sooner after getting infected themselves?
+
+[wiki:ConcurrencyExercise1A Check your answers]
+
+[ConcurrencyIndex Return to index]
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

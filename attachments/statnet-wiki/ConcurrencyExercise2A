@@ -1,0 +1,32 @@
+= CONCURRENCY TUTORIALS =
+
+== EXERCISE 2: Thinking conceptually about concurrency at the population level (Answers) ==
+
+1. Over time, how many partners did each person have in Scenario 1?
+	Answer: '''2'''. Every single person in the population has two partners, and they all have them sequentially.
+
+2. Over time, how many partners did each person have in Scenario 2?
+	Answer: '''2'''. Every single person in the population has two partners, and they all have them concurrently.
+
+3. Over time, how many people (including Person 7) could possibly get infected in Scenario 1?
+	Answer: '''4'''. Person 7 could infect person 8 during the first three months. Then, during the next three months, 7 could infect 6, and 8 could infect 9.  But that is as far as the infection can go.
+
+4. Over time, how many people (including Person 7) could possibly get infected in Scenario 2?
+	Answer: '''24'''.  The infection could travel the whole way around the circle, without stopping.
+
+That means that 6 times more people are at risk in the second scenario than in the first one.  And in both scenarios, everyone had exactly two partners.  The only difference is that in the first scenario the partnerships are sequential, and in the second one they are concurrent.
+
+Notice that this magnitude can change: no matter how large the population gets, in the first scenario there are always four people at risk, and in the second scenario, the entire population is at risk, whether that’s 24 people, or 100, or 1000. The only thing limiting the spread of disease to the whole population in the concurrency case is the fact that most diseases have relatively low probability of transmissions per contact.  So in practice, an infection is unlikely to go all the way around a circle of 100 or 1000 people in the time span of six months. But it will almost certainly infect more people (and possibly many more) than in the sequential monogamy case.
+
+Remember, of course, that these scenarios are not meant to be realistic—in no population does everybody have exactly two partnerships, whether sequential or concurrent, or change partners at exactly the same time. But this exercise does make clear how powerful concurrency can be in facilitating rapid and large-scale diffusion of an STI in a population, in ways that sequential monogamy typically does not.
+
+[wiki:ConcurrencyExercise2 Back to Exercise 2 introduction]
+
+[wiki:ConcurrencyExercise2D Forward to discussion of Conceptual Exercises]
+
+[ConcurrencyIndex Return to index]
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

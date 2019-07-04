@@ -1,0 +1,158 @@
+= CONCURRENCY TUTORIALS =
+
+== Exercise 3: Thinking numerically about concurrency at the local level (Derivations) ==
+
+'''The probability of transmission from a single act of sex between an infected and an uninfected person is 1%.'''
+
+'''Let us imagine that Sam has sex 200 times: 100 times with the red partner, and then 100 times with the blue partner.'''
+
+'''Question 1''': If the red partner is infected and the blue is not, what is the probability that Sam gets infected from the red partner? '''63.4%'''
+
+   The probability that Sam will avoid infection at each sex act is 1- 0.01 = 0.99.  The probability that Sam will avoid it through 100 consecutive sex acts is 0.99 x 0.99 x 0.99…. = 0.99^100^. The probability that Sam will become infected during any of 100 consecutive sex acts is 1 – probably of avoiding infection = 1 -0.99^100^ = 0.634.
+
+   If this logic is unfamiliar, please see the [wiki:ConcurrencyTutorialProb Probability Tutorial], where we lay it out in more detail.
+
+'''Question 2''': If the blue partner is infected and the red is not, what is the probability that Sam gets infected from the blue partner? '''63.4%'''
+ 
+   The calculations here are the same as for Question 1. Sam has the same number of contacts with red as with blue, and the same probability of transmission per act in each case.
+
+'''Question 3''': If we assume that exactly one of Sam’s partners is infected, and it is equally likely to be the red partner or the blue partner, what is Sam’s probability of becoming infected? '''63.4%'''
+
+   There are two equally likely, mutually exclusive, possibilities: red is infected, or blue is infected. Given our stated assumptions, one must be true, so their probabilities sum to 1.  If they are equally likely and their probabilities sum to 1, they must each have a probability of ½.
+
+   There are two mutually exclusive ways that Sam can become infected: by red, or by blue.  His total probability of becoming infected is:
+
+   P(Sam is infected by red) + P(Sam is infected by blue)
+
+   In order to be infected by someone, it is necessary for them to be infected.  So, in each case, those probabilities can be broken down further:
+
+   ``= P(red is infected)*P(Sam is infected by red | red is infected) + P(blue is infected)*P(Sam is infected by blue | blue is infected)
+
+   ``= (0.5)(0.634) + (0.5)(0.634) = 0.634.
+		
+'''Question 4''': If the red partner is infected and the blue is not, what is the probability that Sam will get infected AND pass the infection on to the blue partner? '''40.2%'''
+
+   We want P(Sam is infected by red and Sam infects blue | red is infected)
+
+   We can break this down into:
+
+   P(Sam is infected by red | red is infected)*P(Sam infects blue | Sam is infected by red and red is infected)
+
+   We already know that the first of these is 0.634.  For the second, the calculations are the same as in Question 1 (what is the probability that x infects y during 100 sex acts, given x is infected and y is not).
+
+   ``= (0.634)(0.634) = 0.402
+
+'''Question 5''': If the blue partner is infected and the red is not, what is the probability that Sam will get infected AND pass the infection on to the red partner? '''0%'''
+
+   Sam’s sex acts with red all preceded the first sex act with red, so there are no acts during which Sam can transmit an infection acquired for red to blue.
+
+'''Question 6''': If we assume that exactly one of Sam’s partners is infected, and it is equally likely to be the red partner or the blue partner, what is Sam’s overall joint probability of becoming infected and transmitting? '''20.1%'''
+
+   Following the same structure as in Question 3, we have 0.5(0.402) + 0.5(0) = 0.201.
+
+[[br]][[br]]
+'''Now let us imagine that Chris has sex 200 times: once with the red partner, then once with the blue partner, then once with red, then blue, and back and forth 100 times for a total of 200 sex acts.'''
+
+'''Question 7''': If the red partner is infected and the blue is not, what is the probability that Chris gets infected from the red partner? '''63.4%'''
+
+   Same logic as Question 1.
+
+'''Question 8''': If the blue partner is infected and the red is not, what is the probability that Chris gets infected from the blue partner? '''63.4%'''
+
+   Same logic as Question 2.
+
+'''Question 9''': If we assume that exactly one of Chris’s partners is infected, and it is equally likely to be the red partner or the blue partner, what is Chris overall probability of becoming infected? '''63.4%'''
+
+   Same logic as Question 3.
+
+'''Question 10''': If the red partner is infected and the blue is not, what is the probability that Chris will get infected AND pass the infection on to the blue partner? '''26.8%'''
+
+   There are 100 mutually exclusive ways that Chris can get infected by red and pass it on to blue: (1) Chris is infected on the first sex act with red, and then subsequently passes to blue; (2) Chris is infected on the second sex act with red, and then subsequently passes to blue; (3) Chris is infected on the third sex act with red, and then subsequently passes to blue; etc.  Since these are mutually exclusive, we can calculate the probability of each, and then add them all together.  
+
+   The probability of (1) is: P(Chris is infected on the first sex act with red) * P(infects blue | Chris is infected on the first sex act with red) = (0.01) * [1-(0.99)^100^] = 0.0634. This is because, if Chris is infected during the first sex act with red, there are still 100 acts with blue during which transmission to blue may occur.
+
+   The probability of (2) is: P(Chris is infected on the second sex act with red) * P(infects blue | Chris is infected on the second sex act with red).  In order to become infected on the second sex act with red, Chris must avoid infection on the first act, and then become infected on the second.  Then, once that happens, there are only 99 acts with blue remaining in which to transmit.  So we have (0.99) * (0.01) * [1-(0.99)^99^] = 0.0624.
+
+   If one repeats this, the general expression that emerges for the probability of Chris being infected on the n^th^ sex act with red and subsequently transmitting to blue is:
+
+				(0.99)^(n-1)^ * (0.01) * [1-(0.99)^100-(n-1)^]
+
+   The total probability is the sum of this quantity for each value of n from 1 to 100.
+One can calculate each of these 100 values by hand and then add them, or use software to automate it. Below, we include a small set of R code that performs this calculation (and all the others on this page).
+
+   Once all 100 numbers are calculated and summed, the result is: 0.268. 
+
+'''Question 11''': If the blue partner is infected and the red is not, what is the probability that Chris will get infected AND pass the infection on to the red partner? (This one is hard—do your best!) '''26.4%'''
+
+   Here the logic is almost the same as in Question 10; there are 100 time points at which Chris may be infected by blue; however, because the sex acts with blue start later, there is one fewer acts for transmission onward to red in each of the hundred cases.  That is:
+
+   The probability of (1) is: P(Chris is infected on the first sex act with blue) * P(infects red| Chris is infected on the first sex act with blue) = (0.01) * 1-(0.99)^99^ = 0.0630
+
+   The probability of (2) is: P(Chris is infected on the second sex act with blue) * P(infects red | Chris is infected on the second sex act with blue).= (0.99) * (0.01) * 1-(0.99)^98^ = 0.0620.
+
+   The general expression for the probability of Chris being infected on the n^th^ sex act with blue and subsequently transmitting to red is:
+
+				(0.99)^(n-1)^ * (0.01) * [1-(0.99)^100-n^]
+
+   Notice the only difference from Question 10 is the final exponent. 
+
+   These hundred versions of this expression add to 0.264.
+
+'''Question 12''': If we assume that exactly one of Chris’s partners is infected, and it is equally likely to be the red partner or the blue partner, what is Chris overall joint probability of becoming infected and transmitting? '''26.6%'''
+
+   Following the same structure as in Questions 3 and 6, we have 0.5(0.268) + 0.5(0.264) = 0.266
+
+[[br]][[br]]
+
+'''Now let’s compare Sam and Chris.'''
+
+'''Question 13''':  What is the difference between Sam’s chance of becoming infected and Chris’s chance of becoming infected?  '''Nothing''' – Sam and Chris have the exact same chance of becoming infected.
+
+   A comparison of the answers to Questions 3 and 9.
+
+'''Question 14''':  What is the difference between Sam’s chance of transmitting and Chris’s chance of transmitting?  '''Chris’s probability of transmitting is 1.3 times that of Sam’s (26.6% vs. 20.1%).'''
+
+   A comparison of the answers to Questions 6 and 12.
+
+
+[wiki:ConcurrencyExercise3A Back to Exercise 3 answers]	
+
+[wiki:ConcurrencyExercise3D Forward to Discussion of Exercise 3]
+
+[ConcurrencyIndex Return to index]
+
+------
+
+'''R code for calculating transmission probabilities''' for Sam (sequential relationships), Chris (concurrent relationships), and the ratio of the two:
+
+This code involves three functions: one to calculate Sam’s risk of transmitting; one for Chris’s risk of transmitting; and one to calculate the ratio.  Each function takes two arguments: the per-act probability of transmission (called beta), and the number of sex acts had with each of the two partners (called c).  There is no function to calculate Sam’s and Chris’s probability of acquisition, because these are always the same as each other. If you are not familiar with R, and wish to use these functions, you can turn to our [wiki:ConcurrencyTutorialR R tutorial]
+
+
+{{{
+	
+sam <- function(beta,c) {
+	red.to.sam.to.blue <- (1-(1-beta)^c)^2
+	blue.to.sam.to.red <- 0
+	result <- red.to.sam.to.blue/2 + blue.to.sam.to.red/2
+	return(result)
+}
+
+chris <- function(beta,c) {
+	index <- 1:c
+	red.to.chris.to.blue <- sum( (1-beta)^(index-1) * beta * (1-(1-beta)^(c-index+1)) )
+	blue.to.chris.to.red <- sum( (1-beta)^(index-1) * beta * (1-(1-beta)^(c-index)) )
+	result <- red.to.chris.to.blue/2 + blue.to.chris.to.red/2
+	return(result)
+}
+
+conc.ratio <- function(beta,c) {
+	result <- chris(beta,c) / sam(beta,c)
+	return(result)
+}
+
+}}}
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

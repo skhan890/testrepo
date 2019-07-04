@@ -1,0 +1,72 @@
+= CONCURRENCY TUTORIALS =
+
+== Concurrency: More Resources ==
+
+If this webpage has whetted your appetite, we include some places to learn more. This list is not exhaustive, but will get you started in understanding the range of literature that supports the hypothesis that concurrent partnerships are a major driver of various HIV/STI within various populations. We also point you to tools on network modeling to learn more of the methods that enable this work to be done.
+
+'''Models of concurrency and HIV/STIs:'''
+
+* Watts CH and May RM, 1992. The influence of concurrent partnerships on the dynamics of HIV/AIDS. Mathematical Biosciences, 108(1): 89-104. [http://dx.doi.org/10.1016/0025-5564(92)90006-I doi:10.1016/0025-5564(92)90006-I]
+
+* Kretzschmar, M., and M. Morris. 1996. Measures of concurrency in networks and the spread of infectious disease. Mathematical Biosciences, 133(2), 165-195. [http://dx.doi.org/10.1016/0025-5564(95)00093-3 doi:10.1016/0025-5564(95)00093-3]
+
+* Morris M, Kretzschmar M, 1997. Concurrent partnerships and the spread of HIV. AIDS, 11(5): 641-648. [http://dx.doi.org/10.1097/00002030-199705000-00012 doi:10.1097/00002030-199705000-00012]
+
+* Morris M and Kretzschmar M, 2000. A Microsimulation Study of the Effect of Concurrent Partnerships on  the  Spread Of HIV in Uganda. Mathematical Population Studies, 8(2) 109-133. [http://dx.doi.org/10.1080/08898480009525478 doi:10.1080/08898480009525478]
+
+* Johnson LF, Dorrington RE, Bradshaw D, Pillay-Van Wyk V, Rehle TM, 2009. Sexual behaviour patterns in South Africa and their association with the spread of HIV: Insights from a mathematical model. Demographic Research, 21(11): 289-340. [http://dx.doi.org/10.4054/DemRes.2009.21.11 doi:10.4054/DemRes.2009.21.11]
+
+* Morris M, Kurth AE, Hamilton DT, Moody J, and Wakefield S, 2009. Concurrent partnerships and HIV prevalence disparities by race: Linking science and public health practice. American Journal of Public Health 99(6): 1023-1031. [http://dx.doi.org/10.2105/AJPH.2008.147835 doi:10.2105/AJPH.2008.147835]
+
+* Eaton JW, Hallett TB, Garnett GP. 2011. Concurrent sexual partnerships and primary HIV infection: a critical interaction. AIDS Behav. 15(4):687-92. [http://dx.doi.org/10.1007/s10461-010-9787-8 doi:10.1007/s10461-010-9787-8]
+
+
+* Goodreau SM, Cassels S, Kasprzyk D, Montaño DE, Greek A, Morris M. 2012. Concurrent Partnerships, Acute Infection and HIV Epidemic Dynamics Among Young Adults in Zimbabwe, AIDS and Behavior 16:312–322. [http://dx.doi.org/10.1007/s10461-010-9858-x doi:10.1007/s10461-010-9858-x]
+
+'''Reviews:'''
+
+* Mah TL, Halperin DT. 2010. Concurrent sexual partnerships and the HIV epidemics in Africa: evidence to move forward. AIDS Behav. 14(1):11-6 [http://dx.doi.org/10.1007/s10461-008-9433-x doi:10.1007/s10461-008-9433-x]
+
+* Epstein H, Morris M. 2011. Concurrent partnerships and HIV: an inconvenient truth. Journal of the International AIDS Society 14:13. [http://dx.doi.org/10.1186/1758-2652-14-13 doi:10.1186/1758-2652-14-13]
+
+* Goodreau SM. 2011. A decade of modelling research yields considerable evidence for the importance of concurrency: a response to Sawers and Stillwaggon. Journal of the International AIDS Society 14:12. [http://dx.doi.org/10.1186/1758-2652-14-12 doi:10.1186/1758-2652-14-12]
+
+* Mah TL, Shelton JD. 2011. Concurrency revisited: increasing and compelling epidemiological evidence. J Int AIDS Soc. 14:33. [http://dx.doi.org/10.1186/1758-2652-14-33 doi:10.1186/1758-2652-14-33]
+
+'''Some empirical studies that report the prevalence of concurrency:'''
+
+* Voeten H, Egesah OB, Habbema JDF. 2004. Sexual behavior is more risky in rural than in urban areas among young women in Nyanza Province, Kenya. Sexually Transmitted Diseases. 31(8):481-487. [http://dx.doi.org/10.1097/01.olq.0000135989.14131.9d doi:10.1097/01.olq.0000135989.14131.9d] (''21.3% for men and 4.5% for women in Nyanza province, Kenya'').
+
+* Gourvenec D, Taruberekera N, Mochaka O, Kasper T. 2007. Multiple Concurrent Partnerships among Men and Women aged 15-34 in Botswana: Baseline Study, December 2007. Gaborone, Botswana: Population Services International. [http://www.naca.gov.bw/sites/default/files/psi%20research%20report%20on%20mcp.pdf PSI-Botswana Report] (''21% and 20% for men and women in Botswana''). 
+
+* C-Change. 2009. A Baseline Survey of Multiple and Concurrent Sexual Partnerships Among Basotho Men in Lesotho. [http://www.c-changeprogram.org/sites/default/files/Lesotho%20Baseline%20Report%20FINAL.pdf Report by C-Change/AED for USAID] (''43.9% for men in Lesotho in 2009'').
+
+* Gregson S, Gonese E, Hallett TB, et al. 2010. HIV decline in Zimbabwe due to reductions in risky sex? Evidence from a comprehensive epidemiological review. International Journal of Epidemiology. 39(5):1311-1323. [http://dx.doi.org/10.1093/ije/dyq055 doi:10.1093/ije/dyq055] (''18.6% for men and 2.2% for women in Manicaland, Zimbabwe in 1998-2000, before both HIV and concurrency prevalence declined by 50%'').
+
+* Morris M, Epstein H, Wawer M. 2010. Timing Is Everything: International Variations in Historical Sexual Partnership Concurrency and HIV Prevalence. PLOS One 5(11). [http://dx.doi.org/10.1371/journal.pone.0014092 doi:10.1371/journal.pone.0014092] (''Comparison of adults in the US, Thailand and Uganda'').
+
+* Tanser F, Barnighausen T, Hund L, Garnett GP, !McGrath N, Newell M-L. 2011. Effect of concurrent sexual partnerships on rate of new HIV infections in a high-prevalence, rural South African population: a cohort study. Lancet. 378:247–255. [http://dx.doi.org/10.1016/S0140-6736(11)60779-4 doi:10.1016/S0140-6736(11)60779-4] (''32% for men in !KwaZulu-Natal, South Africa'').
+
+'''Works on measuring concurrency properly:'''
+
+* Morris M, 1997. Sexual networks and HIV, AIDS 11(Supp A):S209-S216. [http://www.ncbi.nlm.nih.gov/pubmed/9451987 PMID:9451987]
+
+* UNAIDS Reference Group on Estimates, Modelling, and Projections: Working Group on Measuring Concurrent Sexual Partnerships. 2010. HIV: consensus indicators are needed for concurrency. Lancet 375(9715):621-2. d[http://dx.doi.org/10.1016/S0140-6736(09)62040-7 doi:10.1016/S0140-6736(09)62040-7]
+
+
+'''Tools for modeling network epidemiology:'''
+
+* [http://www.statnet.org statnet]
+
+* Network Modeling of Infectious Disease summer short course at the University of Washington (info coming soon!)
+
+
+
+
+[ConcurrencyIndex Return to index]
+
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

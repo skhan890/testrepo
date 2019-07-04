@@ -1,0 +1,12 @@
+{{{
+#!html
+<iframe src="http://www.google.com/calendar/embed?title=CSSS%20Conference%20Room%20Reservations%20Calendar&amp;showNav=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=csss.reservations%40gmail.com&amp;color=%23A32929&amp;src=b5lffilpk47augbg7jls9jombk%40group.calendar.google.com&amp;color=%23AB8B00&amp;src=qrk5sd14jho1t60rs1aoe3cd40%40group.calendar.google.com&amp;color=%230D7813&amp;src=en.usa%23holiday%40group.v.calendar.google.com&amp;color=%232952A3&amp;ctz=America%2FLos_Angeles" style=" border-width:0 " width="800" height="600" frameborder="0" scrolling="no"></iframe>
+}}}
+
+
+
+== Interactive Map ==
+{{{
+#!html
+<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=214105562479554236720.0004c857f3271abceeffa&amp;gl=us&amp;ie=UTF8&amp;ll=47.550377,-122.307444&amp;spn=0.212996,0.008411&amp;t=m&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=214105562479554236720.0004c857f3271abceeffa&amp;gl=us&amp;ie=UTF8&amp;ll=47.550377,-122.307444&amp;spn=0.212996,0.008411&amp;t=m&amp;source=embed" style="color:#0000FF;text-align:left">See Interactive Google Map</small>
+}}}

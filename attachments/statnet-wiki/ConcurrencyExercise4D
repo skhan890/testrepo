@@ -1,0 +1,31 @@
+= CONCURRENCY TUTORIALS =
+
+== Exercise 4: Thinking numerically about concurrency at the population level (Discussion) ==
+
+When one runs the code as is, and then turns concurrency on and off, one finds the following HIV prevalences at equilibrium:
+
+||= Network model =||= Prevalence =||
+||  Concurrency allowed for both sexes  || about 29% for both sexes ||
+||  Concurrency allowed for one sex but not the other  || about 18% for the sex without concurrent partners, and about 15% for the sex with concurrent partners ||
+||  Concurrency not allowed for either sex  || about 1% for both sexes ||
+
+And, when one follows through all of the detailed logic of the code, one can see for oneself that each model includes the same amount of partnerships and the same number of sexual acts as the others. The only difference is whether concurrency is allowed or not.  And this simple fact is the difference between 29% HIV prevalence and !% HIV prevalence. One also sees, in the cases where one sex could have concurrent partners and the other could not, that not only was there an intermediate-sized epidemic, but the sex that could '''not''' have concurrency ended up with the greater prevalence.  This matches the fundamental point about how concurrency works that we have been reiterating throughout this tutorial: concurrency leads to higher prevalence in the partners of those with concurrent partners.
+
+Note that these numbers combine all of the different phenomena by which concurrency operates; they result jointly from the effect of backwards transmission (partly offset by reduced forward transmission), acute infectivity, and path acceleration.
+
+Of course this scenario was selected as the default because it presents a dramatic picture.  How generalizable is this trend?  And what happens at the behavioral values that seem most realistic?  As one explores further, one will see that the concurrency simulations always generate larger epidemics than the same scenario without, and that there is a reasonable behavioral range over which one gets a large epidemic with concurrency and none or very little without.
+
+As we stated at the outset, there are various simplifications for this model. The most important one is that concurrency can only be handled in a binary fashion: either the model allows it or doesn’t (within each sex), and when it does allow it, the amount of concurrency is determined by the mean degree alone.  There is no way to model different levels or patterns of concurrency for a given number of sexual relations.  This is of course an important thing to be able to do—one wants to be able to simulate observed behavioral data, including mean degree and prevalence of concurrency for both men and women, as faithfully as possible to one’s data.  That requires a much more sophisticated set of modeling tools than we can provide in an introduction like this, but that is precisely what is done in the concurrency modeling literature.  For those interested in learning more about these tools, see the [wiki:ConcurrencyResources More Resources] page.
+
+And of course, there are many other simplifications.  This model did not include any coital dilution (the tendency for people in multiple simultaneous relationships to have fewer sex acts per unit time with one or more of their partners than someone in one relationship).  We did not model circumcision, or co-infections with STIs, or treatment, or many other things.  There was no age structure present.  All of those things can be added, making the model more realistic but more difficult for modeling newcomers to understand them.  We hope, now that we have developed together some first-hand intuition about concurrency and the magnitude of its potential impact, that readers will be interested in learning more about the theory and methods needed to be able to read that literature in depth. We point to some of the resources for doing so on the [wiki:ConcurrencyResources More Resources] page.
+
+[wiki:ConcurrencyExercise4C Back to Exercise 4: Instructions and Code] 	
+
+[wiki:ConcurrencyOverallSummary Forward to Summary of Exercises]
+
+[ConcurrencyIndex Return to index]
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

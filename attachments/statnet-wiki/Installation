@@ -1,0 +1,88 @@
+[[Include(statnetnav)]]
+
+= '''statnet''' installation =
+
+Technically '''statnet''' is a suite of '''R''' packages that perform a wide range of data management, visualization, descriptive and statistical network analysis tasks.  The number of packages in the suite is continuing to grow, providing access to new methodology as we develop it.  There are two basic approaches to installing the software:
+
+1. Via the '''statnet''' R meta-package:  This provides a simple one-step approach to installing the core packages in the statnet suite, and their dependencies.    It is a convenient approach, especially for beginners.  
+
+2. Install the individual packages directly, which will automatically install their dependencies.  This is useful if you know you only need one package, and necessary for the packages not loaded by statnet.
+
+You should pick the approach best suited to your needs.
+ 
+== Current versions ==
+
+All of the packages will be installed from CRAN.
+
+{{{#!comment
+The current version of [http://cran.r-project.org/web/packages/statnet/index.html statnet] was released 2014-2-10. Minor updates and bugfixes of all the various statnet component packages have been released recently (as of June 2015) in preparation for the [[Sunbelt2015|Sunbelt workshops]]. Please check CRAN for the most recent versions of the [http://cran.r-project.org/web/packages/statnet/index.html statnet] software or run {{{update.packages()}}} in your R terminal.
+
+== statnet Components ==
+'''statnet''' is a suite of software packages that implement a range of network modeling tools.  Installing the package [http://cran.r-project.org/web/packages/statnet/index.html statnet] from CRAN will automatically install all of the main packages in the '''statnet''' suite (see the "Depends" list [http://cran.r-project.org/web/packages/statnet/index.html here]).  Alternatively, users can install individual packages like '''ergm''' if desired, and only the dependencies associated with that package will be installed. 
+}}}
+
+
+== Installation instructions ==
+
+'''statnet''' will run in any environment that supports R , including Windows, Linux and Macintosh machines.
+
+Obtaining the current version of '''statnet''' involves two main steps: downloading R, and then installing the statnet package within R.  If you already have the current version of R you can skip Step 1 of the instructions. Those with older versions of R are asked to follow Step 1 in order to update, as both access to and functionality of '''statnet''' may otherwise be impaired.  
+
+* IF YOU ARE PLANNING TO ATTEND A SUNBELT WORKSHOP YOU SHOULD ALSO INSTALL R-STUDIO.  We use R-studio for teaching.
+
+
+=== Step 1a.  Downloading R: ===
+  a. Go to http://cran.r-project.org/
+  b. From the "Download and Install R" section, select the link for your operating system.  Follow the instructions on the relevant page.  Note that you need to download only the base distribution, not the contributed packages.
+  c. Once you have downloaded the installation file, follow the instructions for installation.
+
+=== Step 1b.  FOR WORKSHOP ATTENDEES:  Downloading Rstudio : ===
+  a. Go to http://www.rstudio.com/products/rstudio/download/.
+  b. Download the free version of RStudio Desktop appropriate for your platform.
+  c. Once you have downloaded the installation file, follow the instructions for installation.
+
+=== Step 2.  Downloading and installing {{{statnet}}}: ===
+The most current version of the statnet package is found in the {{{statnet}}} public repository. 
+  a. Open R
+  b. Install '''statnet'''  At the R cursor >, type:   
+    {{{
+install.packages('statnet')
+}}}
+  c. Open the '''statnet''' libraries At the R cursor >, type:
+    {{{
+library('statnet')
+}}}
+Now, and in the future, you can update '''statnet''' at any point. To do this, at the R cursor, type:
+{{{
+update.packages('statnet')
+}}}
+Or, if our public repository has a more recent version you want to install, type:
+{{{
+update.packages(repos='http://statnet.org')
+}}}
+Follow the directions; feel free to say no to any optional packages, although we recommend saying yes. The first choice provided is to install all the required and optional packages.
+
+(Note: If you receive an error when attempting to download '''statnet''' this may indicate that your installation of R is out of date. However, you can still manually install the primary packages used for these workshops -- network, ergm, relevent and sna separately if you wish. Just follow the instructions for supplemental packages, below, substituting the names of the desired '''statnet''' packages where relevant.)
+
+Instructions for installing the '''ndtv''' package and its non-R dependencies are on the [[ndtvInstallation]] page.
+
+=== Step 3.  Join the '''statnet''' Community: ===
+
+We have set up a message board for '''statnet''' users to:
+
+* get help from the '''statnet''' development team (and other users)
+* post questions and ideas to other users
+* be informed about '''statnet'''updates
+* learn about bugs (and bug fixes)
+
+Information about joining the list is available at https://mailman.u.washington.edu/mailman/listinfo/statnet_help
+
+Once you have joined the list, you can post your questions and comments to statnet_help at u.washington.edu
+
+A full history of all messages posted to this list is available at https://mailman.u.washington.edu/mailman/private/statnet_help/
+
+=== Step 4.  Getting Started With ERGMs - a tutorial: ===
+
+If you are not planning on attending one of the '''statnet''' workshops, a good way to get started is to work through Steve Goodreau's excellent step-by-step [http://www.jstatsoft.org/v24/i09/ statnet tutorial].
+
+There is also extensive help here on the [https://statnet.csde.washington.edu/trac statnet wiki ]

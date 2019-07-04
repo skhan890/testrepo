@@ -1,0 +1,104 @@
+
+== Draft Specification for Duration Estimation (DE) ==
+
+Compiled by Kirk Li Skye Bender-deMoll, Martina Morris
+
+v0.1
+
+'''Definition:''' ''When observation/sampling period is shorter than overall temporal network, especially when most edges duration are relatively long compared with the observation period, it is possible that some edges start and/or end time are not observed/measured. Hence network. collapse() or edges.activate() may not produce the unbiased duration summary estimates, e.g.: mean, median, quantiles. We will need to rely on survival analysis techniques. 
+
+
+==== General Requirements: ====
+
+ 1. DE must be compatible with the existing network/networkDynamic class specification.
+
+ 2. All operations involving DE must be implementable within the existing network/networkDynamic class API.
+
+ 3. DE must allow for the same time/state semantics as other elements of the networkDynamic extended class and survival class on CRAN.
+  a. Implement onset,terminus, at, and length alternatives for specifying spells and queires
+  b. Avoid changing the estimated nD. 
+  c. Implement right censoring,(left censoring,unlikely),left truncation, (right truncation,unlikely) on duration.
+  d. Be consistence and make distinctions on duration time and calendar time when using the terms in part c. 
+
+ 4. DE methods should allow estimating the following edges:
+  a  with complete observation.
+  b. with only start time unknown.
+  c. with only end time unknown.
+  d. with both start time and end time unknown.
+
+ 5. DE should be applicable to both nodes and edges, with certain attribute values. 
+  a. Implement edge.attributes, vertex.attributes. Be able to DE on subset of edges and nodes.
+  b. Be able to consider the change of node values and edge values during observation period. 
+ 
+
+ 6. DE should produce proper survival plots.
+  a. Survival analysis should express the effect of right censoring.
+  b. If we assume the true starting time are available, survival plots should adjust for the effect of left truncation. 
+  c. Implement most standard survival package for generating the plots, rather then make our own unless absolutely necessary. 
+  d. Giving options on what survival plot to produce (KM plot, cumulative hazard plot, hazard plot, etc.) 
+  f. Possibly produce the left time table.
+
+==== Acceptable Limitations (?): ====
+How quickly does this need to compute?  (is it something that will be called over-and-over inside a simulation, or just a summary function to be called after a model is complete? the latter. 
+
+  
+==== duration.edges.summary ====
+
+
+{{{
+duration.edges.summary(nD, obs.start.time, obs.end.time, edge.value, selection.criterion=c("only non-censored", "only right censored at start", "only right censored at end", "right censored at start and end"), is.truncation.time=T)
+
+}}}
+
+Parameters:
+ nD:: networkDynamic object
+ obs.start.time:: onset of observation window?
+ obs.end.timne:: terminus of observation window?
+ edge.value:: name of edge attribute?
+ selection.criterion:: what do each of these do?
+ is.truncation.time:: ?
+
+Behavior Sketch:
+
+duration.edges.summary() should return：
+
+ a. 5 estimated summary statistics for duration estimates and boxplot with input/known mean duration. (how will these be returned, as a list with named elements? Is there an option to disable plotting if desired? Return a list, has option to suppress the plot)
+ b. summary statistics on the number/percentage of each censoring scenario. (how will these be returned?)
+
+==== duration.vertices.summary====
+
+similar to duration.edges.summary  
+
+==== network.duration.survival.plot====
+
+
+{{{
+network.duration.survival.plot(nD, obs.start.time, obs.end.time, edge.value, selection.criterion=c("only non-censored", "only right censored at start", "only right censored at end", "right censored at start and end"), is.truncation.time=T, ploting parameter)
+
+}}}
+
+Parameters:
+ nD:: networkDynamic object
+ obs.start.time:: onset of observation window?
+ obs.end.timne:: terminus of observation window?
+ edge.value:: name of edge attribute?
+ selection.criterion:: what do each of these do?
+ is.truncation.time:: ?
+ plotting.paramter:: what is this?
+
+Behavior Sketch: 
+
+network.duration.survival.plot() should return：
+
+ a. Conduct survival fitting on durations , with or without left truncation adjustment. 
+ b. A set of survival plots.
+
+
+==== Questions ====
+
+If it is covering vertex and edge attributes, should it look at network-level TEA attributes also?
+Yes.
+
+
+does network.duration.survival.plot also include vertex durations, and or attribute durations?
+It is possible to include.

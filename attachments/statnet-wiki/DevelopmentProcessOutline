@@ -1,0 +1,149 @@
+= Outline of Preferred Development Process Workflow = 
+(at least according to Skye, when working on networkDynamic)
+
+Obviously real life doesn't always work this way, but I think this is a good checklist.  A bunch of the suggestions I give are tool specific, but there should be equivalent commands for what ever development environment you use. 
+
+Here are some windows-specific instructions: BuildingPackage
+
+== Tools and Setup ==
+
+=== R build tools ===
+
+Most unix systems come with the necessary programs to compile code C code.  Older Macs do too, but new Mac users need to register as a Developer and download at least a minimal version of X code.  Windows users will need to install the Windows toolset: http://cran.r-project.org/doc/manuals/R-admin.html#The-Windows-toolset
+
+=== SVN ===
+
+SVN is used as a source code management tool to make it possible for lots of people to work on the same project (even the same files) at the same time with minimal hassle. See HowToUseSubversion for Basic info on configuring to check out a copy of the code from the statnet svn repository. 
+
+=== RStudio ===
+RStuido http://www.rstudio.com/ide/  is a really great cross-platform "integrated development environment" for working on R code.  Has lots of really nice features, and makes it rarely necessary to drop into the command line to build packages. 
+
+
+=== Checkout code ===
+See HowToUseSubversion for details.  (You must be a member of the project first.)
+
+=== Install R libraries ===
+
+There are a lot of cross-dependencies between the statnet libraries, so even if you are only working on one package, you may need to update all of the other packages to the latest version as well.  At the moment, the best place to get those versions is by following instructions here: http://statnet.csde.washington.edu/preview/
+
+=== Create RStudio project for the package ===
+
+use the Project>New Project menu and navigate to the svn source repository for the package you will be working on.  It should magically recognize the package name and all the svn stuff as well. 
+
+== Submit Bug or Propose Feature ==
+
+We now have a fairly large and complex codebase, so we have a system for filing "tickets" about features or bugs that provide a place for people to make comments.  The tickets also provide us with a way of tracking when bugs have been fixed, and communicating with our future selves about how and why some decisions were made.  When reporting a bug, its good practice to search to see if it has already been reported. 
+
+== Accept Bug or Task Ticket ==
+
+When you start work on a ticket, its good to click on Modify Ticket > Accept.  This will mark you as the owner of the bug, and lets other people know that someone is already working on it. 
+
+=== update source ===
+
+Update your working copy of the source code to make sure you've got the latest version.  (Unless you are fixing a bug in an older branch, in which case you need to switch to the appropriate branch)
+
+=== consider which version of packages you will test against ===
+
+Do you need to update the other packages to the latest bleeding edge versions? Do those packages need updating on your machine? Or are you trying to reproduce bugs reported by users "in the wild"-- in which case you probably need to install the older CRAN versions of the packages. 
+
+== Figure out what's wrong ==
+
+== Propose a fix or design ==
+If you are adding a new or complex feature, or fixing bugs in core code that may impact lots of other areas, its good form to propose / outline what you are going to do before you start.  This will give other developers a chance to weigh in with suggestions or concerns.  (I find that other people almost always have better names for arguments than I do.)  For simple stuff, a quick comment on the ticket is fine, more complex things might require a wiki page dedicated to outlining specifications.  Either way, the idea is to leave a record of your design thinking for the future. (Wait, I know I wrote this code last year, but why did I decide to do it THAT way?)
+
+== Write test ==
+
+Its really easy to break one thing while fixing another.  R has a built in system to run tests on code to make sure it still does what it is supposed to.  It runs all the code in the project /tests directory.  Ideally, each So each specific feature or function paramter should have at least one basic test that compares the result of the function with the expected value and throws an error if they are different.  It is never possible to write tests for every permutation and possible edge case, but whenever we find a bug, we should write a test that reproduces its so it is clear when the bug is fixed or if it comes up again.  Writing tests can be kind of painful, but it actually saves a lot of time in the long run, and may even help with code design.  
+
+
+
+== Fix Bug or Implement Feature ==
+
+Some handy bug finding tools I've only recently learned how to use:
+
+=== debug (step through) a function ===
+
+{{{debug(myFunction)}}}
+
+{{{undebug(myFunction)}}}
+
+=== debug on error ===
+{{{options(error=recover)}}}  This makes it so each time you hit an error, it will automatically drop into the debugger so you can peek at the state of all the variables. 
+
+=== convert warnings to errors for debugging ===
+{{{options(warn=2)}}}
+
+== Rebuild the package ==
+Editing a package can be tricky.  Some code (especially code that uses hidden package functions) will run very differently (or not at all) when 'sourced'-ed rather than inside the package.  The only way to properly test it is to re-install the package after each code edit.  This used to be a huge pain in the ass, but RStudio now has a Package>Build>Build & Reload  command which does exactly that, leaving the rest of your workspace intact.
+
+Note that if you are adding a function that will be publicly visible (rather than hidden inside the package), you will have to add the function name to NAMESPACE file before it will show up in the package. 
+
+
+== Update or Add Docs ==
+
+R's package check mechanism requires that every public function have an entry in a documentation 'man' page.  These are stored in the /man directory.  If you are adding a new function  can use {{{prompt(function.name)}}} to create a template man page for the function that you can then edit.  RStudio has a handy 'Preview HTML' button which will compile the man page and display it so you can check for errors without having to compile the whole package. 
+
+=== Add an example ===
+Consider adding a very brief example to the man page.  This is where users will probably look first to get an idea of how the function works. Also, these examples will be checked to make sure they still work with each package build. 
+
+If you are adding a core feature or important use case,  consider adding it to the package vignette to give users a better sense of how and why the function works.  The package vignette code is also run during package checks, and can be quite effective in finding unintended side effects of code changes. 
+
+== Run package checks ==
+
+R includes a very sophisticated and helpful system to run a series of checks for package consistency and code problems such as mis-match between code and documentation. It also runs the suite of tests which will (hopefully) reveal if new changes have broken old tests or examples.  The checks can be run from the RStudio Project>Build tab,  or from the command line with {{{R CMD check}}}. Even when I make 'minor' changes, I almost always break something that the package check flags for me. One reason is that I often forget that I may have R objects or functions defined in my workspace that are not actually part of the package.  Running the checks makes sure all the tests are run against 'clean' package code.
+
+Since other developers will be running the package checks against their code, its important to make sure that the code you are committing doesn't break the checks (warnings are OK).  
+
+== Commit changes ==
+
+=== update source ===
+Before commiting, you should first run an svn update to check if anyone has made any changes to the code while you were fixing your bug.  If they have, you should to re-run package checks with their new code just in case there are some conflicts with the code you have been working on. 
+
+RStudio has Project>SVN  tab which will show a list of all the files you have changed, and an easy way to click for "diffs" of file changes to help remember exactly what you changed and be clear on exactly what you are going to commit.  If you are working on the commandline {{{svn status}}} will give you a similar listing. 
+
+=== commit message ===
+Always add a quick line or two of explanation mentioning roughly what you changed and why.  This message will be automatically sent to everyone on the dev list, and it will help keep people in the loop.  Its also really helpful later on when trying to figure out what changed when.  If the commit fixes a specific bug (or several) you can add a  Fixes #1234  to link things up
+
+== Close ticket ==
+
+In the trac system, find the ticket for the issue you were working on, click "modify" and set its status to fixed. You can add a link to the changeset of your commit like [1234/statnet_research] (or [1234/statnet_common] depending on which repository the project is in.) You may want to add some additional comments if the fix raised other issues, questions or might have side effects that other people should know about. 
+
+== Celebrate ! ==
+
+== Other stuffs ==
+
+It is a good idea to occasionally check that the automated nightly build worked on the platforms other than the one you develop on, in case you might have added some sort of platform-specific issue (this is rare for standard R stuff)  
+
+= Releasing a package =
+
+This is a checklist of things to remember:
+
+  * update release notes
+
+  * update DESCRIPTION version number to release number
+
+  * update vignette and copy from /vignette to /inst/doc directory
+
+  * check for hidden files (or build from clean checkout)
+
+  * build to tar.gz and run {{{R CMD check --as-cran --timings}}}
+
+  * verify passing checks on all three platforms (see NightlyBuildsPrivate)
+
+  * move to preview release directory (see StatnetRepository)
+
+  * announce release preview
+
+  * check for reverse dependencies if packages exists on cran, email devs if necessary
+
+  * go through CRAN checklist http://cran.r-project.org/web/packages/policies.html
+
+  * upload to check with CRAN's winbuilder service: http://win-builder.r-project.org/upload.aspx
+
+  * upload to cran via web submission form http://cran.r-project.org/submit.html
+
+
+
+
+
+

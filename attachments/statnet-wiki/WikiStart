@@ -1,0 +1,86 @@
+[[Include(statnetnav)]]
+
+= statnet wiki=
+[[Image(https://statnet.csde.washington.edu/images/links.jpg, right)]]
+''Software tools for the analysis, simulation and visualization of network data.''
+
+== Introduction == 
+
+'''statnet''' is a suite of software packages for network analysis that implement recent advances in the statistical modeling of networks. The analytic framework is based on Exponential family Random Graph Models (ergm). '''statnet''' provides a comprehensive framework for ergm-based network modeling, including tools for model estimation, model evaluation, model-based network simulation, and network visualization. The statistical modeling capabilities of '''statnet''' include cross-sectional and temporal/dynamic modeling, latent space and latent cluster models, and models for valued/ranked/signed ties.  The packages are written in a combination of (the open-source statistical language) R and (ANSI standard) C, and are called from the R command line ([http://www.r-project.org www.r-project.org]), or from our new shiny app '''statnetWeb''' (more on that below in the News section).
+
+== News == 
+
+* We have begun placing workshop resources on GitHub, making it easy to check out the latest version and stay current.  For more information, see https://github.com/statnet/Workshops/wiki!
+
+* We have a new GUI for '''statnet''' that runs in a browser window (based on RShiny, for those who have been following that app).  It's called '''statnetWeb'''.  The point-and-click functionality is great for newbies (and thus for teachers), but even old hands will find the interface useful for simple analyses.  If you are interested in this simple but powerful GUI for statnet, details and information can be found on the [wiki:statnetWeb statnetWeb] wiki page.  
+
+
+* The core packages were updated in March 2016 on CRAN (details on the [wiki:StatnetComponents component packages] and [wiki:Installation installation instructions]).  The '''SNA''' package was updated in July 2016.
+
+{{{#!comment
+This is a comment
+}}}
+
+{{{#!comment
+* '''[wiki:Sunbelt2016]''' We will be teaching 8 workshops on network analysis with statnet at the [http://insna.org/sunbelt2016/ Sunbelt] in Newport Beach.  For the schedule, and to register, please use the [http://insna.org/sunbelt2016/registration/ INSNA workshop registration page].  If you are registered, please be sure to install the latest versions of `R` and `Rstudio`, and the statnet packages needed for your workshop BEFORE the workshop.  [wiki:Installation Installation instructions] are on our wiki.  Workshop materials will be online on our wiki soon, so check back here in the next few weeks.
+
+* '''Network Modeling for Epidemics''' 2016 workshop will be held August 29 - September 2 on the University of Washington campus in Seattle.  More information and training materials from last year's workshop can be found online [http://statnet.github.io/nme here]. }}}
+}}}
+
+== Tutorials ==
+
+Our tutorials are updated each year, typically as we prepare to teach workshops.  We are in the process of reorganizing this wiki and the tutorial archive to improve accessibility.  The entry point to the tutorial sets will stay on our wiki homepage.
+
+=== Tutorials from our 3 hour workshops ===
+
+We teach multiple workshops on network analysis with statnet at the annual INSNA Sunbelt and European Union Social Network (EUSN) meetings.  Topics include introductions to network analysis using R and statnet, cross sectional network analysis with Exponential family Random Graph Models (ERGMs), Temporal / Dynamic network analysis with Temporal ERGMs, Latent Space and Latent Class analysis for networks, Network Analysis for valued/signed/rank tie data, Using ERGMs with egocentrically sampled network data, Dynamic network visualization, and others.  
+
+* Materials from the most recent Sunbelt workshops can be found '''[wiki:Sunbelt2018 here]'''.  
+* Materials from the 2016 Sunbelt workshops can be found '''[wiki:Sunbelt2016 here]'''.  
+* Materials from the 2014 EUSN meeting can be found here '''[wiki:EUSN2014 here]'''.
+
+=== Tutorials from our longer workshops ===
+
+'''Network Modeling for Epidemics'''
+We teach a weeklong workshop on using the statnet tools for modeling epidemics on dynamic networks (stochastic network epidemic models).  The materials from the most recent workshop can be found online '''[http://statnet.github.io/nme here]'''.
+
+
+== [[Installation]] ==
+Instructions on how to install and use the statnet packages and the R program.
+* [wiki:Installation#Currentversion Current Version Information]
+* [wiki:Installation#Installationinstructions Installation Instructions]
+* [wiki:StatnetComponents statnet Components]
+
+== [[Resources]] ==
+Didactic publications, tutorials used at our training workshops, and other workshop presentations that provide an overview of the statistical models and software, some example analyses, a glossary of terms and a bibliography.
+* [wiki:Resources#statnetUsersGuide:JoSSpapersonstatnet statnet User's Guide]: JoSS publications on the statistical theory and software in statnet
+* [wiki:Resources#TrainingWorkshopMaterials Workshop materials] The most up-to-date tutorials for using '''statnet''' packages.
+* [wiki:WorkshopArchive Older training workshop materials]
+* [wiki:StatnetPapers Papers that use statnet]
+* [wiki:Resources#OtherLinks Other links]
+
+== [[FrequentlyAskedQuestions|Frequently Asked Questions]] ==
+Looking for help? This is the place. Instructions for joining the statnet users group.
+* [wiki:FrequentlyAskedQuestions#statnetusersgroup Users group information]
+* Topics
+
+== [[License and attribution]] ==
+If you use statnet, please cite it. All the [[citation information]] you need can be found here.
+
+* [http://csde.washington.edu/statnet/attribution License and source code attribution requirements]
+* [http://csde.washington.edu/statnet/about_us.shtml statnet Development Team]
+
+== [[DeveloperInfo|Developer Information]] ==
+The DeveloperInfo page has links to specs and information about source code processes.
+
+* [wiki:BuildingPackage Building and installing a component package] (Windows)
+* StatnetRepository info about public and preview R package repositories
+* [wiki:windowspackage Building custom ergm terms with RStudio, Windows instructions]
+* [wiki:macpackage Building custom ergm terms with RStudio, Mac instructions]
+* [wiki:linuxpackage Building custom ergm terms with RStudio, Linux instructions]
+
+== Network Modeling Group Meeting at University of Washington ==
+
+[https://statnet.csde.washington.edu/trac/wiki/NMG NMG Meeting Agenda]
+
+-----

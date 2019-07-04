@@ -1,0 +1,16 @@
+
+== sna Library Release Candidate Page ==
+
+Greetings.  This page provides access to the sna 2.4 release candidate.  If you are a developer whose package depends on sna, please do check to make sure that the latest version will not produce untoward surprises when it goes to CRAN on August 6.  (You may want to take a look at the ChangeLog for more information on what has changed.)  The release candidate can be found here:
+
+[https://statnet.org/trac/attachment/wiki/snaReleaseCandidate/sna_2.4.tar.gz 2.4 Release candidate; source package][[BR]]
+
+[https://statnet.org/trac/attachment/wiki/snaReleaseCandidate/sna_2.4.zip 2.4 Release candidate; Windows binary package]
+
+Note that one important change from the 2.3 series is that, as of 2.4, sna depends on the core statnet libraries network and statnet.common.  Historically, sna was a "standalone" package that could be used without loading any other statnet tools; changes in CRAN policies have made this unsustainable, however, so we've had to add the dependencies.  This is probably not an issue for you, but you might be aware of it.  Most other changes are bug fixes/changes to ensure CRAN compliance and performance enhancements, although some new functionality has been added.
+
+If you spot any bugs that have been missed, please email me at buttsc@uci.edu to let me know!  
+
+Thanks for your continued support of sna!
+
+-Carter

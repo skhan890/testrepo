@@ -1,0 +1,27 @@
+= CONCURRENCY TUTORIALS =
+
+== What this website is (and is not) ==
+
+The body of literature on concurrency is large, and our goal is not to summarize all of it (although we do provide links to some of it in the [ConcurrencyResources More Resources] section). That literature has two major research paradigms within it: 
+
+* using mathematical models to demonstrate the potential impact of concurrency
+
+* analyzing data to show that two or more populations that differ in prevalence or patterns of STIs also have corresponding differences in prevalence or patterns of concurrency
+
+Some papers do both of these things together.  The methods to support each of these paradigms have developed over the years, starting off fairly simple and becoming more complex.  This website ''does not'' address the data side of the research at all.  And it ''does not'' aim to reproduce all of the complexity of all of the concurrency models that have been built.  
+
+What this website ''does do'' is to explore the basic logic of concurrency to help readers who are not familiar with the modeling work to gain some intuition about concurrency and its impacts.  In order to make models realistic, they must become complex; and once they become complex, it is difficult for most people to understand them and follow their logic.  So this webpage takes a different approach: make things simple, in order to provide an accessible introduction to how concurrency works and what its potential effects are.  Aided by the resulting insights, those who are interested can then explore the literature further.
+
+By the end, then, readers should:
+* be able to highlight the mechanisms by which concurrency does (and does not) work
+* explain how concurrency can impact epidemic dynamics 
+* be able to read the concurrency literature more critically, and to assess whether study designs and analysis methods are appropriate for detecting concurrency effects.
+
+[ConcurrencyWorks Back to How Concurrency Works (and Does Not)]       
+
+[wiki:ConcurrencyExercise1 Forward to Exercise 1]
+
+------
+
+(c) Steven M. Goodreau, Samuel M. Jenness, and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

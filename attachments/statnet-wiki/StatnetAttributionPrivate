@@ -1,0 +1,262 @@
+Please use this page to review/discuss current proposals, or attach alternative proposals for 
+
+1. [#pkgload component package loading]
+2. [#pkgcite component package citation]
+3. [#statnetload statnet loading]
+3. [#statnetcite statnet citation]
+
+
+If you attach text files that will make it easier to read (no download needed).
+
+
+Note:  I am proposing that we replace the phrase ''statnet suite of packages'' with the ''statnet software project''.
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[[BR]]
+[[BR]]
+
+
+== [=#pkgload] 1. Proposals for component package loading text ==
+
+1. minimalist: suppress dependent package loading info and authorship
+
+
+----
+
+library(tergm)[[BR]]
+
+Package tergm v3.1. Type citation('tergm') for more info.
+
+
+----
+
+
+
+2. middle road (the small wall): print dependent package loading, and authorship for library call only
+
+----
+
+library(tergm)[[BR]]
+
+Loading required package: ergm [[BR]]
+Loading required package: statnet.common [[BR]]
+Loading required package: network [[BR]]
+Loading required package: robustbase [[BR]]
+Loading required package: Matrix [[BR]]
+Loading required package: lattice [[BR]]
+Loading required package: trust [[BR]]
+Loading required package: nlme [[BR]]
+Loading required package: coda [[BR]]
+Loading required package: networkDynamic [[BR]]
+
+tergm 3.1 by Pavel N. Krivitsky (PSU) and Mark S. Handcock (UCLA), part of the '''statnet software project''' (statnet.org). 
+For citation information, type citation("tergm").
+
+----
+
+
+
+3. current version (the big wall): all of the above, plus attribution, citation & help info for all statnet dependencies
+
+[[BR]]
+[[BR]]
+[[BR]]
+
+
+
+
+== [=#pkgcite] 2. Proposal for component package citation ==
+
+1. minimalist:  follow the format used in citing R:  citation()
+
+
+
+----
+
+citation("tergm")[[BR]]
+
+To cite ''tergm'' in publications use:
+
+  Pavel Krivitsky  and Mark S Handcock (2012). 
+  tergm:  Fit, Simulate and Diagnose Models for Network Evoluation based on Exponential-Family Random Graph Models. 
+  Version 3.1.
+  URLs: http://www.statnet.org, CRAN.R-project.org/package=tergm.
+
+For BibTeX format, use toBibtex(citation("tergm")).
+
+We have invested a lot of time and effort in creating ''tergm'', please
+cite it when using it for publication. ''tergm'' is part of the '''statnet software project''',
+see also ''citation("statnet")''.
+
+----
+
+
+
+2. current version
+
+----
+citation("tergm")[[BR]]
+
+`tergm` is part of the Statnet suite of packages.  If you are
+using the `tergm` package for research that will be published, we
+request that you acknowledge this by citing the following.
+
+For BibTeX format, use toBibtex(citation("tergm")).
+
+Krivitsky P and Handcock M (2012). _Fit, Simulate and Diagnose
+Models for Network Evoluation based on Exponential-Family Random
+Graph Models_. Version 3.1-11782-11790.1-2012.10.07-21.26.17.
+Project home page at <URL: http://www.statnet.org>, <URL:
+CRAN.R-project.org/package=tergm>.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    author = {Pavel N. Krivitsky and Mark S. Handcock},
+    title = {Fit, Simulate and Diagnose Models for Network Evoluation based on Exponential-Family Random Graph Models},
+    year = {2012},
+    note = {Version 3.1-11782-11790.1-2012.10.07-21.26.17.  Project home page at \url{http://www.statnet.org}},
+    address = {Seattle, WA},
+    url = {CRAN.R-project.org/package=tergm},
+  }
+
+We have invested a lot of time and effort in creating the Statnet
+suite of packages for use by other researchers. Please cite it in
+all papers where it is used.
+
+----
+
+
+
+3. package plus paper (when appropriate)
+
+----
+citation("tergm")[[BR]]
+
+To cite the ''ergm'' software package in publications use:
+
+  Handcock M, Hunter D, Butts C, Goodreau S, Krivitsky P and Morris M (2012)
+  ergm:  Fit, Simulate and Diagnose Exponential-Family Models for Networks.
+  Version 3.1.
+  URLs: http://www.statnet.org, CRAN.R-project.org/package=ergm.
+
+To cite the key reference paper in publications use:
+
+  David R. Hunter, Mark S. Handcock, Carter T. Butts, Steven M. Goodreau and Martina Morris (2008)
+  ergm: A Package to Fit, Simulate and Diagnose Exponential-Family Models for Networks
+  Journal of Statistical Software 24(3).
+
+For BibTeX format, use toBibtex(citation("ergm")).
+
+''ergm'' is part of the '''statnet software project''',  see also ''citation("statnet")''.
+
+----
+
+
+== [=#statnetload] 3. statnet loading options ==
+
+
+The package loading options (minimal, middle road and maximal) are as with the component packages.  The only questions are 
+
+''the authorship list:''
+
+1. minimal: no names, just  The Statnet Development Team [[BR]]
+2. middle road: list the current members of statnet commons (MSH, DRH, CTB, MM, SMG, PK) and "the Statnet Development Team" for the rest [[BR]]
+3. maximal: list the full set of authors (and/or contributors) for each component package [[BR]]
+
+
+''the list of dependencies''
+
+I would propose that we include all the packages that their authors would like to contribute to the project.  This should be the way for less sophisticated users to download everything at once, anyone else can pick and choose.
+
+ 
+
+== [=#statnetcite] 4. statnet package citation ==
+
+citation("statnet")
+
+
+To cite the ''statnet'' software package in publications use:
+
+  Mark S. Handcock, David R. Hunter, Carter T. Butts, Steven M. Goodreau, Pavel Krivitsky, Martina Morris and the statnet Development Team (2003).
+  statnet:  Software Tools for the Statistical Modeling of Network Data. 
+  Version 3.1 (2012).
+  URLs: http://www.statnet.org, CRAN.R-project.org/package=statnet.
+
+
+To cite the key reference paper in publications use:
+
+  Mark S. Handcock, David R. Hunter, Carter T. Butts, Steven M. Goodreau, Martina Morris (2008)
+  statnet: Software Tools for the Representation, Visualization, Analysis and Simulation of Network Data 
+  Journal of Statistical Software 24(1).
+
+For BibTeX format, use toBibtex(citation("statnet")).
+
+== Comments ==
+
+==== Comment by skyebend on Tue Oct 23 15:00:59 2012 ====
+For package load, I favor minimalist but am OK with middle of the road. The default citation() function only includes credits for authors (not contributor roles) so we may want to override or expand that. If the Statnet Project is an entity capable of holding copyright, should we add it as an author? 
+
+==== Comment by krivitsky on Wed Oct 24 13:05:11 2012 ====
+Martina, thanks for putting all this together. Here are my thoughts so far...
+
+Regarding dependency handling:
+* The "Loading required package:" is the default behavior of R packages. I don't think that we can suppress those messages for any package that we don't control.
+* With the middle-of-the-road option, we still have to decide exactly what we want to print for the package that's ultimately loaded: package name, version, citaion(), and...
+ * Author names?
+ * "part of the Statnet project" bit?
+ * Contributor names?
+* In the end, I still prefer the middle-of-the-road option, with all of the above included.
+
+Regarding package-specific citation:
+* I agree that putting the BibTeX entry right there is a bad idea, especially since toBibtex() works perfectly well and is right there. So, let's get rid of that.
+* I prefer the package+paper format, with some packages also requesting some of the dependencies to be cited (e.g. ergm.count->ergm, tergm->networkDynamic).
+
+Regarding statnet loading:
+* I would go for minimal + a paragraph or list along the lines of "For citing statnet in latent space models using ergmm, type citation(latetnet)." Since the other packages will have their startup messages suppressed (or, rather, they would have the short, default R behavior), even a longish message for statnet should be readable.
+* Alternatively, it could be a message along the lines of "For citing statnet software packages, see citation(statnet).", which would then give the user the above-described list.
+
+Regarding statnet citation:
+* My preference, at this point, is to avoid asking people to cite the statnet package itself, because, again, it doesn't actually do anything.
+* Statnet can be credited as the "Organization" associated with the @Manual, which is what it really is. E.g.,
+> Krivitsky P and Handcock M (2012). _Fit, Simulate and Diagnose Models for Network Evoluation based on Exponential-Family Random Graph Models_. Statnet Project (<URL: http://www.statnet.org>). Version 3.1-0, <URL: CRAN.R-project.org/package=tergm>.
+* citation(statnet) itself should refer the user to package-specific citations.
+
+==== Comment by morrism on Thu Oct 25 23:48:04 2012 ====
+1. package loading
+
+if we can't suppress loading messages for other packages, and if suppressing our messages in the context of library calls to our programs means they are suppressed for all library calls, then i'm in favor of the small wall.
+
+authorship (not ctb) and reference to statnet.org would be nice
+
+2. package citation
+
+i agree with Pavel, package+paper, no bibtex code
+
+3. statnet loading
+
+given (1) this will print out all the component package names and authorships.  but it would be good if we could add 1 additional line to reference statnet.org , rather than repeated for each loaded package
+
+4. statnet citation
+
+I'd like to preserve the option to to cite "statnet" as the source, but explicitly note the option of citing specific component packages.  If someone is using a package with dependencies, it's unlikely they'll cite each one individually.  More likely, if they use tergm, they'll cite that, but not ergm, network, and networkDynamic.  Better in that case to cite statnet the software project, and tergm the paper.
+
+==== Comment by krivitsky on Mon Nov  5 16:13:44 2012 ====
+1. On package loading messages:
+
+I can, fairly easily, implement a white list of packages such that if the top-level package is on the list, the package would suppress its loading, but if it's a "foreign" package that not part of the project, our package would print its full info. I am not sure if that's what you have in mind.
+
+Either way, I like the small wall as well, meaning that the default message ("Loading required package:") is printed for every package, but the top-level package also prints the author info and instructions on citation().
+
+I agree on a reference to statnet.org, but I do think contributors should be listed, since it's the only opportunity for them to be.
+
+3. On statnet loading:
+
+I am not sure if we are on the same page here. Given that 1. is a "small wall" (meaning, one line per package, except the last one), then only the top-level package would print authorship and citation information.
+
+4. On statnet citation:
+
+I understand keeping it as an option, but I think that we should encourage users to cite specific packages. Mind you, I am not exactly a disinterested party here.
+
+[[AddComment]]
+

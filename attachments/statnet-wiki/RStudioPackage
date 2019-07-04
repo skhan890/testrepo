@@ -1,0 +1,78 @@
+= Building Custom ergm Terms with RStudio =
+
+RStudio is an integrated development environment (IDE) for R; it makes creating and modifying packages in R incredibly easy. [wiki:macpackage Mac user instructions].
+
+== Prerequisites for building R packages ==
+
+These tools are required for any development for R packages. Download the latest version of Rtools ({{{Rtools30.exe}}}) at http://cran.r-project.org/bin/windows/Rtools/
+
+Run the installer, using default options. Make sure the "Edit the system PATH" box is checked:
+
+[[Image(rtools_setup2.png)]]
+
+Then click "Next" for the other setup prompts.
+
+The MikTeX LaTeX distribution is not necessary here, though you may want to have it for building other packages.
+
+== Install Rstudio ==
+
+Get the latest versions of R ('''requires R version > 3.0''') and Rstudio.
+
+http://cran.us.r-project.org/
+
+http://www.rstudio.com/ide/download/desktop
+
+== Install packages ==
+
+Get the latest versions of the required packages from CRAN:
+
+network (>= 1.7-1), ergm (>= 3.1-0), statnet.common (>= 3.1-0)
+
+Enter this into R or RStudio console:
+
+{{{
+install.packages(c('network', 'ergm', 'statnet.common'))
+}}}
+
+If you are prompted to install into a personal library, click OK.
+
+You do '''not''' need to install ergm.userterms yet!
+
+== Get ergm.userterms source ==
+
+Download the source code for {{{ergm.userterms}}} from [http://cran.r-project.org/web/packages/ergm.userterms/index.html CRAN]. The file you need is the [http://cran.r-project.org/src/contrib/ergm.userterms_3.1-0.tar.gz package source]. 
+
+Please note that you '''do not''' at any point need to install the {{{ergm.userterms}}} package binaries using the {{{install.packages}}} command; indeed, doing so in the future may override any work you have put into building terms in your local copy.
+
+Extract the source files to your preferred working directory; this should not be the same as your R library directory. On Windows, you may need an application like [http://www.7-zip.org/ 7-zip] to open the file. Make sure you are extracting the source code folder called "ergm.userterms" inside the .tar file:
+
+[[Image(7zip_setup.png)]]
+
+== New project ==
+
+Open Rstudio.
+
+Project menu →  Create Project→  Existing Directory →  Browse →  [[BR]]
+
+Navigate to where you saved the source code (the folder called "ergm.userterms", see picture below) → Select Folder  →  Create Project
+
+[[Image(project_setup3.png)]]
+
+The new project should be open and ready for coding. When doing so, the three files that you will need to open and edit can be found at:
+
+Files pane →  R →  {{{InitErgmTerm.user.R}}}
+
+Files pane →  src →  {{{changestats.users.c}}}
+
+Files pane →  src →  {{{changestats.users.h}}}
+
+[[Image(project_setup2.png)]]
+
+
+== Coding your own custom ERGM term ==
+
+If you are following these instructions in preparation for a statnet workshop, you can close everything and stop here; we will pick up from this point in the workshop. If you are learning on your own, we recommend following along with the [http://www.jstatsoft.org/v52/i02 JSS paper] as a tutorial. If doing the latter, you will not need to follow the instructions in Section A3 if you are using RStudio; instead, whenever you want to build your version of the ergm.userterms package, simply click on:
+
+Build menu →  Build & Reload
+
+All done!

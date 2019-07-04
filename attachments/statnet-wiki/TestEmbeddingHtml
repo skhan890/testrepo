@@ -1,0 +1,33 @@
+{{{
+library(ggplot2)
+library(microbenchmark)
+library(network)
+library(ergm)
+data('faux.magnolia.high')
+fmh <- faux.magnolia.high
+set.edge.attribute(fmh,'dummy','foo')
+orig <- function() as.matrix.network.adjacency.orig(fmh,'dummy')
+proposed <- function() as.matrix.network.adjacency(fmh,'dummy')
+res <- microbenchmark(orig(),proposed(),times=4)
+}}}
+Here's the summary of the results:
+
+
+{{{
+summary(res)
+}}}
+
+{{{
+##         expr    min     lq median     uq    max neval
+## 1     orig() 1484.5 1487.9 1495.2 1555.0 1610.9     4
+## 2 proposed()  545.4  551.5  558.6  631.5  703.5     4
+}}}
+
+And a quick plot:
+
+
+{{{
+qplot(y=time,colour=expr,data=res)
+}}}
+
+[[Image(unnamed-chunk-3.png)]]

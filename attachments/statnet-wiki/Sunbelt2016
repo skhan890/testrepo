@@ -1,0 +1,422 @@
+[[Include(statnetnav)]]
+
+
+= 2016 INSNA Sunbelt Conference statnet Workshop Page =
+
+'''Welcome to social network analysis with R and statnet! ''' On this page, you will find all the information you need to prepare for this year's Sunbelt workshops. Please check this site periodically for updates and announcements.  If you have additional questions, please email us at [mailto:statnet_help@u.washington.edu statnet_help at u.washington.edu].
+
+The sections below cover the following topics:
+
+* [[#TableofWorkshopSessions|Table of workshop sessions]]
+* [[#AnnouncementsandUpdates|Announcements and updates]]
+* [[#RecommendedPrerequisites|Recommended prerequisites for each workshop]]
+* [[#WorkshopMaterials|Workshop materials]] (tutorials and slides) for download and printing (NB:  we will '''not''' distribute hard-copy handouts at the workshops)
+* [[Installation|Instructions for downloading and installing R and statnet]] (NB: you should do this before the workshop)
+* [[#WorkshopAbstracts| Workshop abstracts]]
+
+[[BR]][[BR]]
+
+== Table of Workshop Sessions ==
+
+This year we are offering nine workshops scheduled on Tuesday April 5th and Wednesday April 6th.  They are loosely organized into two sequences (Introduction to network modeling in statnet, and Dynamic network modeling in statnet), with some additional advanced topics:
+
+||= '''Sequence''' =||= '''Tue 8am-11am''' =||= '''Tue 11:30am-2:30pm''' =||= '''Tue 3pm-6pm''' =||= '''Tue 6:30pm-9:30pm''' =||= '''Wed 8am-11am''' =||
+|| '''Introductory Sequence''' ||\
+||[#IntroductiontoSocialNetworkAnalysiswithRandstatnet1 Introduction to Social Network Analysis with R and statnet] (!Acton/Jasny) ||\
+|| [#MovingbeyondDescriptives:BasicNetworkStatisticswithRandstatnet Moving Beyond Descriptives: Basic Network Statistics with Statnet] (!Jasny/Acton) ||\
+||[#ExponentialFamilyRandomGraphModelingERGMsUsingstatnet1 Exponential Family Random Graph Modeling (ERGMs) Using statnet] (!Morris/Butts) || ||\
+||||
+|| '''Dynamic Network Analysis''' || ||\
+||[#IntroductiontoModelingTemporalDynamicERGMsUsingstatnet1 Introduction to Modeling Temporal (Dynamic) ERGMs using statnet] (!Morris/Goodreau) || \
+||[#ModelingRelationalEventDynamicswithstatnet1 Modeling Relational Event Dynamics with statnet] (!Butts/Marcum) || || ||
+|| || || ||\
+||[#ManagingDynamicNetworkDatainstatnet:AnimationsDataStructuresandTemporalSNA1 Managing Dynamic Network Data in statnet:  Animations, Data Structures and Temporal SNA] (Bender-deMoll/Goodreau) ||\
+|| || ||
+|| '''Extensions''' || || || ||\
+||[#IntroductiontoEgocentricNetworkDataAnalysiswithERGMsandTERGMsusingstatnet Introduction to Egocentric Network Data Analysis with ERGMs using statnet] (!Krivitsky/Morris) ||\
+||[#ValuedNetworkModelingwithstatnet1 Valued Network Modeling with statnet] (!Krivitsky/Butts)  || 
+
+Workshop Assistants: 
+
+(Last updated: )
+[[BR]][[BR]]
+
+-------
+== Announcements and Updates ==
+
+* For the workshops, you will need the latest versions of the statnet packages from CRAN. 
+  * If you have not installed statnet before, please see the [[Installation]] instruction page.  
+  * If you have installed statnet packages before, you should either perform a fresh install or update.
+  * Make sure you have the package(s) needed for your workshop (these are listed in the [[#WorkshopMaterials|Workshop materials]] below)
+
+* The statnet workshops are designed as hands-on labs, and are best experienced interactively using your own laptop and software installation. If you would like to simply listen and try out the exercises later, that is fine too -- however, we do ask that attendees who plan on using their laptops during the workshop install the required software before the workshop begins. 
+
+* Some workshops may also require supplemental data files, which are included in the [[#WorkshopMaterials|Workshop materials]] below (and should be downloaded prior to the workshop).
+
+* Workshop slides and handouts will be posted here before the workshop; downloading and printing is optional, but may make it easier to follow along on your own.
+
+* Workshop participants with problems or questions regarding software installation prior to the workshop should email [mailto:sjenness@uw.edu Sam Jenness] for Mac-related questions, [mailto:cbengibson@gmail.com Ben Gibson] for Windows, and [mailto:yuey6@uci.edu Yue Yu] for Linux.
+
+-------
+
+== Recommended Prerequisites ==
+
+Although the workshop sessions may be taken independently by those having prior experience with R and statnet, we strongly recommend the following prerequisites:
+
+||= '''Workshop''' =||= '''Prerequisite''' =||
+||Introduction to Social Network Analysis with R and statnet ||None ||
+|| Moving Beyond Descriptives: Basic Network Statistics with statnet ||Introduction to Social Network Analysis with R and statnet ||
+||Exponential Family Random Graph Modeling (ERGMs) Using statnet || Familiarity with R. Previous experience with the statnet packages network and sna is helpful but not required. ||
+||Introduction to Egocentric Network Data Analysis with ERGMs using statnet ||Some experience R and familiarity with descriptive network concepts and statistical methods for network analysis in the R/statnet platform (especially ERGM) is required.||
+||Valued Network Modeling with statnet ||Some prior exposure to R, but extensive experience is not assumed. Familiarity with binary ERG modeling with the R/statnet platform (e.g., from the “Exponential Family Random Graph (ERGM) Modeling with statnet” workshop session) is assumed ||
+||Introduction to Temporal (dynamic) ERGMs using statnet ||Familiarity with R. Previous experience with the statnet packages (ergm, network, sna) || 
+||Modeling Relational Event Dynamics with statnet ||Some experience R and familiarity with descriptive network concepts and statistical methods for network analysis in the R/statnet platform is expected ||
+||Managing Dynamic Network Data in statnet: Animations, Data Structures and Temporal SNA ||Familiarity with R. Previous experience with the statnet packages (ergm, tergm, network and networkDynamic) is helpful but not required.
+
+Workshop materials from last year (if taught) can be found [[Sunbelt2015|here]] on the statnet wiki.
+
+--------
+
+== Workshop Materials ==
+
+Workshop materials will be posted here as they are completed, for the convenience of session attendees. 
+  * ''Packages required'' lists the statnet packages you'll need
+  * ''Electronic Handouts'' contain the tutorial for the workshop.  It's handy to have an electronic copy of this during the workshop to cut and paste commands into R as we go along.
+  * ''Slides'', if present, contain supplemental learning materials.
+  * ''Code'', if present, contains all of the lines of R code from the tutorial distilled into a single R file.
+  * ''Data Files'', if present, are the supplemental data files needed for a workshop.  
+
+Attendees should download all the files needed for their respective workshop sessions and save them in a convenient spot. This section will be updated regularly.
+
+=== Introduction to Social Network Analysis with R and statnet ===
+
+* Packages required:  network, sna
+* Electronic handouts: [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/introToSNAinR.pdf Tutorial pdf]
+* Code:[https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/IntroToSNAinR.R Tutorial R commands]
+* Data Files:[https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/IntroToSNAinR.Rdata Rdata file] [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/relationalData.csv relationalData.csv] [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/vertexAttributes.csv vertexAttributes.csv]
+ 
+
+
+=== Moving beyond Descriptives: Basic Network Statistics with statnet ===
+
+* Packages required:  network, sna
+* Electronic handouts: [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/movingBeyondDescriptives.pdf Tutuorial pdf]
+* Code: [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/movingBeyondDescriptives.R Tutorial R commands]
+* Data File: [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/movingBeyondDescriptives.Rdata Rdata file]
+
+=== Exponential Family Random Graph Modeling (ERGMs) Using statnet ===
+
+* Packages required: ergm (dependencies loaded automatically)
+* Slides: NA
+* Electronic handouts: [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/ergm_tutorial.html Tutorial html]
+* Code: [https://statnet.csde.washington.edu/trac/raw-attachment/wiki/Sunbelt2016/ergm_tutorial.R Tutorial R commands]
+
+=== Introduction to Modeling Temporal (Dynamic) ERGMs Using statnet ===
+
+* Packages required: tergm (dependencies loaded automatically)
+* Slides: [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/tergm_intro_slides.pdf Intro slides pdf] 
+* Electronic handouts:  [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/tergm_tutorial.pdf Tutorial pdf] [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/tergm_tutorial.html Tutorial html]
+* Code:  [https://statnet.csde.washington.edu/trac/raw-attachment/wiki/Sunbelt2016/tergm_tutorial.R R File]
+
+
+=== Modeling Relational Event Dynamics with statnet ===
+
+* Packages required: relevent, informR (dependencies loaded automatically)
+* Electronic handouts: [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/statnet_sunbelt2016_relevent.pdf Workshop Handout]
+* Slides:  [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/sunbelt_rem_1.pdf Slide Set 1] [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/sunbelt_rem_2.pdf Slide Set 2]
+* Data Files: [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/relevent_sunbelt_2016.Rdata Workshop R Data File]
+
+=== Managing Dynamic Network Data in statnet: Animations, Data Structures and Temporal SNA ===
+
+* Packages required: ndtv, tsna
+* Electronic handouts: [http://statnet.csde.washington.edu/workshops/SUNBELT/current/ndtv/ndtv_workshop.html ndtv workshop.html]
+
+=== Introduction to Egocentric Network Data Analysis with ERGMs Using statnet ===
+
+* Packages required: ergm.ego (dependencies loaded automatically)
+* Electronic handouts: [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/ergm.ego_tutorial.pdf Tutorial pdf] [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/ergm.ego_tutorial.html Tutorial html]
+* Slides: [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/NHSLS_Application.pdf Example Application pdf]
+
+* R command file:  [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/ergm.ego_tutorial.R Tutorial R code]
+
+
+=== Valued Network Modeling with statnet ===
+
+* Packages required: ergm.count, ergm.rank, latentnet (dependencies loaded automatically)
+* Electronic handouts:  [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/Valued.pdf Tutorial pdf]
+* R command file: [https://statnet.csde.washington.edu/trac/attachment/wiki/Sunbelt2016/Valued.R R code]
+
+== Installing statnet ==
+
+Please follow the instructions on the statnet [[Installation]] page for downloading the latest version of R, statnet and its related libraries
+
+
+== Workshop Abstracts ==
+
+=== Introduction to Social Network Analysis with R and statnet ===
+
+Session Time: Tuesday April 5th, 8:00am – 11:00am
+
+Workshop Length: 1 session (3 hours)
+
+Attendance Limit: N/A
+
+Instructors: Ryan M. Acton (Data Scientist, !WeddingWire Inc.), racton@weddingwire.com
+Lorien Jasny (Lecturer, University of Exeter, United Kingdom), L.Jasny@exeter.ac.uk
+
+This workshop session will serve as a basic introduction to the importation, manipulation, and descriptive analysis of
+social network data within the R/statnet platform. Topics covered will include: an overview of basic R functions and data
+types; importation of network data into R; network data manipulation; management of metadata for complex networks;
+visualization of network data; calculation of network descriptives (e.g., centrality scores, graph-level indices); and use of
+classical network analytic techniques (e.g., blockmodeling). No prior experience with R or statnet is assumed, but
+attendees should have familiarity with the basic concepts of descriptive network analysis. (Participation in this workshop
+session is recommended prior to the other statnet sessions.)
+
+statnet is a collection of packages for the R statistical computing system that supports the representation, manipulation,
+visualization, modeling, simulation, and analysis of relational data. statnet packages are contributed by a team of
+volunteer developers, and are made freely available under the GNU Public License. These packages are written for the R
+statistical computing environment, and can be used with any computing platform that supports R (including Windows,
+Linux, and Mac). statnet packages can be used to handle a wide range of simulation and analysis tasks, including support
+for large networks, statistical network models, network dynamics, and missing data.
+
+=== Moving beyond Descriptives: Basic Network Statistics with R and statnet ===
+
+Session Time: Tuesday April 5th, 11:30am – 2:30pm
+
+Workshop Length: 1 session (3 hours)
+
+Attendance Limit: N/A
+
+Instructors: Lorien Jasny (University of Exeter, United Kingdom), L.Jasny@exeter.ac.uk
+
+This workshop session will serve as an introduction to the use of basic statistical methods for network analysis within
+the R/statnet platform. The approach taken is practical rather than theoretical, with emphasis on simple, robust
+methods for hypothesis testing and exploratory data analysis of single and multi-network data sets. Topics will include: 
+tests for marginal relationships between node or graph-level indices and covariates; Monte Carlo tests for structural
+biases; network correlation, autocorrelation, and regression; and exploratory multivariate analysis of multi-network data
+sets. We will also cover interpreting R code in existing functions and writing your own functions. Attendees are expected
+to have had some prior exposure to R, but extensive experience is not assumed. Completion of the “Introduction to
+Network Analysis with R and statnet” workshop session is suggested (but not required) as preparation for this session.
+Familiarity with the basic concepts of descriptive network analysis (e.g., centrality scores, network visualization) is
+strongly recommended. To get the most out of the workshop, participants are recommended to bring a laptop with R,
+RStudio, and statnet installed. Sample data and code will be provided by the organizer.
+
+Note: This workshop is the 2nd in the statnet series of workshops. Participants may want to take the Intro to social network analysis with R and statnet before this workshop.
+
+=== Exponential Family Random Graph Modeling (ERGMs) Using statnet ===
+
+Session Time: Tuesday April 5th, 3:00pm-6:00pm
+
+Workshop Length: 1 session (3 hours)
+
+Attendance Limit: N/A
+
+Instructors:Martina Morris, morrism@u.washington.edu
+Carter T. Butts, buttsc@uci.edu
+
+Prerequisites:
+Familiarity with R. Previous experience with the statnet packages network and sna is helpful but not required.
+
+Synopsis:
+This workshop will provide an introductory tutorial on using exponential-family random graph models (ERGMs) for
+statistical modeling of social networks, using a hands-on approach to fitting these models to data. The ERGM framework
+allows for the specification, estimation, and simulation of models that incorporate the complex dependencies within
+networks, and provides a general and flexible means of representing them. The session will demonstrate ERG modeling
+using the statnet software in R.
+
+Topics covered within this session include: an overview of the ERGM framework; defining and fitting models to empirical
+data; interpretation of model coefficients; goodness-of-fit and model adequacy checking; simulation of networks using
+ERG models; degeneracy assessment and avoidance; and modeling and simulation of complete networks from
+egocentrically sampled data. Familiarity with basic descriptive network concepts and statistical methods for network
+analysis within the R/statnet platform is recommended. Attendees are expected to have had some prior exposure to R,
+but extensive experience is not assumed.
+
+statnet is a collection of integrated packages for the R statistical computing environment that support the
+representation, manipulation, visualization, modeling, simulation, and analysis of network data. statnet is developed
+and maintained by a team of volunteer developers, and is released under the GNU Public License. statnet packages can
+be used with any computing platform that supports R (including Windows, Linux, and Mac). The software supports
+statistical analysis of large networks, temporal network analysis and valued ties, with utilities for missing and sampled
+data.
+network analysis with R and statnet before this workshop.
+
+=== Introduction to Modeling Temporal (Dynamic) ERGMs Using statnet ===
+
+Session Time: Tuesday April 5th
+, 11:30am – 2:30pm
+
+Workshop Length: 1 session (3 hours)
+
+Attendance Limit: N/A
+
+Instructors:Martina Morris, morrism@u.washington.edu
+Steven Goodreau, goodreau@uw.edu
+
+Prerequisites:
+Familiarity with R. Previous experience with the statnet packages (ergm, network, sna).
+
+Synopsis:
+This workshop will provide an introduction to the estimation and simulation of dynamic networks using Temporal
+Exponential-Family Random Graph Models (TERGMs) in statnet. We will cover the statistical theory and methods for
+separable temporal ERG modeling, with a hands-on tutorial using the TERGM software package. TERGM can be used for
+both estimation from and simulation of dynamic network data, and it provides a wide range of fitting diagnostics.
+The topics covered will include estimation from network panel data, from a single cross-sectional network with link
+duration information, and from cross-sectional, egocentrically sampled network data. Simulating dynamic networks with
+both fixed and changing node sets will also be covered. We will demonstrate how the results of a dynamic network
+simulation can be visualized an animated “network movie” using the ndTV package in statnet. An example of the type of
+"network movie" these tools can produce can be found at statnet.org/movies. This workshop will assume familiarity
+with R, and the network, SNA and ergm packages in statnet. The "Exponential Family Random Graph Modeling (ERGMs)
+with statnet" workshop is recommended as preparation.
+
+statnet is a collection of integrated packages for the R statistical computing environment that support the
+representation, manipulation, visualization, modeling, simulation, and analysis of network data. statnet is developed
+and maintained by a team of volunteer developers, and is released under the GNU Public License. statnet packages can
+be used with any computing platform that supports R (including Windows, Linux, and Mac). The software supports
+statistical analysis of large networks, temporal network analysis and valued ties, with utilities for missing and sampled
+data.
+
+=== Modeling Relational Event Dynamics with statnet ===
+
+Session Time: Tuesday April 5th, 3:00pm –6:00pm
+
+Workshop Length: 1 session (3 hours)
+
+Attendance Limit: N/A
+
+Instructors: Carter T. Butts, buttsc@uci.edu
+Christopher S. Marcum, christopher.steven.marcum@gmail.com
+
+Prerequisites:
+Some experience R and familiarity with descriptive network concepts and statistical methods for network analysis in the
+R/statnet platform is expected.
+
+Synopsis:
+This workshop session will provide an introduction to the analysis of relational event data (i.e., actions, interactions, or
+other events involving multiple actors that occur over time) within R/statnet platform. We will begin by reviewing the
+basics of relational event modeling, with an emphasis on models with piecewise constant hazards. We will then discuss
+estimation of dyadic and more general relational event models using the relevant package, with an emphasis on handson
+applications of the methods and interpretation of results. Using the informR package, we will then show how to
+construct models for spell data, and data involving multiple event types. Attendees are expected to have had some prior
+exposure to R and statnet, and completion of the "Introduction to Network Analysis with R and statnet" workshop
+session is suggested (but not required) as preparation for this session. Familiarity with parametric statistical methods is
+strongly recommended, and some knowledge of hazard or survival analysis will be helpful.
+
+statnet is a collection of packages for the R statistical computing system that supports the representation, manipulation,
+visualization, modeling, simulation, and analysis of relational data. statnet packages are contributed by a team of
+volunteer developers, and are made freely available under the GNU Public License. These packages are written for the R
+statistical computing environment, and can be used with any computing platform that supports R (including Windows,
+Linux, and Mac). statnet packages can be used to handle a wide range of simulation and analysis tasks, including support
+for large networks, statistical network models, network dynamics, and missing data.
+
+=== Managing Dynamic Network Data in statnet: Animations, Data Structures and Temporal SNA ===
+
+Session Time: Tuesday April 5th, 3:00pm – 6:00pm
+
+Workshop Length: 1 session (3 hours)
+
+Attendance Limit: N/A
+
+Instructors: Skye Bender-deMoll, skyebend@skyeome.net, Steve Goodreau
+
+Prerequisites:
+Familiarity with R. Previous experience with the statnet packages (ergm, tergm, network and networkDynamic) is helpful
+but not required.
+
+Synopsis:
+This workshop will provide an introduction to the R packages networkDynamic, ndtv and tsna. These tools can be used
+for both empirical and simulated network data. We will illustrate both, with some well-known data sets from the social
+network literature, and some simulations from the statnet package tergm. The workshop will demonstrate how to
+import, transform and extract relational data with timing information from various data structures (matrices, spell lists,
+toggles, etc.). We will discuss advantages of various temporal models and representations (continuous vs discrete time,
+etc.) as well as considerations about how to slice and aggregate time in networks.
+
+Attendees will learn to create visualizations of network dynamics, including exporting network animations as videos or
+interactive HTML5 web pages. We will explain how to attach and manipulate dynamic vertex and edge attributes and
+effectively use a range of graphical properties to represent them (color, shape, size, transparency, speed, and
+annotation). We will also discuss some common visualization challenges, such as adjustments needed when working
+with networks with disconnected components, and how to determine if a network has appropriate size and density to
+create an animation. Some non-animation techniques such as relationship timelines, filmstrips and other projections will
+be explained as well. Finally we will demonstrate some of the basic functionality for calculating temporal network
+statistics using the tsna package, including computing temporal paths, and basic sequence measures.
+
+statnet is a collection of integrated packages for the R statistical computing environment that support the
+representation, manipulation, visualization, modeling, simulation, and analysis of network data. statnet is developed
+and maintained by a team of volunteer developers, and is released under the GNU Public License. statnet packages can
+be used with any computing platform that supports R (including Windows, Linux, and Mac). The software supports 
+statistical analysis of large networks, temporal network analysis and valued ties, with utilities for missing and sampled
+data.
+
+=== Introduction to Egocentric Network Data Analysis with ERGMs and TERGMs using statnet ===
+
+Session Time: Tuesday April 5th
+, 6:30pm-9:30pm
+
+Workshop Length: 1 session (3 hours)
+
+Attendance Limit: N/A
+
+Instructors:Pavel Krivitsky, pavel@uow.edu.au
+Martina Morris, morrism@uwashington.edu
+
+Prerequisites:
+Some experience R and familiarity with descriptive network concepts and statistical methods for network analysis in the
+R/statnet platform (especially ERGM and TERGM) is required.
+
+Synopsis:
+This workshop will provide an introductory tutorial on analyzing egocentrically sampled data with exponential-family
+random graph models (ERGMs) for statistical modeling of social networks. It will be a hands-on workshop demonstrating
+how to fit, diagnose and simulate both static and dynamic ERG models from such data. We will be using the new
+“ergm.ego” package, part of the integrated statnet software in R.
+
+Topics covered within this session include: a review of different approaches to analyzing egocentrically sampled data in
+the social network community, an overview of the basic statistical concepts that govern methods for analyzing sampled
+network data, and the exponential family theory that supports the use of ERGMs for egocentric samples; defining and
+fitting ERGMs to egocentric data; interpretation of model coefficients; goodness-of-fit and model adequacy checking;
+and simulation of complete networks from the specified ERG models. With one additional piece of data – information on
+relational duration – these methods can be generalized to dynamic network analysis. The workshop therefore will also
+cover estimating, fitting, diagnosing and simulating dynamic networks from cross-sectional egocentrically sampled data.
+The ergm.ego package provides users with simple access to many functions that support these analyses.
+
+statnet is a collection of integrated packages for the R statistical computing environment that support the
+representation, manipulation, visualization, modeling, simulation, and analysis of network data. statnet is developed
+and maintained by a team of volunteer developers, and is released under the GNU Public License. statnet packages can
+be used with any computing platform that supports R (including Windows, Linux, and Mac). The software supports
+statistical analysis of large networks, temporal network analysis and valued ties, with utilities for missing and sampled
+data.
+
+=== Valued Network Modeling with statnet
+
+Session Time: Wednesday April 6th, 8:00am – 11:00am
+
+Workshop Length: 1 session (3 hours)
+
+Attendance Limit: N/A
+
+Instructors:Pavel Krivitsky, pavel@uow.edu.au
+Carter T. Butts, buttsc@uci.edu
+
+Prerequisites:
+Attendees are expected to have had some prior exposure to R, but extensive experience is not assumed. Familiarity with
+binary ERG modeling with the R/statnet platform (e.g., from the “Exponential Family Random Graph (ERGM) Modeling
+with statnet” workshop session) is assumed.
+
+Synopsis:
+This workshop session provides a tutorial using statnet software particularly ergm and latentnet to model social
+networks whose ties have weights (e.g., counts of interactions) or are ranks (i.e., each actor ranks the others according
+to some criterion), using latent space models and exponential-family random graph models (ERGMs) generalized to
+valued ties, and emphasizing a hands-on approach to fitting these models to empirical data.
+
+The ERGM framework allows for the parametrization, fitting, and simulation from models that incorporate the complex
+dependencies within relational data structures, and provides an extremely general and flexible means of representing
+them, while latent space models postulate an unobserved social space in which actors are embedded, facilitating
+principled visualization and group detection. Topics covered within this session include: importing, modifying, and
+exporting edge values on network objects; an overview of the valued ERGM framework and the notion of reference
+distribution; an overview of latent space models for social networks; defining and fitting models to empirical data,
+including ERGM terms meaningful for counts and ranks; interpretation of model coefficients; simulation of networks
+using these models; and ERGM degeneracy assessment.
+
+statnet is a collection of packages for the R statistical computing system that supports the representation, manipulation,
+visualization, modeling, simulation, and analysis of relational data. statnet packages are contributed by a team of
+volunteer developers, and are made freely available under the GNU Public License. These packages are written for the R
+statistical computing environment, and can be used with any computing platform that supports R (including Windows,
+Linux, and Mac). statnet packages can be used to handle a wide range of simulation and analysis tasks, including support
+for large networks, statistical networks, valued networks, network dynamics, and missing data.

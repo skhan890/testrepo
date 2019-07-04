@@ -1,0 +1,148 @@
+[[Include(statnetnav)]]
+
+
+= 2015 INSNA Sunbelt Conference statnet Workshop Page =
+
+'''Welcome to social network analysis with R and statnet! ''' On this page, you will find all the information you need to prepare for this year's Sunbelt workshops. Please check this site periodically for updates and announcements.  If you have additional questions, please email us at [mailto:statnet_help@u.washington.edu statnet_help].
+
+The sections below cover the following topics:
+
+* [[#TableofWorkshopSessions|Table of workshop sessions]]
+* [[#AnnouncementsandUpdates|Announcements and updates]]
+* [[#RecommendedPrerequisites|Recommended prerequisites for each workshop]]
+* [[#WorkshopMaterials|Workshop materials]] (tutorials and slides) for download and printing (NB:  we will '''not''' distribute hard-copy handouts at the workshops)
+* [[Installation|Instructions for downloading and installing R and statnet]] (NB: you should do this before the workshop)
+
+[[BR]][[BR]]
+
+== Table of Workshop Sessions ==
+
+This year we are offering nine workshops.  They are loosely organized into two sequences (Introduction to network modeling in statnet, and Dynamic network modeling in statnet), with some additional advanced topics:
+
+||= '''Sequence''' =||= '''Tue 6/23/15, 8:00 AM - 11:00 AM''' =||= '''Tue 6/23/15, 11:30 AM - 2:30 PM''' =||= '''Tue 6/23/15, 3:00 PM - 6:00 PM''' =||= '''Wed 6/24/15, 8:00 AM - 11:00 AM''' =||
+|| '''Introductory Sequence''' ||[http://insna.org/sunbelt2015/?page_id=252 Introduction to Social Network Analysis with R and statnet] [[BR]][[BR]]''Instructors'': Acton & Jasny [[BR]]''Location'': Buckingham || [http://insna.org/sunbelt2015/?page_id=267 Moving Beyond Descriptives: Basic Network Statistics with Statnet] [[BR]][[BR]]''Instructors'': Jasny & Acton [[BR]]''Location'': Clarence ||[http://insna.org/sunbelt2015/?page_id=242 Introduction to ERGMs using statnet] [[BR]][[BR]]''Instructors'': Morris & Butts [[BR]]''Location'': Viscount || [http://insna.org/sunbelt2015/?page_id=295 Teaching Network Analysis with the statnetWeb R-Shiny Application] [[BR]][[BR]]''Instructors'': Beylerian & Morris [[BR]]''Location'': Lancaster ||
+|| '''Dynamic modeling sequence''' ||[http://insna.org/sunbelt2015/?page_id=256 Introduction to Temporal (dynamic) ERGMs using statnet] [[BR]][[BR]]''Instructors'': Handcock & Krivitsky [[BR]]''Location'': Clarence|| ~~Network Dynamic Temporal Visualization (ndtv): a package of R tools for visualizing dynamic networks~~ [[BR]][[BR]]'''CANCELLED''' ||[http://insna.org/sunbelt2015/?page_id=276 Network Modeling of Infectious Disease and Social Diffusion Processes with EpiModel] [[BR]][[BR]]''Instructors'': Jenness & Beylerian [[BR]]''Location'': Osborne||
+|| '''Additional Workshops''' ||[http://insna.org/sunbelt2015/?page_id=265 Modeling Relational Event Dynamics with statnet] [[BR]][[BR]]''Instructors'': Butts & Marcum [[BR]]''Location'': Cambridge ||[http://insna.org/sunbelt2015/?page_id=237 Introduction to Egocentric Network Data Analysis with ERGMs and TERGMs using statnet] [[BR]][[BR]]''Instructors'': Krivitsky & Morris [[BR]] ''Location'': Cambridge || ||[http://insna.org/sunbelt2015/?page_id=301 Valued Network Modeling with statnet] [[BR]][[BR]]''Instructors'': Krivitsky & Butts [[BR]] ''Location'': Cambridge ||
+
+Workshop Assistants: Sean Fitzhugh, Ben Gibson, Francis Lee, Nolan Philips, Yue Yu
+
+(Last updated: 06/16/2015)
+[[BR]][[BR]]
+
+-------
+== Announcements and Updates ==
+
+* The workshop ''Network Dynamic Temporal Visualization (ndtv)'' has been cancelled due to a family emergency. We regret the inconvenience.
+
+* For the workshops, you will need the latest versions of the statnet packages from CRAN. 
+  * If you have not installed statnet before, please see the [[Installation]] instruction page.  
+  * If you have installed statnet packages before, you should either perform a fresh install or update.
+  * Make sure you have the package(s) needed for your workshop (these are listed in the [[#WorkshopMaterials|Workshop materials]] below)
+
+* The statnet workshops are designed as hands-on labs, and are best experienced interactively using your own laptop and software installation. If you would like to simply listen and try out the exercises later, that is fine too -- however, we do ask that attendees who plan on using their laptops during the workshop install the required software before the workshop begins. 
+
+* Some workshops may also require supplemental data files, which are included in the [[#WorkshopMaterials|Workshop materials]] below (and should be downloaded prior to the workshop).
+
+* Workshop slides and handouts will be posted here before the workshop; downloading and printing is optional, but may make it easier to follow along on your own.
+
+* Workshop participants with problems or questions regarding software installation prior to the workshop should email [mailto:sjenness@uw.edu Sam Jenness] for Mac-related questions, [mailto:cbengibson@gmail.com Ben Gibson] for Windows, and [mailto:yuey6@uci.edu Yue Yu] for Linux.
+
+-------
+
+== Recommended Prerequisites ==
+
+Although the workshop sessions may be taken independently by those having prior experience with R and statnet, we strongly recommend the following prerequisites:
+
+||= '''Workshop''' =||= '''Prerequisite''' =||
+|| Introduction to Social Network Analysis with R and statnet ||None ||
+|| Moving Beyond Descriptives: Basic Network Statistics with statnet ||Introduction to Social Network Analysis with R and statnet ||
+|| Introduction to ERGMs using statnet || Moving Beyond Descriptives: Basic Network Statistics with statnet ||
+|| Teaching Network Analysis with the statnetWeb R-Shiny Application ||None ||
+|| Introduction to Temporal (dynamic) ERGMs using statnet ||Introduction to ERGMs using statnet  || 
+||  Network Modeling of Infectious Disease and Social Diffusion Processes with !EpiModel ||Introduction to Temporal (dynamic) ERGMs using statnet ||
+|| Modeling Relational Event Dynamics with statnet || Introduction to Social Network Analysis with R and statnet (or prior experience with R) ||
+|| Introduction to Egocentric Network Data Analysis with ERGMs and TERGMs using statnet || Introduction to ERGMs using statnet and/or Introduction to Temporal (dynamic) ERGMs using statnet ||
+|| Valued Network Modeling with statnet ||Introduction to ERGMs using statnet ||
+
+Workshop materials from last year (if taught) can be found [[Sunbelt2014|here]] on the statnet wiki.
+
+--------
+
+== Workshop Materials ==
+
+Workshop materials will be posted here as they are completed, for the convenience of session attendees. 
+  * ''Packages required'' lists the statnet packages you'll need
+  * ''Electronic Handouts'' contain the tutorial for the workshop.  It's handy to have an electronic copy of this during the workshop to cut and paste commands into R as we go along.
+  * ''Slides'', if present, contain supplemental learning materials.
+  * ''Code'', if present, contains all of the lines of R code from the tutorial distilled into a single R file.
+  * ''Data Files'', if present, are the supplemental data files needed for a workshop.  
+
+Attendees should download all the files needed for their respective workshop sessions and save them in a convenient spot. This section will be updated regularly.
+
+=== Introduction to Social Network Analysis with R and statnet ===
+
+* Packages required:  network, sna
+* Zip archive of all files needed:  [attachment:introToSNAinRfiles.zip ZIP]
+
+
+=== Moving Beyond Descriptives: Basic Network Statistics with statnet ===
+
+* Packages required:  network, sna
+* Electronic handouts: [attachment:movingBeyondDescriptives_slides.pdf]
+* Code: [attachment:movingBeyondDescriptives.R Text file with R commands]
+* Data Files: [attachment:movingBeyondDescriptives.Rdata]
+
+=== Introduction to ERGMs using statnet  ===
+
+* Packages required: ergm (dependencies loaded automatically)
+* Slides: [attachment:ergm_intro.pdf PDF]
+* Electronic handouts: [attachment:ergm_tutorial.html HTML][attachment:ergm_tutorial.pdf PDF] 
+* Code: [attachment:ergm_tutorial.R R File]
+
+=== Network Analysis with the statnetWeb R-Shiny Application ===
+
+* Packages required:  statnetWeb (dependencies loaded automatically)
+* Slides: [attachment:statnetWeb_slides.pdf PDF]
+* Electronic handouts: [attachment:statnetWeb_Guided.pdf PDF]
+
+=== Introduction to Temporal (dynamic) ERGMs using statnet  ===
+
+* Packages required: tergm (dependencies loaded automatically)
+* Slides: [attachment:tergm_intro_slides.pdf PDF]
+* Electronic handouts:  [attachment:tergm_tutorial.html HTML] [attachment:tergm_tutorial.pdf PDF]
+* Code:  [attachment:tergm_tutorial.R R File]
+
+=== Network Modeling of Infectious Disease and Social Diffusion Processes with EpiModel ===
+
+* See instructions at  http://statnet.github.io/sb
+
+
+=== Modeling Relational Event Dynamics with statnet ===
+
+* Packages required: relevent, informR (dependencies loaded automatically)
+* Electronic handouts: [attachment:statnet_sunbelt2015_relevent.pdf PDF]
+* Slides:  [attachment:sunbelt_rem_1.pdf PDF],  [attachment:sunbelt_rem_2.pdf PDF]
+* Data Files: [attachment:relevent_sunbelt_2015.Rdata Workshop Rdata File]
+
+=== Introduction to Egocentric Network Data Analysis with ERGMs and TERGMs using statnet ===
+
+* Packages required: 
+* Electronic handouts: [attachment:ergmEgo_tutorial.html]
+* Slides:
+* R command file: [attachment:ergmEgoTut.R] 
+* Data Files: 
+
+
+=== Valued Network Modeling with statnet ===
+
+* Packages required: 
+* Electronic handouts: [attachment:Valued.pdf] 
+* Slides: 
+* R command file: [attachment:Valued.R]
+* Data Files: 
+
+--------
+
+== Installing statnet ==
+
+Please follow the instructions on the statnet [[Installation]] page for downloading the latest version of R, statnet and its related libraries

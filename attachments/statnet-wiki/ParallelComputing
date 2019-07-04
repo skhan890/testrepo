@@ -1,0 +1,120 @@
+= Using Parallel Functionality in R =
+
+The following examples demonstrate how R's parallel functionality can be used for simple, embarassingly parallel problems.  For specific ergm related examples, see wiki:ergmParallel
+
+== Parallel on a Single Machine ==
+
+The following example works on Windows, Mac, and Linux platforms. This method is simple to set up: all you need is the {{{parallel}}} package. Also, the R commands can be run interactively, inside Rstudio. The downside is that the number of parallel processes is limited to the number of CPU cores on the machine.
+
+{{{
+# single machine. detects the number of CPU cores
+library(parallel)
+np = detectCores()
+
+cluster = makeCluster(np, type='PSOCK')
+
+foo = function(i=0) {
+  A <- matrix(rnorm(1000*1000), nrow=1000)
+  mean(A %*% A)
+}
+
+# serial
+n = 20
+
+t0 <- proc.time()
+result.list <- replicate(n, foo())
+proc.time() - t0
+
+# parallel
+t0 <- proc.time()
+result.list <- parSapply(cluster, 1:n, foo)
+proc.time() - t0
+
+stopCluster(cluster)
+}}}
+
+
+== Parallel on a Cluster ==
+
+Using MPI on a high performance unix cluster: we can use MPI to spread the parallel processes across multiple nodes, creating as many as allowed on the cluster. This method requires MPI to be set up on the cluster, and the packages {{{snow, Rmpi}}}. It also requires you to run the R commands as a script; remember to save your output!
+
+First, set up ssh without password on cluster. This may be different for your cluster; ask the admin if you can't get it working. http://tweaks.clustermonkey.net/index.php/Passwordless_SSH_(and_RSH)_Logins
+
+  1. ssh to mosix.csde.washington.edu
+  2. set up RSA key. In your home directory:
+
+  {{{
+$ cd .ssh  
+$ ssh-keygen -t rsa  
+(accept defaults and leave passphrase empty)    
+$ cp id_rsa.pub authorized_keys  
+$ ssh n4
+  }}}
+
+  3. In the last line, you should be able to connect to n4 without entering in a password.
+
+To run the script, you can either use a host file to specify which nodes to use (the default one contains all nodes), or specify the hosts yourself.
+
+{{{
+mpirun --hostfile /etc/openmpi/openmpi-default-hostfile -n 1 R --slave -f parallel_test_2.R
+}}}
+
+{{{
+mpirun -H n3,n4,n5 -n 1 R --slave -f parallel_test_2.R
+}}}
+
+With a hostfile, MPI will create processes on nodes in the order it is specified. You may want to avoid nodes that are overloaded (check using {{{mosmon}}}).
+
+Specifying the parameter {{{-n 1}}} means the R file is only run once. But, {{{Rmpi}}} will see all the nodes and be able to create a "cluster" of processes within R. You can use pass this MPI cluster to any package that can take advantage of it (such as {{{snow}}}).
+
+The R script {{{parallel_test_2.R}}}:
+
+{{{
+library(Rmpi)
+library(snow)
+library(methods)
+
+# create a cluster with 2 processes per node
+# np <- mpi.universe.size() * 2
+
+# create a cluster with fixed number of processes
+np <- 10
+cluster <- makeMPIcluster(np)
+
+# Print the hostname for each cluster member
+sayhello <- function()
+{
+  info <- Sys.info()[c("nodename", "machine")]
+  paste("Hello from", info[1], "with CPU type", info[2])
+}
+
+names <- clusterCall(cluster, sayhello)
+print(unlist(names))
+
+foo = function(i=0) {
+  A <- matrix(rnorm(1000*1000), nrow=1000)
+  mean(A %*% A)
+}
+
+n = 20
+# serial
+t0 <- proc.time()
+result.list <- replicate(n, foo())
+proc.time() - t0
+
+# parallel
+t0 <- proc.time()
+result.list <- parSapply(cluster, 1:n, foo)
+proc.time() - t0
+
+stopCluster(cluster)
+
+# remember to save results!
+save(result.list, file='parallel_results.Rdata')
+
+mpi.exit()
+}}}
+
+I used {{{parSapply()}}} function above. Here is a list of other ways to assign jobs to the cluster: http://www.sfu.ca/~sblay/R/snow.html
+
+Here is a more advanced example [[attachment:parReplicate.R]] that may be useful for package authors. The user creates and passes in an MPI cluster to a custom function, which calls one of the {{{parallel}}} packages functions.

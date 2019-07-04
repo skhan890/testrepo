@@ -1,0 +1,99 @@
+[[Include(statnetnav)]]
+
+= statnet citation information =
+
+== Citing statnet ==
+
+If you are using the statnet package for research that will be published or otherwise publicly distributed, we request that you acknowledge this with the following citation:
+
+Mark S. Handcock, David R. Hunter, Carter T. Butts, Steven M. Goodreau, and Martina Morris (2003).
+statnet: Software tools for the Statistical Modeling of Network Data. http://statnetproject.org
+
+A BibTeX entry for LaTeX users is
+
+{{{
+@Manual{handcock:statnet,
+title = {statnet: Software tools for the Statistical Modeling of Network Data},
+author = {Mark S. Handcock and David R. Hunter and Carter T. Butts and Steven M. Goodreau and Martina Morris},
+year = {2003},
+address = {Seattle, WA},
+url = {http://statnetproject.org}
+}
+}}}
+
+== Citing the component packages of statnet (e.g., ergm) ==
+
+To cite the individual packages (e.g., ergm, network, sna, degreenet, latentnet, networksis) please use the information given by their individual citation function calls. For example:
+
+{{{
+citation(package="ergm")
+}}}
+
+Most packages have additional published materials that review their specific functionality. These can help give readers a sense of the applications for which package was developed. The best cites are below.
+
+
+-----
+
+== References ==
+
+=== statnet ===
+
+* Goodreau SM, Handcock MS, Hunter DR, Butts CT, Morris M (2008a). A statnet Tutorial. Journal of Statistical Software, 24(8). http://www.jstatsoft.org/v24/i08/.
+
+* Handcock MS, Hunter DR, Butts CT, Goodreau, SM, Morris M (2008). statnet: Software Tools for the Representation, Visualization, Analysis and Simulation of Network Data. Journal of Statistical Software, 24(1). http://www.jstatsoft.org/v24/i01/.
+
+* Handcock MS, Hunter DR, Butts CT, Goodreau SM, Morris M (2003b). statnet: Software tools for the Statistical Modeling of Network Data. Statnet Project, Seattle, WA. Version 2, http://www.statnetproject.org.
+
+=== network ===
+
+* Butts CT (2008). network: A Package for Managing Relational Data in R. Journal of Statistical Software, 24(2). http://www.jstatsoft.org/v24/i02/.
+
+* Butts CT, with help~from David~Hunter, Handcock MS (2007). network: Classes for Relational Data. Version 1.2, http://erzuli.ss.uci.edu/R.stuff.
+
+=== ergm ===
+
+* Hunter DR, Handcock MS, Butts CT, Goodreau SM, Morris M (2008b). ergm: A Package to Fit, Simulate and Diagnose Exponential-Family Models for Networks. Journal of Statistical Software, 24(3). http://www.jstatsoft.org/v24/i03/.
+
+* Handcock MS, Hunter DR, Butts CT, Goodreau SM, Morris M (2003a). ergm: A Package to Fit, Simulate and Diagnose Exponential-Family Models for Networks. Statnet Project, Seattle, WA. Version 2, http://www.statnetproject.org.
+
+* Morris M, Handcock MS, Hunter DR (2008). Specification of Exponential-Family Random Graph Models: Terms and Computational Aspects. Journal of Statistical Software, 24(4). http://www.jstatsoft.org/v24/i04/.
+
+=== latentnet ===
+
+* Krivitsky PN, Handcock MS (2008). Fitting Latent Cluster Models for Social Networks with latentnet. Journal of Statistical Software, 24(5). http://www.jstatsoft.org/v24/i05/.
+
+* Krivitsky PN, Handcock MS (2007). latentnet: Latent position and cluster models for statistical networks. Seattle, WA. Version 2, http://www.statnetproject.org.
+
+=== sna ===
+
+* Butts CT (2008). Social Network Analysis with sna. Journal of Statistical Software, 24(6). http://www.jstatsoft.org/v24/i06/.
+
+* Butts CT (2007). sna: Tools for Social Network Analysis. Version 1.5, http://erzuli.ss.uci.edu/R.stuff.
+
+=== dynamicnetwork and rSoNIA ===
+
+* Bender-deMoll S, Morris M, Moody J (2008). Prototype Packages for Managing and Animating Longitudinal Network Data: dynamicnetwork and rSoNIA. Journal of Statistical Software, 24(7). http://www.jstatsoft.org/v24/i07/.
+
+=== networksis ===
+
+* Admiraal R, Handcock MS (2007). networksis: Simulate bipartite graphs with fixed marginals through sequential importance sampling. Statnet Project, Seattle, WA. Version 1, http://www.statnetproject.org.
+
+* Admiraal R, Handcock MS (2008). networksis: A Package to Simulate Bipartite Graphs with Fixed Marginals Through Sequential Importance Sampling. Journal of Statistical Software, 24(8). http://www.jstatsoft.org/v24/i08/.
+
+=== netperm ===
+
+* Butts CT (2006). netperm: Permutation Models for Relational Data. Version 0.2, http://erzuli.ss.uci.edu/R.stuff.
+
+* Handcock MS (2003b). degreenet: Models for Skewed Count Distributions Relevant to Networks. Statnet Project, Seattle, WA. Version 1.0, http://www.statnetproject.org.
+
+-----
+
+The statnet package is
+
+Copyright (c) 2007
+
+Mark S. Handcock, University of California-Los Angeles
+David R. Hunter, Penn State University
+Carter T. Butts, University of California-Irvine
+Steven M. Goodreau, University of Washington
+Martina Morris, University of Washington

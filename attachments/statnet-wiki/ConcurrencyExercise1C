@@ -1,0 +1,46 @@
+
+== EXERCISE 1: Thinking conceptually about concurrency at the local level (Follow-up) ==
+
+In Exercise 1, we set up the example so that Chris and Sam were similar on as many important metrics as possible, while still allowing Chris to have concurrent relationships, and Sam to have sequential relationships.  Recall the example:
+
+[[Image(samandchris.png, 400px)]]
+
+Items that were held equal across Chris and Sam include:
+
+-	Chris and Sam each have the same number of new relationships over the 6-month period
+-	Chris and Sam each have relationships of the same length
+-	Chris and Sam each have the same frequency of coital acts with their partners
+-	Chris and Sam each have sex at the same time on average—both are arranged symmetrically around the beginning of June.
+
+However, some things needed to be different.  Obviously, we wanted one to have concurrent partners and the other not, by design.  But doing that requires some other aspects to differ as well. In our example, these included:
+
+-	Chris began having sex later than Sam
+-	Chris stopped having sex earlier than Sam
+-	Chris had time periods with more sex than Sam, and other time periods with no sex at all. On the other hand, Sam had a constant coital frequency across the six months.
+
+Mathematically, one cannot have everything on both lists above match up between Chris and Sam when Chris is having concurrent partners and Sam is not.  Something else must differ.  We chose the above configuration because we felt that it most matched people’s intuition for a fair comparison that allows one to isolate the effect of concurrency as much as possible.  But one might chose other comparisons as well.  Below we include three examples that we encourage readers to explore on their own, identifying what is similar and what is different between Sam and Chris, and how each of the questions in Exercise 1 about probabilities and timings of transmission would be answered for that scenario.  Readers should also consider defining and exploring scenarios of their own, remembering, of course, to be mindful that all insights derived must be interpreted in light of the similarities and differences between Chris and Sam for that scenario.
+
+'''Alternate Scenario 1'''. Sam and Chris initiate sex at the same time, and Chris's sexual acts occur earlier than Sam's on average:
+
+[[Image(samandchrisleft.png, 400px)]]
+
+'''Alternate Scenario 2'''. Sam and Chris complete sex at the same time, and Chris's sexual acts occur later than Sam's on average:
+
+[[Image(samandchrisright.png, 400px)]]
+
+'''Alternate Scenario 3'''. Sam and Chris begin and complete sex at the same time; Chris's relationships are twice as long as Sam's, but '''Chris has only half as many coital acts with each partner''' as Sam does.  Thus, overall Chris and Sam have the same total frequency of sex.  This scenario is an example of '''coital dilution''', wherein Chris has only half as many sex acts per unit time within each relationship as Sam does.
+
+[[Image(samandchriscoitaldilution.png, 400px)]]
+
+Note that across all scenarios, one of the things on which we maintain consistency is the total number of coital acts had by Sam and Chris.  Reducing one relative to the other makes it impossible  to identify the effect of concurrency itself, since a reduction in sex will in and of itself have a major impact on disease transmission.
+
+[wiki:ConcurrencyExercise1D Back to Exercise 1 discussion]
+
+[wiki:ConcurrencyExercise2 Forward to Exercise 2: Thinking conceptually about concurrency at the population level]
+
+[ConcurrencyIndex Return to index]
+
+------
+
+(c) Steven M. Goodreau and Martina Morris 2012. Fair use permitted with citation. Citation info:
+Goodreau SM and Morris M, 2012. Concurrency Tutorials, http://www.statnet.org/concurrency

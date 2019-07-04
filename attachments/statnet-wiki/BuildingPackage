@@ -1,0 +1,59 @@
+[[Include(statnetnav)]]
+
+= Building and installing R package from source on Windows=
+
+As an example, we will build the package '''networkDynamic''' and install it on a 64-bit Windows system. The 64 bit version of R (version 2.15.1) is installed in {{{C:\Program Files\R\R-2.15.1\}}}
+
+Note: these instructions are for users of windows machines
+
+=== Obtain the source ===
+
+* Get Tortoise SVN software at http://tortoisesvn.net/ and install it.
+* Open a Windows Explorer window and navigate to the directory you are using for the source code. I used {{{C:\statnet}}}
+* Right click on an empty part of the window; select "SVN Checkout..." in the context menu.
+* In "URL of repository", enter the SVN location. Here I used the one for statnet_research
+{{{
+	svn+ssh://statnet.csde.washington.edu/svn/statnet_research
+                # (includes degreenet, latentnet, papers, snippets)
+        svn+ssh://statnet.csde.washington.edu/svn/statnet_commons
+                # (includes dynamicnetwork, dynamics, ergm, ergmuserterms, jssv24, netdata,
+                #  network, networksis, rsonia, statnet, transmission)
+}}}
+* Enter in username and password when prompted. Use your CSDE account login. You may have to do this multiple times.
+* Wait for the downloads to complete and then close SVN.
+
+
+=== Download Rtools ===
+
+* Make sure you have R installed and note its install path.
+* Download the right version of Rtools at http://cran.r-project.org/bin/windows/Rtools/. Here I downloaded {{{Rtools215.exe}}}
+* Install Rtools, using default options.
+* Add the following to the '''beginning''' of the system path:
+{{{
+C:\Rtools\bin;c:\Rtools\gcc-4.6.3\bin;c:\Rtools\MinGW64\bin;C:\Program Files\R\R-2.15.1\bin\x64;
+}}}
+
+You may need to change the last entry to {{{C:\Program Files\R\R-2.14.2\bin\i386}}} if you want to use the 32 bit version.
+Instructions on how to change the Windows path can be found here http://geekswithblogs.net/renso/archive/2009/10/21/how-to-set-the-windows-path-in-windows-7.aspx
+
+=== Build and install package ===
+
+* Open a DOS command line window as administrator: Type in "cmd" in the Start menu search box, and right click on {{{cmd.exe}}}. Select "Run as administrator" and confirm when prompted. 
+
+* Navigate to the directory where SVN put the packages. Here, I used the command
+{{{
+cd C:\statnet\statnet_research
+}}}
+
+* Use the following command to compile the package (change the directory to the appropriate one):
+{{{
+rcmd build ergmuserterms/trunk
+}}}
+You should find a tar.gz file as the result of the build command. I have the file at {{{C:\statnet\statnet_research\networkDynamic_0.2-2.tar.gz}}}
+(note that cygwin warnings are normal)
+
+* Install the package using this command, using the filename from the previous step:
+{{{
+rcmd INSTALL ergm.userterms_3.0-1.tar.gz
+}}}
+(note that if dependencies are missing, you will need to install them first. Here, the package requires '''network''' and other packages from statnet).

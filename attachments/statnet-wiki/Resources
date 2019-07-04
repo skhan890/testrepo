@@ -1,0 +1,58 @@
+[[Include(statnetnav)]]
+
+= statnet Resources =
+
+There are extensive help facilities available for statnet, both through the help function of the program (which is the standard R-based help function) and on this website. Technical support is also available via email though the statnet help mailing list (see the [wiki:FrequentlyAskedQuestions#HowdoIjointhestatnetusersgroup statnet Users Group section] of the FAQ for more information).
+
+== statnet User's Guide: JoSS papers on statnet ==
+
+The following links take you to papers from the ''Journal of Statistical Software'' (JoSS).  JoSS devoted a  [http://www.jstatsoft.org/v24/ special volume] to statnet in 2008 (volume 24) covering all of the packages in the suite available at the time, and the team continues to use JoSS as the primary outlet for publicizing additions to statnet suite.  These papers provide a comprehensive overview of statnet functionality, as well as hands-on tutorials for each of the packages.
+
+* [http://www.jstatsoft.org/v24/i01/ Introduction]: statnet: Software Tools for the Representation, Visualization, Analysis and Simulation of Network Data
+* [http://www.jstatsoft.org/v24/i02/ network]: A package for managing relational data in R
+* [http://www.jstatsoft.org/v24/i03/ ergm]: A package to fit, simulate and diagnose exponential family models for networks
+* [http://www.jstatsoft.org/v24/i04/ Using ergm] : Specification of exponential-family random graph models and computational tips
+* [http://www.jstatsoft.org/v24/i05/ latentnet]: a package for fitting latent cluster models for networks
+* [http://www.jstatsoft.org/v24/i06/ sna]: A package for social network analysis
+* [http://www.jstatsoft.org/v24/i07/ dynamicnetwork and rSoNIA]: Prototype packages for managing and animating longitudinal network data (outdated, see networkDynamic and ndtv packages)
+* [http://www.jstatsoft.org/v24/i08/ networksis]: A Package to Simulate Bipartite Graphs with Fixed Marginals Through Sequential Importance Sampling
+* A [http://www.jstatsoft.org/v24/i09/ tutorial] on statnet
+  * [attachment:'ergm tutorial sunbelt 2011.pdf' updated tutorial code] for R2.12.0 and ergm2.4 (Feb 2011)\
+* [http://www.jstatsoft.org/v52/i02/ ergm.userterms]: A Template Package for Extending statnet,  by David R. Hunter, Steven M. Goodreau and Mark S. Handcock. [[br]][[br]]
+
+== GW terms Worksheet ==
+
+'''[attachment:GWDegree.xlsx Excel Worksheet]''' that demonstrates the effect of the decay parameter on the gwdegree term.
+
+== Training Workshop Materials ==
+
+The team teaches workshops on statnet in various settings. The main venue is the annual ''INSNA Sunbelt Social Network Conference'', where we now teach a set of 6 workshops that range from an introduction to social network analysis with R and Statnet, to programming your own ergm model terms. 
+
+* The materials from the most recent Sunbelt workshops can be found on the [wiki:Sunbelt2016] page.
+* The materials from the 1st annual EUSN can be found on the [wiki:EUSN2014] page.
+
+We also teach workshops on Epidemic Modeling with the **EpiModel** and **statnet** packages.
+
+* The materials for the most recent Network Modeling for Epidemics workshop can be found on the [wiki:NME2014] page.
+
+=== Archive of previous workshop materials ===
+
+The older workshop materials can be found in the [wiki:WorkshopArchive archive page]. [[br]][[br]]
+
+
+== Papers that use statnet ==
+
+A [[StatnetPapers|list]] of published papers based on analyses using statnet and citations from Google Scholar. [[br]][[br]]
+
+
+== Tutorials by Others ==
+
+A list of excellent OtherTutorials and resources about ERGMs and doing sna with R. [[br]][[br]]
+
+== statnet_help mailing list archives ==
+
+Search the  [http://mailman13.u.washington.edu/pipermail/statnet_help/ statnet_help list archives ]
+
+== Other Links ==
+
+'''[attachment:glossary.pdf Glossary]''' of terms for statistical network models [PDF ]

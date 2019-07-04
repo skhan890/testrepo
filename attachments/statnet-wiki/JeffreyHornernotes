@@ -1,0 +1,51 @@
+== Notes on the network package ==
+ * OptimizingNetworkAdjacencyMatrix
+
+== Rmd2Trac ==
+This is a report tool I created to convert knitted Rmd files to trac wiki syntax:
+
+{{{
+library(knitr)
+
+Rmd2Trac <- function(reportFile='Report_template.Rmd'){
+
+  knitEnv <- new.env()
+
+  oldwd <- setwd(dirname(reportFile))
+  on.exit(setwd(oldwd),add=TRUE)
+
+  reportFile <- basename(reportFile)
+
+  fileFrag <- sub('\\.rmd$','',reportFile,ignore.case=TRUE)
+  mdFile <- paste(fileFrag,'md',sep='.')
+  tracFile <- paste(fileFrag,'trac',sep='.')
+  knit(reportFile,envir=knitEnv)
+  lns <- readLines(mdFile)
+
+  # transform code chunks
+  inChunk <- FALSE
+  for (i in 1:length(lns)){
+    if (grepl('^```r?$',lns[i])){
+      if (inChunk){
+        lns[i] <- '}}}'
+        inChunk <- FALSE
+      } else {
+        lns[i] <- '{{{'
+        inChunk <- TRUE
+      }
+    }
+  }
+
+
+  # Transform image tags
+  for (i in grep('^!\\[plot of',lns)){
+    imgFile <- sub('^!\\[plot of chunk .*\\]\\(figure/(.*)\\).*$','\\1',lns[i])
+    lns[i] <- paste( '[[Image(',imgFile, ')]]', sep='')
+    cat("Don't forget to upload",imgFile,"to the wiki.\n")
+  }
+
+  writeLines(lns,con=tracFile)
+  
+  invisible(knitEnv)
+}
+}}}

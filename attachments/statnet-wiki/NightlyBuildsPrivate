@@ -1,0 +1,113 @@
+= Nightly Build Repositories =
+
+We have a system to build and check packages on linux, mac, and windows each night. It helps flag bugs and also provides a way to bring your local system into a specific state.
+
+== unstable ==
+The 'unstable' repository contains the 'trunk' version of all the packages.
+
+http://statnet.csde.washington.edu/unstable/
+
+== release candidate ==
+
+The 'release_candidate' repository contains the versions of packages that are being tested for release (or or sometimes what has just been released)
+
+http://statnet.csde.washington.edu/release_candidate/
+
+Both unstable and release_candidate repositories are password-protected and are intended for use by members of the statnet team because they may contain 'embargoed' code that has not been published yet. The password protection complicates the install.packages syntax, the appropriate version for each platform is on the index page for the repository.
+
+    {{{user: unstable}}}
+
+    {{{password: statnet}}}
+ 
+== preview ==
+
+The 'preview' repository is a public repo containing CRAN-ready package builds for external developers to test
+
+http://statnet.csde.washington.edu/preview/
+
+
+=== To install packages from these repositories for testing: ===
+During the release process, statnet developers should probably be testing against the release_candidate builds of the packages. Because the repositories are password protected, you must use the {{{install.packages()}}} command with arguments {{{repos=}}} and {{{method=}}}. {{{setRepositories()}}} will not work with password arguments.
+
+{{{
+install.packages('ergm',repos="http://unstable:statnet@statnet.csde.washington.edu/unstable",method='wget')
+}}}
+
+See http://statnet.csde.washington.edu/release_candidate/ for the specific commands and method argument appropriate for your platform.  If you want to force installation from source (for example if you are on Mac or Windows and the build date on the binaries is out of date) you can add the {{{type='source'}}} argument. 
+
+
+= Ideal Release Process for a Package=
+(according to Skye).  Documenting it here because I don't always remember all the stages. 
+
+== Milestone Established ==
+
+We create a milestone with a version number and target CRAN release date in the trac system and assign the bugs and tasks to it that we hope to accomplish.  (Some bugs just roll over from previous release). Ideally, (according to skye) this development takes place on trunk (unstable).  Or, if development is occurring on another branch, fixes should be ported to trunk.
+
+
+== Fork off release candidate: feature (and major bug) "freeze" ==
+
+Ideally, two to three weeks before expected CRAN release date, we freeze the set of features and bugs fixes we are expecting to include in a release.  Minimally, this needs to happen several days before the Preview release, to give the build process time to complete.  
+
+* make sure docs are updated
+* make sure changeLog or NEWS file is updated
+* project is building without Errors or Warnings in your local environment
+
+If development was done on trunk, we branch off a release_candidate version.  
+{{{
+svn copy svn+ssh://skyebend@statnet.csde.washington.edu/svn/statnet_commons/networkDynamic/trunk
+           svn+ssh://skyebend@statnet.csde.washington.edu/svn/statnet_commons/networkDynamic/branches/v0.6
+      -m "Creating a release candidate branch for version 0.6"
+}}}   
+
+* Update version numbers on trunk and branch to differentiate them. Usually the release branch will have a version number like x.y.z, where trunk may just have x.y.
+
+Someone with access to build server (skye or pavel) needs to check out the branch into its own directory in src/  and add the source directory to the list for the suite in cfg/RC.ste.  The packages in the suite need to be in dependency order, and no blank lines at end. 
+
+Over the next several days, keep checking the release_candidate build status page http://statnet.csde.washington.edu/release_candidate/ and make minor fixes until all Errors, Warnings, and Notes are resolved.  Make sure that other depending packages in release are building correctly as well, and that it is building OK on all three platforms.
+
+Note that the Windows and Mac builds operate by downloading packages from the release_candidate repository, so their status may lag a day behind the linux build.  They also only run the CRAN set of checks, not the entire set of dev checks.
+
+Also, check that it is not generating warnings against the development version of R  (currently no web UI for this, so skye or pavel has to check).   
+
+Other developers should be able to assume there won't be any major changes at this point, and should probably be building against this version.
+ 
+
+== Push out Preview version ==
+
+After the release candidate is completely clean and CRAN ready, packages should be pushed out to the Preview repository using the bin/deploy_preview script to copy the current state of the release_candidate. (first check that Mac and Windows binaries have built). The preview version is a public repository located at:
+
+http://statnet.csde.washington.edu/preview/
+
+Announce to statnet_dev list and email maintainers of depending non-statnet packages.  If the packages has out-of-suite dependencies (especially to non-statnet packages) it should be in Preview at least a week or two before getting pushed to CRAN to give other maintainers time to adjust their packages. . Leaning towards more time if there are major features changes.  Since this is a public repository, we must assume that the world at large may now have a copy of the package installed, '''so any further updates to packages in the preview repository require an increment to the minor version number'''.  
+
+If we learn of crucial bugs at this stage (that must be included in the release) they need to be made to the release candidate, rebuilt (including Mac and Windows) and re-pushed to preview.  
+
+Other than emergency bug fixes intended to be pushed to preview, no new changes should be committed to the release candidate branch during preview so that it will stay in sync with Preview until the CRAN release.  But development and big bug fixes should continue merrily along on trunk or other branches. 
+
+Teaching materials (workshops, etc) should probably be rebuilt against preview and checked. 
+
+Other statnet developers should definitely be building and checking their work against Preview version to avoid any nasty surprises once it reaches CRAN.
+
+
+== Release to CRAN ==
+
+CRAN has Windows-based builder which seems to be nearly the same as their full test suite.  Often it is worth doing one final check by submitting the package here because is automated and they won't yell at you if it reveals any issues: http://win-builder.r-project.org/upload.aspx
+
+The source (.tar.gz i.e linux) version of the package should be uploaded from preview to the CRAN package submission form http://cran.r-project.org/submit.html and email confirmations validated.  If there were any notes that are unresolved (i.e. because we may disagree with CRAN's interpretation) they must be mentioned in the comment field, also if we know it will break any depending packages (including our own).  Be forewarned, any errors or build problems at this point are likely to incur the Wrath of Ripley (try not to take it personally)
+
+The Point of no Re-Release:  after this, CRAN usually won't let us re-release the package for 30 days. 
+
+== Close milestone and  Update our CRAN Mirror ==
+
+Once the packages in the release have all made it successfully on to CRAN, close the associated release milestone on trac, migrating any unresolved issues to the next release target. Also update our local CRAN mirror with the new packages and all their dependencies using the bin/deploy_public script.
+
+Update cfg/RC.ste to remove references to released packages. Clean up the released packages with the bin/post_release_cleanup script. Optionally delete any src directories that won't be needed again.
+
+Either tag the release candidate branch in svn (pavel), or abandon the release_candidate branch (skye) so that we later have a reference point for testing or emergency bug fixing. 
+
+== Drink Umbrella Drinks ==
+
+It is very important '''NOT''' to begin developing features for the next release while still under the effects of Umbrella Drinks
+
+
+ 

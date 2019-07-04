@@ -1,0 +1,81 @@
+{{{
+library(ggplot2)
+library(microbenchmark)
+library(network)
+library(ergm)
+data('faux.magnolia.high')
+fmh <- faux.magnolia.high
+}}}
+
+Since researching ticket #866, I accidentally started benchmarking as.matrix.network.adjacency which has nothing to do with the ticket. Regardless, I wanted to capture some of the attempts at doing so. Code can be found in my devolper branch [12933/statnet_commons].
+
+In the following tests, I compare the run-time of functions orig() and proposed(). orig() always represents the original code and proposed() always represents the attempted optimized code.
+
+Results of setting an edge attribute of type character:
+
+
+{{{
+set.edge.attribute(fmh,'dummy','foo')
+orig <- function() as.matrix.network.adjacency.orig(fmh,'dummy')
+proposed <- function() as.matrix.network.adjacency(fmh,'dummy')
+res <- microbenchmark(orig(),proposed(),times=100)
+summary(res)
+}}}
+
+{{{
+##         expr    min     lq median     uq  max neval
+## 1     orig() 1446.9 1469.7 1480.5 1582.0 1751   100
+## 2 proposed()  525.7  544.6  549.5  556.3 1546   100
+}}}
+
+{{{
+qplot(y=time,colour=expr,data=res)
+}}}
+
+[[Image(unnamed-chunk-3.png)]]
+
+Results of setting an edge attribute of type numeric:
+
+
+{{{
+set.edge.attribute(fmh,'dummy',2)
+orig <- function() as.matrix.network.adjacency.orig(fmh,'dummy')
+proposed <- function() as.matrix.network.adjacency(fmh,'dummy')
+res <- microbenchmark(orig(),proposed(),times=100)
+summary(res)
+}}}
+
+{{{
+##         expr   min    lq median    uq   max neval
+## 1     orig() 309.4 420.9  424.7 428.2 653.8   100
+## 2 proposed() 280.5 387.0  390.3 394.7 613.8   100
+}}}
+
+{{{
+qplot(y=time,colour=expr,data=res)
+}}}
+
+[[Image(unnamed-chunk-5.png)]]
+
+Results of setting an edge attribute of type integer:
+
+
+{{{
+set.edge.attribute(fmh,'dummy',3L)
+orig <- function() as.matrix.network.adjacency.orig(fmh,'dummy')
+proposed <- function() as.matrix.network.adjacency(fmh,'dummy')
+res <- microbenchmark(orig(),proposed(),times=100)
+summary(res)
+}}}
+
+{{{
+##         expr   min    lq median    uq   max neval
+## 1     orig() 306.5 420.6  423.8 430.6 771.9   100
+## 2 proposed() 269.7 381.9  384.4 389.1 493.0   100
+}}}
+
+{{{
+qplot(y=time,colour=expr,data=res)
+}}}
+
+[[Image(unnamed-chunk-7.png)]]

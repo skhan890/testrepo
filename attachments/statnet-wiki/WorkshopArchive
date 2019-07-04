@@ -1,0 +1,48 @@
+[[Include(statnetnav)]]
+
+= Archive of previous workshop materials =
+
+This archive includes links to workshop materials from previous years, some of which may be out of date. They are included here because not all workshops are offered every year. The most current versions are located at [wiki:Sunbelt2016 Sunbelt2016]
+
+== INSNA Sunbelt Social Network Conferences == 
+* [wiki:Sunbelt2013 Sunbelt 2015]  
+* [wiki:Sunbelt2013 Sunbelt 2014]  
+* [wiki:Sunbelt2013 Sunbelt 2013]  
+* [wiki:Sunbelt2012 Sunbelt 2012]  
+
+* 2011 ERGM/statnet workshop  
+  * [attachment:'intro ergm sunbelt 2011.pdf:wiki:Resources' Introduction to ERGM] [ PDF ]
+  * [attachment:'ergm tutorial sunbelt 2011.pdf:wiki:Resources' statnet Tutorial] [ PDF ]
+  * [attachment:'statnet_basic_stats_tutorial_for_sunbelt_2011.pdf:wiki:Resources' Basic Network Statistics Tutorial] [ PDF ]   
+  * [attachment:sunbelt2011.Rdata:wiki:Resources .Rdata file]
+
+* 2009 ERGM/statnet workshop  
+  * [attachment:'ERGM intro.ppt:wiki:Resources' Introduction to ERGM] [ powerpoint ]
+  * [attachment:'tutorial sunbelt 2009 final.pdf:wiki:Resources' statnet Tutorial] [ PDF ]
+
+* 2006 workshop on ERGMs  
+  * [attachment:ergmssunbeltxxviintroduction.pdf:wiki:Resources Introduction (Morris)] [ PDF ]
+  * [attachment:ergmssunbeltxxviergmclass.pdf:wiki:Resources ERGM class (Handcock)] [ PDF ]
+  * [attachment:ergmssunbeltxxvidependence.pdf:wiki:Resources Dependence (Pattison)] [ PDF ]
+  * [attachment:'ergmssunbeltxxviestimation .pdf:wiki:Resources' Estimation (Hunter)] [ PDF ]
+  * [attachment:ergmssunbeltxxvispecifications.pdf:wiki:Resources Specification (Robins)] [ PDF ]
+
+* 2005 workshop on ERGMs  
+  * [wiki:SpecialSessionFlyer Special session: Statistical Models for Networks]  [ flyer and presentation PDFs ]
+  * [attachment:8HunterHandcock.pdf:wiki:Resources Presentation: Curved Exponential Family Models (Handcock & Hunter)] [ PDF ]
+  * [attachment:bibliography.pdf:wiki:Resources ERGM (p-star) bibliography (as of 2005)] [ PDF ]
+
+== Political Networks 2011 ERGM/statnet workshop ==
+
+* [attachment:statnet_polnet2011_ergm.pdf:wiki:Resources ERGM Tutorial] [ PDF ]
+* [attachment:'ergm_intro.pdf:wiki:Resources' ERGM Slides 1 of 3] [ PDF ]
+* [attachment:'ergm_techoverview.pdf:wiki:Resources' ERGM Slides 2 of 3] [ PDF ]
+* [attachment:'ergm_checking.pdf:wiki:Resources' ERGM Slides 3 of 3] [ PDF ]
+* [attachment:'statnet_polnet2011_sampling_netinf.pdf:wiki:Resources' Sampling and Network Inference Tutorial] [ PDF ]
+* [attachment:'sampnetinf_sampling.pdf:wiki:Resources' Sampling and Network Inference Slides 1 of 2] [ PDF ]
+* [attachment:'sampnetinf_networkinference.pdf:wiki:Resources' Sampling and Network Inference Slides 2 of 2] [ PDF ]
+* [attachment:'statnet_polnet2011_modeling_missingness.pdf:wiki:Resources' ERGMs with Missing Data Tutorial] [ PDF ]   
+* [attachment:'ergmmiss_techoverview.pdf:wiki:Resources' ERGMs with Missing Data Slides] [ PDF ]   
+* [attachment:'polnet2011.Rdata:wiki:Resources' .Rdata file]
+
+

@@ -1,0 +1,148 @@
+[[Include(statnetnav)]]
+
+= 2014 INSNA Sunbelt Conference statnet Workshop Page =
+
+''WELCOME'' to social network analysis with R and statnet!  On this page, you will find all the information you need to prepare for this year's Sunbelt workshops. Please check this site periodically for updates and announcements.  If you have additional questions, please email us at [mailto:statnet_help@u.washington.edu statnet_help].
+
+The sections below cover the following topics:
+
+* [[#WorkshopSessions|List of workshops]]
+* [[#AnnouncementsandUpdates|Announcements and Updates]]
+* [[#Prerequisites|Recommended prerequisites for each workshop]]
+* [[#WorkshopMaterials|Workshop materials]] (tutorials and slides) for download and printing (NB:  we will not distribute hardcopy handouts at the workshops)
+* [[Installation|Instructions for downloading and installing R and statnet]] (NB: you should do this before the workshop)
+
+
+== Workshop Sessions ==
+
+This year we are offering eight workshops.  They are loosely organized into two sequences (Introduction to network modeling in statnet, and Dynamic network modeling in statnet), with some additional advanced topics:
+
+||= '''Sequence''' =||= '''Tue 2/18/14, 08:00AM-11:00AM''' =||= '''Tue 2/18/14, 03:00PM-06:00PM''' =||= '''Wed 2/19/14, 08:00AM-11:00AM''' =||
+|| Introductory Sequence     ||[http://sunbelt2014.org/?q=tpc5 An Introduction to Network Analysis with R and statnet] [[BR]] Acton & Jasny [[BR]]Location: Jasmine ||[http://sunbelt2014.org/?q=tpc14 Moving Beyond Descriptives: Basic Network Statistics with statnet]  [[BR]]Instructor: Jasny & Acton [[BR]]Location: Citrus                                              ||[http://sunbelt2014.org/?q=wpc6 Exponential-family Random Graph Modeling with statnet] [[BR]]Instructor: Hunter & Butts [[BR]]Location: Sawgrass||
+|| Dynamic modeling sequence ||[http://sunbelt2014.org/?q=tpc7 STERGM - Separable Temporal ERGMs for Modeling Discrete Relational Dynamics]  [[BR]]Instructor: Hunter & Goodreau [[BR]]Location: Sabel||[http://sunbelt2014.org/?q=tpc19 Network Dynamic Temporal Visualization (ndtv):  a package of R tools for visualizing dynamic networks] [[BR]]Instructor: Bender-deMoll & Morris [[BR]]Location: Indian Key||[http://sunbelt2014.org/?q=wpc4 Network Modeling of Infectious Disease and Social Diffusion Processes with EpiModel] [[BR]]Instructor: Jenness & Morris [[BR]]Location: Jasmine||
+|| Additional Workshops      ||[http://sunbelt2014.org/?q=tpc1 Modeling Relational Event Dynamics with statnet] [[BR]]Instructor: Butts & Marcum[[BR]] Location: Banyan ||[http://sunbelt2014.org/?q=tpc6 Latent Variable Models With Latentnet] [[BR]]Instructor: Krivitsky, Goodreau & Hunter [[BR]] Location: Bird Key ||
+
+
+Workshop Assistants: Kirk Li (UW), Yue Yu, Ben Gibson, Emma Smith, Xuhong Zhang and Sean Fitzhugh (UCI) 
+
+(Last updated: 02/9/14)
+
+
+
+
+
+-------
+
+== Announcements and Updates ==
+
+* For the workshops, you will need the latest versions of the statnet packages from CRAN. 
+  * If you have not installed statnet before, please see the [[Installation]] instruction page.  
+  * If you have installed statnet packages before, you should either perform a fresh install or update.
+  * Make sure you have the package(s) needed for your workshop (these are listed in the [[#WorkshopMaterials|Workshop materials]] below)
+
+* The statnet workshops are designed as hands-on labs, and are best experienced interactively using your own laptop and software installation. If you would like to simply listen and try out the exercises later, that is fine too -- however, we do ask that attendees who plan on using their laptops during the workshop install the required software before the workshop begins. 
+
+* Some workshops may also require supplemental data files, which are included in the [[#WorkshopMaterials|Workshop materials]] below (and should be downloaded prior to the workshop).
+
+* Workshop slides and handouts will be posted here before the workshop; downloading and printing is optional, but may make it easier to follow along on your own.
+
+* Workshop participants with problems or questions regarding software installation prior to the workshop should email [mailto:sjenness@uw.edu Sam Jenness] or [mailto:emilyjs@uci.edu Emma Smith] for Mac-related questions, [mailto:cbengibson@gmail.com Ben Gibson] for Windows, and [mailto:yuey6@uci.edu Yue Yu] for Linux.
+
+-------
+
+== Prerequisites ==
+
+Although the workshop sessions may be taken independently by those having prior experience with R and statnet, we strongly recommend the following prerequisites:
+
+ An Introduction to Network Analysis with R and statnet::
+  Prerequisites: None
+ Moving Beyond Descriptives: Basic Network Statistics with statnet::
+  Prerequisites: ''An Introduction to Network Analysis with R and statnet''
+ Exponential-family Random Graph Modeling with statnet::
+  Prerequisites: ''Moving Beyond Descriptives: Basic Network Statistics with statnet''
+ STERGM - Separable Temporal ERGMs for Modeling Discrete Relational Dynamics with statnet::
+  Prerequisites: ''Exponential-family Random Graph Modeling with statnet''
+ Network Dynamic Temporal Visualization (ndtv):  a package of R tools for visualizing dynamic networks::
+  Prerequisites: ''STERGM - Separable Temporal ERGMs for Modeling Discrete Relational Dynamics'' 
+ Network Modeling of Infectious Disease and Social Diffusion Processes with EpiModel::
+  Prerequisites: ''STERGM - Separable Temporal ERGMs for Modeling Discrete Relational Dynamics''
+ Modeling Relational Event Dynamics with statnet::
+  Prerequisites: ''An Introduction to Network Analysis with R and statnet'' (or prior experience with R)
+ Latent Variable Models With Latentnet::
+  Prerequisites: ''An Introduction to Network Analysis with R and statnet'' (or prior experience with R)
+
+Workshop materials from last year (if taught) can be found [[Sunbelt2013|here]] on the statnet wiki.
+
+--------
+
+== Workshop Materials ==
+
+Workshop materials will be posted here as they are completed, for the convenience of session attendees. 
+  * ''Packages required'' lists the statnet packages you'll need
+  * ''Electronic Handouts'' contain the tutorial for the workshop.  It's handy to have an electronic copy of this during the workshop to cut and paste commands into R as we go along.
+  * ''Slides'', if present contain supplemental learning materials.
+  * ''Data Files'', if present are the supplemental data files needed for a workshop.  
+
+Attendees should download all the files needed for their respective workshop sessions and save them in a convenient spot. This section will be updated regularly.
+
+=== An Introduction to Network Analysis with R and statnet ===
+
+* Packages required:  network, sna
+* Electronic handouts: [attachment:introToSNAinR-handout.pdf PDF]
+* Slides:  [attachment:introToSNAinR-slides.pdf PDF]
+* Code:  [attachment:introToSNA-script.R Text file with R commands]
+* Data Files: [attachment:introduction_sunbelt_2014.Rdata], [attachment:relationalData.csv], [attachment:vertexAttributes.csv]
+
+=== Moving Beyond Descriptives: Basic Network Statistics with statnet ===
+
+* Packages required:  network, sna
+* Electronic handouts: [attachment:movingBeyondDescriptives.pdf PDF]
+* Code:  [attachment:movingBeyondDescriptives.R Text file with R commands]
+* Data Files: [attachment:movingBeyondDescriptives.Rdata]
+
+=== Exponential-family Random Graph Modeling with statnet ===
+
+* Packages required: ergm (dependencies loaded automatically)
+* Electronic handouts: [http://statnet.csde.washington.edu/workshops/SUNBELT/current/ergm/ergm_intro.pdf intro slides PDF]      [http://statnet.csde.washington.edu/workshops/SUNBELT/current/ergm/ergm_tutorial_abridged.html HTML_abridged]                     [http://statnet.csde.washington.edu/workshops/SUNBELT/current/ergm/ergm_tutorial.html HTML]                      [http://statnet.csde.washington.edu/workshops/SUNBELT/current/ergm/ergm_tutorial.pdf PDF]
+* R code: [http://statnet.csde.washington.edu/workshops/SUNBELT/current/ergm/ergm_tutorial%5brmd2r%5d.R R file]
+* Speed tests appendix: [http://statnet.csde.washington.edu/workshops/SUNBELT/current/ergm/ergm_profile.html ergm speed tests HTML]
+
+=== STERGM - Separable Temporal ERGMs for Modeling Discrete Relational Dynamics ===
+
+* Packages required: tergm (dependencies loaded automatically)
+* Electronic handouts: [http://statnet.csde.washington.edu/workshops/SUNBELT/current/tergm/tergm_tutorial.html HTML] [http://statnet.csde.washington.edu/workshops/SUNBELT/current/tergm/tergm_tutorial.pdf PDF]
+* R code: [http://statnet.csde.washington.edu/workshops/SUNBELT/current/tergm/tergm_tutorial%5brmd2r%5d.R R file]
+
+=== Network Dynamic Temporal Visualization (ndtv) ===
+
+* Packages required: see [https://statnet.csde.washington.edu/trac/wiki/ndtvInstallation ndtv installation instructions]
+* Electronic handouts: [http://statnet.csde.washington.edu/workshops/SUNBELT/current/ndtv/ndtv_workshop.pdf PDF]  [http://statnet.csde.washington.edu/workshops/SUNBELT/current/ndtv/ndtv_workshop.R R commands file]
+* Overview of 3rd-party software for additional layouts, saving animations as videos, and replaying: [http://statnet.csde.washington.edu/workshops/SUNBELT/current/ndtv/ThirdPartySoftware.pdf PDF]
+
+* Data Files: 
+
+=== Network Modeling of Infectious Disease and Social Diffusion Processes with EpiModel ===
+
+* Packages required: see [http://statnet.org/EpiModel/sunbelt/2014/0-Install.html EpiModel installation instructions]
+* Slides and tutorials: http://bit.ly/EpiModelSB 
+
+
+=== Modeling Relational Event Dynamics with statnet ===
+
+* Packages required: relevent, informR (dependencies loaded automatically)
+* Electronic handouts: [attachment:statnet_sunbelt2014_relevent.pdf PDF]
+* Slides: [attachment:sunbelt_rem_intro.pdf PDF]
+* Data Files: [attachment:relevent_sunbelt_2014.Rdata Workshop Rdata File]
+
+=== Latent Variable Models With Latentnet  ===
+
+* Packages required: latentnet (dependencies loaded automatically)
+* Electronic handouts: 
+* Slides: 
+* Data Files: 
+
+--------
+
+== Installing statnet ==
+
+Please follow the instructions on the statnet [[Installation]] page for downloading the latest version of R, statnet and its related libraries

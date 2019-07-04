@@ -1,0 +1,512 @@
+= Meeting Calendar =
+                
+== 2019 ==            
+
+== Spring (Thursdays 11:00) ==        
+          
+**4-Apr**: check-ins & scheduling                                
+                  
+
+**11-Apr**: Adam on descriptive statistics                               
+             
+
+**18-Apr**: Darcy on model findings (MM out)                                  
+             
+
+**25-Apr**: Chad on changes made in ERGM terms  ([https://statnet.csde.washington.edu/trac/wiki/NMG/CKlumbPresentation4_2019.r presentation code])                               
+             
+
+**2-May**: Emily on survival analysis  ([https://statnet.csde.washington.edu/trac/wiki/NMG/pollock5.2.2019.pdf​ presentation slides])                       
+             
+
+**9-May**: Darcy's dissertation defense practice (MM remote)                                    
+            
+
+**16-May**: Sara Khan talk on her background (DH out)                                  
+            
+
+**23-May**: Jeanette's SDSS talk on ERGM Ego (SG maybe out, probably not)                   
+            
+
+**30-May**: Emily's colloquium practice talk (MM out- might zoom in, SG out)                               
+            
+
+**6-June**: Sunbelt talks - Sarah S                                  
+               
+
+**13-June**: Sunbelt talks - Deven                
+                  
+== Winter (Wednesdays 11:00) ==        
+
+**9-Jan**: check-ins, scheduling for the quarter                         
+
+**16-Jan**: Martina on WHAMP & survey eligibility                   
+
+**23-Jan**: Darcy on case cascade factors           
+
+**30-Jan**: (SMG, JB gone)                 
+
+**6-Feb**: (DR gone) Steve on departure correction                    
+
+**13-Feb**:  Jeanette on !EpiModel Egocentric (exploratory) Data Analysis           
+
+**20-Feb**: Sarah CROI poster on HIV SPVL evolution with treatment            
+
+**27-Feb**: (DH gone) Emily CSSS poster on event history analysis          
+
+**6-Mar**: (CROI: SMG & SES gone)                       
+
+**13-Mar**: Sarah & Steve on !EvoNet          
+
+**20-Mar**: (DH gone) Jeannette on effectively using project boards                    
+
+**Spring topics:** sampling with trans folks           
+
+== 2018 ==                 
+
+=== Fall (Wednesdays 11:00) ===        
+
+**26-Sept**:          
+
+**3-Oct**: Deven on Adolescent PrEP (SMG might not be here)         
+
+**10-Oct**: (SMG and DTH gone)        
+
+**17-Oct**: Martina SHAMP update           
+
+**24-Oct**: Darcy - HIV/STI Symposium practice talk          
+
+**31-Oct**: (JKB gone, MM giving guest lecture)
+
+**7-Nov**: (MM gone)
+
+**14-Nov**: (SMG and EDP gone)
+
+**21-Nov**: (Thanksgiving-adjacent) conversation about modeling durations with age restricted populations          
+
+**28-Nov**: (MM and JKB gone)
+
+**5-Dec**: Eva: modeling treatment trajectories with DAPs
+
+**12-Dec**: multiple large population run discussion? identifying code and changes necessary to have a more generalized way to input attribute groups              
+
+**19-Dec**: (officially on UW break)                    
+
+
+=== Summer (Wednesdays 1:00) ===      
+
+**13-June**:          
+
+**20-June**: practice talks for Sunbelt?             
+
+**27-June**: Sunbelt! (room reserved for a conference, need to meet elsewhere)          
+
+**4-July**:          
+
+**11-July**:     
+
+**17-July**: 2:00 Martina & Deven present on WHAMP durations            
+
+**25-July**:     
+
+**1-Aug**:     
+
+**8-Aug**:     
+
+**15-Aug**:     
+
+**22-Aug**: NME     
+
+**29-Aug**:     
+
+**5-Sept**:     
+
+**12-Sept**:     
+
+**19-Sept**:     
+
+**26-Sept**: (first day of fall quarter)        
+
+
+=== Spring (Mondays 11:00) ===       
+
+**26-March**: PrEP breakthrough discussion    
+
+**02-April**: Cost optimization - Eva M      
+
+**09-April**: K prep - Horacio (Jeanette gone)           
+
+**16-April**: HIV dynamics & evolution presentation - Sarah       
+
+**23-April**: GWESP! (SES, DTH gone)     
+
+**30-April**: Cohort analysis - Emily           
+
+**07-May**: Multiplex ties
+
+**14-May**: Cycle of life - Deven     
+
+**21-May**: WHAMP update - Martina     
+
+**28-May**: MEMORIAL DAY      
+
+**04-June**: SHAMP update - Martina and Jeanette       
+ 
+
+=== Winter (Wednesdays 1:30) ===
+
+**03-Jan**: Check-in
+
+**10-Jan**: Ben Gibson
+
+**17-Jan**: Adolescent tool - Emily and Steve
+
+**24-Jan**: SHAMP - Jeanette and Martina (DR gone)
+
+**31-Jan**: (JKB gone)
+
+**07-Feb**: Hutch modeling talk (MM gone)
+
+**14-Feb**: Lifecycle model - Deven (MM gone)
+
+**21-Feb**: PDR testing - Horacio
+
+**28-Feb**: Trade networks - Bernd (DR may be gone)
+
+**07-Mar**: Horacio - Data and model foundations for a K proposal (DR likely to be gone)
+
+**14-Mar**: Lifecycle model - Deven (DR pretty darn likely to be gone)
+
+
+== 2017 ==
+
+=== Fall (Wednesdays 1:30) ===
+
+**11-Oct**: catch up and scheduling     
+
+**18-Oct**: (Darcy maybe gone)  CAMP: methods & life cycle (Deven)  
+
+**25-Oct**: Bernd's research (Bernd)   
+
+**1-Nov**: (Steve & Deven & Bernd gone) Emily re class project initial ideas (Emily)
+
+**8-Nov**: (Bernd gone) Model parameter estimation (Darcy)    
+
+**15-Nov**: Gitbook et al. (Jeanette)
+
+**22-Nov**: Thanksgiving eve
+
+**29-Nov**: (Steve & Martina gone)
+
+**6-Dec**:  Show off CDC tool & Emily's model (Steve & Emily)
+
+**13-Dec**:   
+
+**20-Dec**: Holiday break      
+
+=== Spring (Tuesdays 10:30) ===
+
+**28-Mar**: Catch up and scheduling 
+
+**4-Apr**: Pavel on ergm API enhancements 
+
+**11-Apr**: (SMG gone) Discussion of data/methods for estimating duration (mm leads) 
+
+**18-Apr**: ergm.ego for SHAMP, Janette and Martina
+
+**25-Apr**: TERGM lite (with guest appearance by Sam Jenness!!)
+
+**2-May**: (Deven gone)
+
+**9-May**: SHAMP internal validation, Deven and Katherine
+
+**16-May**: Emily update on CDC project (CAMP adolescent)
+
+**23-May**: Deven CAMP adolescent project
+
+**30-May**: Pavel ergm.ego enhancements and utilities
+
+**6-June**: Li on dissertation
+
+=== Winter (Tuesdays 10:30) ===
+
+**10-Jan**:   Estimating mean and distribution of partnership lengths (JKB and SMG)
+
+**17-Jan**:   CROI shell JKB (Undiagnosed)
+
+**24-Jan**:   (MM JKB gone)  hyak tutorial from the HPCC club
+
+**31-Jan**:   (MM SMG gone)  Sarah role & HIV evolution
+
+**7-Feb**:    (MM gone)  CROI posters
+
+**14-Feb**:  (CROI) (SMG, Deven, JKB? gone)
+
+**21-Feb**:   Darcy modeling
+
+**28-Feb**:   Horacio Duarte
+
+**7-Mar**:   (SMG and Deven gone)
+
+**14-Mar**:  (SMG maybe gone) SHAMP update
+
+== 2016 ==
+
+=== Fall (Wednesdays 3:00) ===
+
+**26-Oct**:   Li on temporal dependence
+
+**2-Nov**:   Darcy on routine testing        (SMG) gone
+
+**9-Nov**:   Sarah Evonet
+
+**16-Nov**:  Matt Salganik talk Johnson Hall 075 Social Research in the Age of Big Data
+
+**23-Nov**:  Thanksgiving
+
+**30-Nov**:  Jeanette Undx
+
+**7-Dec**:   CAMP
+
+**14-Dec**:  SHAMP
+
+
+
+== 2016 ==
+
+=== Spring (Wednesdays 10:30) ===
+
+** Mar 30 **: Organizational meeting
+
+** Apr 6 **: (no meeting, gone for Sunbelt)
+
+** Apr 13 **: Classroom data discussion (Valeria and Dan). Devon not here.
+
+** Apr 20 **: Li on temporal and multilevel networks
+
+** Apr 27 **: Darcy's practice talk
+
+** May 4 **:
+
+** May 11 **:
+
+** May 18 **:
+
+** May 25 **: Devon (2nd wave of data from PPP)
+
+** June 1 (Exam week) **: Li on missing data
+
+** June 8 **: Sarah
+
+
+=== Winter ===
+
+** Jan 8 **: No meeting -- Software Carpentry workshop
+
+** Jan 15 **: Emily P: Modeling papers
+
+** Jan 22 **: Li: directed GWESP terms and rest of ML ergm
+
+** Jan 29 **: Martina and Kirk: Outline for revamped social networks class (Stat 567)
+
+** Feb 5 **: (mm gone)
+
+** Feb 12 **: (mm gone) Neil: Visualization study
+
+** Feb 19 **: (mm gone) Sarah: !EvoNet
+
+** Feb 26 **:Martina and Kirk: ERGM estimation for missing data (prep for class)
+
+** Mar 4 **: (mm gone) Miruna: Sunbelt presentation
+
+** Mar 11 **: (mm gone) Deven: organizational networks
+
+** Mar 18 **: (EXAM WEEK) Jeanette and Martina:  Estimating the prevalence of undiagnosed HIV -- CDC vs. Testing History approach
+
+
+
+== 2015 ==
+
+=== Autumn === 
+
+** Oct 19 **:
+Projects metamap
+
+** Oct 26 **:
+Deven: differences in ATL vs SEA care cascade and demog parameters and outcomes
+
+** Nov 2 **:
+Emily: discussion of specification outline for new STERGM shiny app
+
+** Nov 9 **:
+Steve: Mardham update
+
+** Nov 16 **:
+Sam:  tergm lite
+
+** Nov 23 **:
+Emily: CSP draft presentation
+
+** Nov 30 **:
+Deven: initial results on network analysis for the PPP program
+
+** Dec 7 **:
+
+** Dec 16: 10:30 **:
+Dan: Chapter 1 of diss
+
+** Dec 21 **:
+Li: dissertation proposal draft
+
+=== Spring===
+
+** March 31th **:
+Discussion on research data/hypothesis-Valeria
+
+** April 7th **:
+!StatnetWeb Sunbelt workshop-Emily
+
+** April 14th **:
+Deven will discuss WHAMP data
+
+** April 21st **:
+Angie - data cleaning
+
+** April 28th **:
+Sam will give CAMP counseling session
+
+** May 5th **:
+Deven will give Sunbelt talk
+
+** May 12th **:
+Dan will present on data from student networks
+
+** May 19th **:
+Practise final - Kirk
+
+** May 26th **:
+Sunbelt presentation - Li
+
+** June 2nd **:
+!StatnetWeb Sunbelt workshop-Emily
+
+** June 9th **:
+Sam will talk about age mixing
+
+
+** June 16th **:
+ergm-ego Sunbelt workshop-Martina
+
+
+=== Winter===
+
+** Jan 6th **:
+Catch up
+
+** Jan 13th **:
+Emily: Sunbelt preparation
+
+** Jan 20th **:
+Martina: ergm-ego
+
+** Jan 27th **:
+Steve: follow-up on PHSKC development
+
+** Feb 3rd **:
+Jeanette Birnbaum: material from the HIV undiagnosed fraction estimation project. 
+
+** Feb 10th **:
+Sam: discussion on super computer HYAK, see  https://github.com/statnet/Camp/wiki
+
+
+** Feb 17th **:
+Optimization in EpiModel and STERGM
+
+** Feb 24th **:
+Li: literature review for general exam
+
+
+** March 3rd**:
+Sam: Chapter 2 and 3 of the dissertation 
+
+** March 10th **:
+Steve & James: evo-net
+
+** March 17th **:
+Kirk: updates on dissertation
+
+
+== 2014 ==
+
+=== Fall ===
+** Oct 8th **:
+Neil will present "Learning from Network Visualization".
+
+** Oct 15th **:
+Emily will be presenting the ergm shiny app, in prep for a beta release intended primarily to solicit comments/input from the statnet help_list group.
+
+** Oct 22th **:
+Short check-in (since a few of us will be absent).
+
+** Oct 29th **:
+TBD
+
+** Nov 5th **:
+Kirk will update works on "Co-evolution TERMG".
+
+** Nov 12th **:
+Martina will present "ERGM with ego-centric sampling".
+
+** Nov 19th **:
+Ebola discussion: [wiki:Ebola] wikipage
+
+** Nov 26th **:
+Thanks-giving
+
+** Dec 3rd **:
+Sam will update works on "CMC/CIRC model (second half of his dissertation)".
+
+** Dec 10rd **:
+Deven will update works on "Concurrency".
+
+** Dec 17rd **:
+Steve will update works on "!EvoNet".
+
+
+
+=== Spring ===
+
+** June 5th Starts at 2pm **: 
+
+2:00pm to 3:00pm
+
+Sam
+ 
+EpiModel version 1.0 demonstration
+
+3:00pm to 4:00pm
+
+Jessica 
+
+Title: Does research evidence inform policy choice in low-income countries?
+Exponential random graph models to determine the role of evidence exchange and use in policy networks
+
+** May 29th **: Journal club: Snijders paper  [http://www.annualreviews.org/doi/abs/10.1146/annurev.soc.012809.102709 Statistical Models for Social Networks]
+[https://statnet.csde.washington.edu/trac/attachment/wiki/NMG/document.pdf Kirk's slides]
+
+** May 22nd **: Deven - Preliminary results from the Know Your Network Intervention Study.
+
+** May 15th **: Sarah & Steve - Add Health directed networks
+
+** May 8th **: Sam - Journal club [https://statnet.csde.washington.edu/trac/attachment/wiki/NMG/Hagan2014.pdf O'Hagan JJ, Lipsitch M, Hernan MA. Estimating the per-exposure effect of infectious disease interventions. Epidemiology. Jan 2014;25(1):134-138.]
+
+** May 1st **: Li - multi-level models
+
+** April 24th **: Dave Swan - Programming pair formation models for EpiModel
+
+** April 17th **: Group check-in
+
+** April 10th **: Sam - coital dilution in Agbogbloshie, Ghana (disseration Aim 1b)
+
+** April 3rd **: Social network dependence and TERGM with behavior co-evolution
+ 

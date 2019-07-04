@@ -1,0 +1,59 @@
+{{{
+#!html
+<h3 style="padding:5px; text-align: left; background-color: #cccc99"><b>statnet</b> : <a href='https://statnet.csde.washington.edu/trac/wiki/WikiStart' style="color: #550">Introduction</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/Installation' style="color: #550">Installation</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/Resources' style="color: #550">Resources</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/FrequentlyAskedQuestions' style="color: #550">FAQ</a> | <a href='https://statnet.csde.washington.edu/trac/wiki/License%20and%20attribution' style="color: #550">Citing statnet</a></h3>
+}}}
+{{{
+#!html
+<h3 style="padding:5px; text-align: left; background-color: #cccc99"> 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_2012' style="color: #550">EpiNetSim Course</a> :
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Location' style="color: #550">Location</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Lectures' style="color: #550">Lectures</a> |
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Homework' style="color: #550">Homework</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Projects' style="color: #550">Projects</a> |
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Examples' style="color: #550">Installation</a> | 
+<a href='https://statnet.csde.washington.edu/trac/wiki/EpiNetSim_Discussion' style="color: #550">Discussion</a>
+</h3>
+}}}
+
+= Network Modeling of Infectious Disease:  Example Code and Software=
+
+'''Day 2''':
+ Install base dependencies from CRAN
+  {{{
+ install.packages(c('network', 'robustbase', 'coda', 'trust', 'latticeExtra', 'sna', 'network'))
+ }}}
+ Packages to install
+ {{{
+ day2.pkgs <- c("statnet.common", "ergm", "networkDynamic")
+ course.repo = "http://statnet.csde.washington.edu/nmidWorkshop/"
+ }}}
+ Windows
+{{{
+install.packages(day2.pkgs ,contriburl=paste(course.repo, "/bin/windows/contrib/2.15",sep=''))
+}}}
+ Mac
+{{{
+install.packages(day2.pkgs ,contriburl=paste(course.repo, "/bin/macosx/contrib/2.15",sep=''))
+}}}
+ Linux
+{{{
+install.packages(day2.pkgs ,contriburl=paste(course.repo, "/src/contrib/2.15",sep=''))
+}}}
+
+'''Day 3''':
+  Packages to install
+ {{{
+ day3.pkgs <- c("networkDynamic", "tergm")
+}}}
+ Windows
+{{{
+install.packages(day3.pkgs ,contriburl=paste(course.repo, "/bin/windows/contrib/2.15",sep=''))
+}}}
+ Mac
+{{{
+install.packages(day3.pkgs ,contriburl=paste(course.repo, "/bin/macosx/contrib/2.15",sep=''))
+}}}
+ Linux
+{{{
+install.packages(day3.pkgs ,contriburl=paste(course.repo, "/src/contrib/2.15",sep=''))
+}}}

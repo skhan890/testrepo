@@ -1,0 +1,148 @@
+{{{
+#!html
+<h3 style="padding:5px; text-align: left; background-color: #cccc99"><b>statnet</b> : <a href='WikiStart' style="color: #550">Introduction</a> | <a href='Installation' style="color: #550">Installation</a> | <a href='Resources' style="color: #550">Resources</a> | <a href='FrequentlyAskedQuestions' style="color: #550">FAQ</a> | <a href='License%20and%20attribution' style="color: #550">Citing statnet</a></h1>
+}}}
+
+= Papers that cited statnet = 
+
+== 2012 ==
+
+* Caimo, A., N. Friel, and M. A. Caimo. “Package ‘Bergm’.” Networks 33 (2012): 41–55.
+
+* Desmarais, B. A., and S. J. Cranmer. “Statistical Inference for Valued-Edge Networks: The Generalized Exponential Random Graph Model.” PloS One 7, no. 1 (2012): e30136.
+
+* Goodreau, S. M., S. Cassels, D. Kasprzyk, D. E. Montaño, A. Greek, and M. Morris. “Concurrent Partnerships, Acute Infection and HIV Epidemic Dynamics Among Young Adults in Zimbabwe.” AIDS and Behavior (2012): 1–11.
+
+* Keegan, B., D. Gergle, and N. Contractor. “Do Editors or Articles Drive Collaboration?: Multilevel Statistical Network Analysis of Wikipedia Coauthorship.” In Proceedings of the ACM 2012 Conference on Computer Supported Cooperative Work, 427–436, 2012. http://dl.acm.org/citation.cfm?id=2145204.2145271.
+
+* Ortiz-Pelaez, A., G. Ashenafi, F. Roger, and A. Waret-Szkuta. “Can Geographical Factors Determine the Choices of Farmers in the Ethiopian Highlands to Trade in Livestock Markets?” PloS One 7, no. 2 (2012): e30710.
+
+* Simpson, S. L., M. N. Moussa, and P. J. Laurienti. “An Exponential Random Graph Modeling Approach to Creating Group-based Representative Whole-brain Connectivity Networks.” NeuroImage (2012). http://www.sciencedirect.com/science/article/pii/S1053811912000882.
+
+
+== 2011 ==
+
+
+* Bojanowski, M. “Industrial Structure and Inter-firm Collaboration” (2011). http://www.uu.nl/faculty/socialsciences/EN/organisation/Departments/CAS/research/SocialNetworks/ICS/Cooperative/Documents/Bojanowski_2011.pdf.
+
+* Butts, C. T. “BAYESIAN META-ANALYSIS OF SOCIAL NETWORK DATA VIA CONDITIONAL UNIFORM GRAPH QUANTILES.” Sociological Methodology (2011). http://onlinelibrary.wiley.com/doi/10.1111/j.1467-9531.2011.01240.x/full.
+
+* ———. “Bernoulli Graph Bounds for General Random Graphs.” Sociological Methodology 41, no. 1 (2011): 299–345.
+
+* Caimo, A., and N. Friel. “Bayesian Inference for Exponential Random Graph Models.” Social Networks 33, no. 1 (2011): 41–55.
+
+* Comu, S., J. Iorio, J. E. Taylor, and C. S. Dossick. “The Impact of Facilitation on Transactive Memory System Formation in Global Virtual Project Networks.” Proceedings Editor (2011). http://www.epossociety.org/EPOC2011/papers/comu_iorio.pdf.
+
+* Craft, M. E., and D. Caillaud. “Network Models: An Underutilized Tool in Wildlife Epidemiology?” Interdisciplinary Perspectives on Infectious Diseases 2011 (2011): 676949.
+
+* Gile, K. J., and M. S. Handcock. “Network Model-assisted Inference from Respondent-driven Sampling Data.” Arxiv Preprint arXiv:1108.0298 (2011). http://arxiv.org/abs/1108.0298.
+
+* Grün, B., and K. Hornik. “Topicmodels: An R Package for Fitting Topic Models.” Journal of Statistical Software 40, no. 13 (2011): 1–30.
+
+* Harris, J. K., K. E. Beatty, J. D. Lecy, J. M. Cyr, and R. M. Shapiro II. “Mapping the Multidisciplinary Field of Public Healh Systems and Service Research.” American Journal of Preventive Medicine Forthcoming (2011). http://lecy.info/resources/Public%20Health%20Systems%20Literature%20Review.pdf.
+
+* Harris, J. K., J. Cyr, B. J. Carothers, N. B. Mueller, V. V. Anwuri, and A. I. James. “Referrals Among Cancer Services Organizations Serving Underserved Cancer Patients in an Urban Area.” American Journal of Public Health 101, no. 7 (2011): 1248.
+
+* Keegan, B., M. A. Ahmed, D. Williams, J. Srivastava, and N. Contractor. “Sic Transit Gloria Mundi Virtuali? Promise and Peril in the Computational Social Science of Clandestine Organizing” (2011). http://journal.webscience.org/452/.
+
+* Kleinbaum, A. M., and T. Stuart. “Inside the Black Box of the Corporate Staff: An Exploratory Analysis Through the Lens of E-Mail Networks” (2011). http://papers.ssrn.com/sol3/papers.cfm?abstract_id=1804220.
+
+* Lubell, M. N., J. Scholz, R. Berardo, and G. Robins. “Testing Policy Theory with Statistical Models of Networks” (2011). http://opensiuc.lib.siu.edu/pnconfs_2011/21/.
+
+* Lunga, D., and S. Kirshner. “Generating Similar Graphs From Spherical Features.” Arxiv Preprint arXiv:1105.2965 (2011). http://arxiv.org/abs/1105.2965.
+
+* Pattison, P. E., G. L. Robins, T. A. B. Snijders, and P. Wang. Conditional Estimation of Exponential Random Graph Models from Snowball Sampling Designs. Working Paper, Psychological Sciences, Uni. of Melbourne, 2011. http://www.sna.unimelb.edu.au/publications/snowballTechReport.pdf.
+
+* Ramas, M. S. M., C. Gutierrez, and P. T. Wood. “SNQL: Social Networks Query Language” (2011). http://www.dcc.uchile.cl/TR/2011/TR_DCC-20110503-005.pdf.
+
+* Reichardt, J., R. Alamino, and D. Saad. “The Interplay Between Microscopic and Mesoscopic Structures in Complex Networks.” PloS One 6, no. 8 (2011): e21282.
+
+* Sailer, K., and I. McCulloh. “Social Networks and Spatial configuration–How Office Layouts Drive Social Interaction.” Social Networks (2011). http://www.sciencedirect.com/science/article/pii/S0378873311000323.
+
+* Shalizi, C. R., and A. Rinaldo. “Consistency Under Sampling of Exponential Random Graph Models.” Arxiv Preprint arXiv:1111.3054 (2011). http://arxiv.org/abs/1111.3054.
+
+* Shen, C., and P. Monge. “Who Connects with Whom? A Social Network Analysis of an Online Open Source Software Community.” First Monday 16, no. 6–6 (2011). http://firstmonday.org/htbin/cgiwrap/bin/ojs/index.php/fm/article/viewArticle/3551.
+
+* Tomas, A., and K. J. Gile. “The Effect of Differential Recruitment, Non-response and Non-recruitment on Estimators for Respondent-driven Sampling.” Electronic Journal of Statistics 5 (2011): 899–934.
+
+* Tomas, A. “Modelling the Effect of Differential Recruitment on the Bias of Estimators for Respondent-Driven Sampling” (2011). http://www.stats.ox.ac.uk/~tomas/html_links/DiffRecruitBandB.pdf.
+
+* White, D. R. “Kinship, Class, and Community.” The SAGE Handbook of Social Network Analysis (2011): 129.
+
+
+== 2010 ==
+
+
+* Ahmad, M. A., D. Huffaker, J. Wang, J. Treem, D. Kumar, M. S. Poole, and J. Srivastava. “The Many Faces of Mentoring in an Mmorpg.” In Social Computing (SocialCom), 2010 IEEE Second International Conference On, 270–275, 2010. http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5591216.
+
+* Asuncion, A. U., Q. Liu, A. T. Ihler, and P. Smyth. “Learning with Blocks: Composite Likelihood and Contrastive Divergence.” In Conference on Uncertainty in Artificial Intelligence (AISTATS), 2010. http://www.datalab.uci.edu/papers/groupingCD.pdf.
+
+* Christenson, D. P., and J. M. Box-Steffensmeier. “The Factors of Interest Group Networks and Success: Organization, Issues and Resources.” 2010 (2010): 32.
+
+* Clark, J. H., S. Pelika, and E. Rigby. “Identifying Central Actors: A Network Analysis of the 2009-2010 Health Reform Debate” (2010). http://works.bepress.com/jennifer_clark/11/.
+
+* Goldenberg, A., A. X. Zheng, and S. E. Fienberg. A Survey of Statistical Network Models. Now Publishers, 2010. http://books.google.com/books?hl=en&lr=&id=gPGgcOf95moC&oi=fnd&pg=PA1&ots=hc_O-iPGtk&sig=CupdVaWGl-pB_cxFlRqNcDOdOzc.
+
+* Hiwatari, M. “A Network Structure of ROSCAs (Rotating Savings and Credit Associations): ERGMs (Exponential Random Graph Models) Applied to a Leaders’ Network in Rural Uzbekistan.” Discussion Paper, Series A 221 (2010): 1–24.
+
+* Krivitsky, P. N., and M. S. Handcock. “A Separable Model for Dynamic Networks.” Arxiv Preprint ArXiv:1011.1937 (2010). http://arxiv.org/abs/1011.1937.
+
+* Luke, D. A., J. K. Harris, S. Shelton, P. Allen, B. J. Carothers, and N. B. Mueller. “Systems Analysis of Collaboration in 5 National Tobacco Control Networks.” American Journal of Public Health 100, no. 7 (2010): 1290.
+
+* McCulloh, I., J. Lospinoso, and K. M. Carley. The Link Probability Model: A Network Simulation Alternative to the Exponential Random Graph Model. DTIC Document, 2010. http://oai.dtic.mil/oai/oai?verb=getRecord&metadataPrefix=html&identifier=ADA537329.
+
+* Momeni, E. “Towards (Semi-) Automatic Moderation of Social Web Annotations.” In Social Computing (SocialCom), 2010 IEEE Second International Conference On, 1123–1128, 2010. http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5590545.
+
+* Morris, M. “Barking up the Wrong Evidence Tree. Comment on Lurie & Rosenthal,‘Concurrent Partnerships as a Driver of the HIV Epidemic in sub-Saharan Africa? The Evidence Is Limited’.” AIDS and Behavior 14, no. 1 (2010): 31–33.
+
+* Nolin, D. A. “Food-Sharing Networks in Lamalera, Indonesia.” Human Nature 21, no. 3 (2010): 243–268.
+
+* Pachucki, M. A., and R. L. Breiger. “Cultural Holes: Beyond Relationality in Social Networks and Culture.” Annual Review of Sociology 36 (2010): 205–224.
+
+* Rubens, N., M. Vilenius, T. Okamoto, and D. Kaplan. “CAFE: Collaboration Aimed at Finding Experts.” International Journal of Knowledge and Web Intelligence 1, no. 3 (2010): 169–186.
+
+* Thomas, A. C. “ElectroGraph: Advancements and Philosophies for Plotting Relational Data in R” (2010). http://www.acthomas.ca/papers/electrograph-manual.pdf.
+
+* Zaccarin, S., and G. Rivellini. “Modelling Network Data: An Introduction to Exponential Random Graph Models.” Data Analysis and Classification (2010): 297–305.
+
+
+== 2009 ==
+
+* Bao, L., Z. Zhu, and J. Ye. “Modeling Oncology Gene Pathways Network with Multiple Genotypes and Phenotypes via a Copula Method.” In Computational Intelligence in Bioinformatics and Computational Biology, 2009. CIBCB’09. IEEE Symposium On, 237–246, 2009. http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=4925734.
+
+* van Duijn, M. A. J., K. J. Gile, and M. S. Handcock. “A Framework for the Comparison of Maximum Pseudo-likelihood and Maximum Likelihood Estimation of Exponential Family Random Graph Models.” Social Networks 31, no. 1 (2009): 52–62.
+
+* Emilie, M., and M. K. Hafner-Burton. “Network Analysis for International Relations.” International Organization 63 (2009): 559–92.
+
+* Hopper-Borge, E. A., R. E. Nasto, V. Ratushny, L. M. Weiner, E. A. Golemis, and I. Astsaturov. “Mechanisms of Tumor Resistance to EGFR-targeted Therapies” (2009). http://informahealthcare.com/doi/abs/10.1517/14712590902735795.
+
+* Huffaker, D., J. Wang, J. Treem, M. A. Ahmad, L. Fullerton, D. Williams, M. S. Poole, and N. Contractor. “The Social Behaviors of Experts in Massive Multiplayer Online Role-playing Games.” In Computational Science and Engineering, 2009. CSE’09. International Conference On, 4:326–331, 2009. http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5284039.
+
+* Jin, I. H., and F. Liang. “Bayesian Analysis for Exponential Random Graph Models Using the Double Metropolis-Hastings Sampler.” Unpublished Working Paper (2009). http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.182.2922&rep=rep1&type=pdf.
+
+* Lee, T., and B. I. Bai. “Do Birds of a Feather Trade Together? Homophily in Preferential Trade Agreements Network.” In Annual Meeting of the International Political Economy Society, 2009. http://ncgg.princeton.edu/IPES/2009/papers/S830_paper1.pdf.
+
+* Morris, M., A. E. Kurth, D. T. Hamilton, J. Moody, and S. Wakefield. “Concurrent Partnerships and HIV Prevalence Disparities by Race: Linking Science and Public Health Practice.” American Journal of Public Health 99, no. 6 (2009): 1023.
+
+* Rothenberg, R. “HIV Transmission Networks.” Current Opinion in HIV and AIDS 4, no. 4 (2009): 260.
+
+* San Martín, M., and C. Gutierrez. “Representing, Querying and Transforming Social Networks with Rdf/sparql.” The Semantic Web: Research and Applications (2009): 293–307.
+
+* Snijders, T. A. B. “Specification and Estimation of Exponential Random Graph Models for Social (and Other) Networks” (2009). http://www.stats.ox.ac.uk/~snijders/p12_ergm.pdf.
+
+* Stephen, A. T., and O. Toubia. “Explaining the Power-law Degree Distribution in a Social Commerce Network.” Social Networks 31, no. 4 (2009): 262–270.
+
+* Wang, P., K. Sharpe, G. L. Robins, and P. E. Pattison. “Exponential Random Graph (p*) Models for Affiliation Networks.” Social Networks 31, no. 1 (2009): 12–25.
+
+
+
+== 2008 ==
+
+
+* Bender-deMoll, S. “Potential Human Rights Uses of Network Analysis and Mapping A Report to the Science and Human Rights Program of the American Association for the Advancement of Science” (2008). http://shr01.aaas.org/networkmapping/Net_Mapping_Report.pdf.
+
+* Goodreau, S. M., M. S. Handcock, D. R. Hunter, C. T. Butts, and M. Morris. “A Statnet Tutorial.” Journal of Statistical Software 24, no. 9 (2008): 1.
+
+* Hunter, D. R., M. S. Handcock, C. T. Butts, S. M. Goodreau, and M. Morris. “Ergm: A Package to Fit, Simulate and Diagnose Exponential-family Models for Networks.” Journal of Statistical Software 24, no. 3 (2008): nihpa54860.
+
+* Illenberger, J., G. Flötteröd, and K. Nagel. “An Approach to Correct Biases Induced by Snowball Sampling” (2008). http://svn.vsp.tu-berlin.de/repos/public-svn/publications/vspwp/2008/08-16/snowball.pdf.

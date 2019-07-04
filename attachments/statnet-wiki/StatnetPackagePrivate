@@ -1,0 +1,12 @@
+What should {{{statnet}}} package do?
+
+1. Facilitate installation of all Statnet Project packages from CRAN.
+1. Facilitate installation of some (which?) Statnet Project packages from CRAN.
+1. Facilitate updating of Statnet Project packages without too much interaction from CRAN.
+1. Facilitate installation/updating of Statnet Project packages from http://www.statnet.org .
+1. Facilitate loading of some (which?) packages via {{{library(statnet)}}}.
+1. Provide a point of citation.
+
+Please feel free to add more entries at the end.
+
+[[AddComment]]
